@@ -24,3 +24,16 @@ h1 {
 h2 {
 	color: #66D9EF;
 }
+
+li{
+	color:white;
+}
+
+.navbar-inverse .navbar-nav>li>a{
+	color:#ca0dca;
+}
+
+.navbar-inverse .navbar-nav>li>a:focus, .navbar-inverse .navbar-nav>li>a:hover{
+	color:greenyellow;
+}
+
