@@ -20,11 +20,11 @@
 		// ---- Back office ----
 		// Users
 		['GET', '/users', 				'Admin#users', 'admin_users'],
-		['GET', '/users/delete/[i:id]',	'Admin#deleteUsers', 'admin_deleteUsers'],
+		['GET', '/user/delete/[i:id]',	'Admin#deleteUser', 'admin_deleteUser'],
 
 		// Buildings
 		['GET', '/buildings', 			'Admin#buildings', 'admin_buildings'],
-		['GET|POST', '/building/update','Admin#updateBuilding', 'admin_updateBuilding'],
+		['GET|POST', '/building/update/[i:idBuilding]','Admin#updateBuilding', 'admin_updateBuilding'],
 
 		// (Optional) change game parameters
 		['GET|POST', '/parameters', 	'Admin#parameters', 'admin_parameters'],
