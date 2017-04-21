@@ -1,0 +1,108 @@
+Liste bâtiments : 	- Camp ( Restriction )
+
+					|||||||||||||| Prodution de ressource |||||||||||||||
+
+					- Camp bûcheron ( Bois ) 
+					- Ferme (Augmente la quantité de nourriture)  
+					- Puit ( Eau )
+
+					|||||||||||||| Stockage de ressource |||||||||||||||
+
+					- Hangar ( stockage bois )
+					- Garde manger ( stockage nourriture )
+					- Citerne ( stockage eau )
+
+					- Cabanon ( limite le nombre de camper )
+
+					|||||||||||||| Autre  |||||||||||||||
+
+					- Station de radio ( attire les campers )
+					- Mur de défense ( Augmente les points de défense )
+
+
+||||||||||||||||||||||||||||||||||||||||| Formules calculs de ressources : ||||||||||||||||||||||||||||||||||||||||
+
+
+
+Bucheron niveau 10 : 39.671
+Ferme niveau 10 : 15.416
+Puit niveau 10 : 5.497
+
+
+Ressource de base : 1000 Bois 500 Nourriture 100 Eau
+Production de base : 200 Bois 130 Nourriture 80 Eau / Heure ( A revoir si trop lent ou trop rapide )
+
+Arrondi ( ProdBase x (Ratio(NivBatiment-1))) = Production/Heure
+
+
+Production de bois : 											Ratio prix : x2			Ratio prod : x1.8
+
+prix du camp de bûcheron niveau 1 : 200 Bois
+
+Arrondi ( 200 x (1.8 pow(NivBatiment-1))) = Production/Heure
+
+Temps de construction premier niveau : 5 secondes				Ratio augmentation temps de construction : x1.5
+
+Production de nourriture: 										Ratio prix : x2			Ratio prod : x1.7
+
+prix de la Ferme niveau 1 : 200 bois 100 nourriture
+
+Arrondi ( 100 x (1.6 pow(NivBatiment-1))) = Production/Heure
+
+Temps de construction premier niveau : 6 secondes				Ratio augmentation temps de construction : x1.5
+
+Production d'eau : 												Ratio prix : x2			Ratio prod : x1.6
+
+prix du puit niveau 1 : 300 bois 150 nourriture 50 eau
+
+Arrondi ( 50 x (1.4 pow(NivBatiment-1))) = Production/Heure
+
+Temps de construction premier niveau : 21 secondes				Ratio augmentation temps de construction : x1.5
+
+
+
+||||||||||||||||||||||||||||||||||||||||| Formules calculs de stockage : ||||||||||||||||||||||||||||||||||||||||
+
+
+
+Stockage Bois : 									Ratio stockage : x2			Ratio temps construction : x1.6
+
+Stockage de base : 2000
+Prix du niveau 1 : Bois 1000
+
+Stockage Nourriture : 								Ratio stockage : x2			Ratio temps construction : x1.6
+
+Stockage de base : 2000
+Prix du niveau 1 : Bois 1000 Nourriture 1000
+
+Stockage Eau : 										Ratio stockage : x2			Ratio temps construction : x1.6
+
+Stockage de base : 2000
+Prix du niveau 1 : Bois 1000 Nourriture 1000 Eau 1000
+
+Stockage Camper : 									Ratio stockage : x3			Ratio temps construction : x1.7
+
+Stockage de base : 500
+Prix du niveau 1 : Bois 4000 Nourriture 4000 Eau 2500
+
+
+||||||||||||||||||||||||||||||||||||||||| Formules calculs Autres : ||||||||||||||||||||||||||||||||||||||||
+
+
+Mur de défense :									Ratio défense : x2.5 		Ratio temps construction : x1.4 
+
+Point de défense du mur de base : 5.000
+Prix du niveau 1 : Bois 800 Nourriture 400 Eau 200
+
+
+Station de radio : 									Ratio Appel campeur : x1.8	Ratio temps construction : x1.5
+
+Gain campeur de base : 50/h
+Prix du niveau 1 : Bois 1200 Nourriture 800 Eau 600
+
+
+||||||||||||||||||||||||||||||||||||||||| Formules calculs Camper : ||||||||||||||||||||||||||||||||||||||||
+
+
+Un campeur consome 3 Bois 2 Nourriture 1 Eau à déduire de la production par heure
+
