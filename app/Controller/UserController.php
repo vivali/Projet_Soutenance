@@ -13,6 +13,9 @@ class UserController extends Controller
 {
 	public function login() {
 		$DefaultModel = new DefaultModel();
+		$UserModel = new UserModel();
+		$BuildingsModel = new BuildingsModel();
+		$RessourcesModel = new RessourcesModel();
 		// Redirection si l'utilisateur est deja connecté
 		if ($this->getUser()) {
 			$this->redirectToRoute('default_camp');
@@ -27,9 +30,16 @@ class UserController extends Controller
 				$auth_manager = new \W\Security\AuthentificationModel();
 
 				if ( $user_id = $auth_manager->isValidLoginInfo($username, $password) ) {
+
+					$user = $UserModel->find($user_id);
+					$buildings = $UserModel->getBTable($user_id);
+					$ressources = $UserModel->getRTable($user_id);
 					$user_manager = new UserModel();
+
 					$user = $user_manager->find($user_id);
 					$auth_manager->logUserIn($user);
+					$_SESSION["buildings"] = $buildings;
+					$_SESSION["ressources"] = $ressources;
 
 					$this->redirectToRoute('default_camp');
 				} else {
@@ -46,7 +56,7 @@ class UserController extends Controller
 
 
 	public function register()
-	{	
+	{
 		$DefaultModel = new DefaultModel();
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
@@ -75,11 +85,11 @@ class UserController extends Controller
 
             // On vérifie si l'email ou le username existent déjà en BDD
             if ( $UserModel->emailExists($email) ) {
-                $errors['exists_m'] = "L'email existent déjà."; 
+                $errors['exists_m'] = "L'email existent déjà.";
             }
 
             if ( $UserModel->usernameExists($username) ) {
-                $errors['exists_u'] = "Ce pseudo existent déjà."; 
+                $errors['exists_u'] = "Ce pseudo existent déjà.";
             }
 
             if ( strlen($username) < 3 ) {
@@ -132,7 +142,7 @@ class UserController extends Controller
                     'water_stock' => '0',
                     'wall' => '0',
                     'radio' => '0'
-                    
+
                 ]);
                 $RessourcesModel->insert([
                     'id_user' => $id_user,
@@ -140,7 +150,7 @@ class UserController extends Controller
                     'food' => '500',
                     'wood' => '1000',
                     'water' => '100'
-                    
+
                 ]);
                 $messages = 'Vous êtes bien inscrit.';
 
@@ -162,7 +172,7 @@ class UserController extends Controller
 
 
 	public function profil()
-	{	
+	{
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('user/profil');
@@ -262,6 +272,8 @@ class UserController extends Controller
 	{
 		$auth_manager = new \W\Security\AuthentificationModel();
         $auth_manager->logUserOut();
+        unset($_SESSION['buildings']);
+        unset($_SESSION['ressources']);
         unset($_SESSION['refresh']);
         $this->redirectToRoute('user_login');
 	}

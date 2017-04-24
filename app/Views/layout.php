@@ -24,7 +24,10 @@
 					<?php else: ?>
 						<li <?= ($w_current_route == 'user_login') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_login'); ?>">Accueil</a></li>
 					<?php endif; ?>
-					<li <?= ($w_current_route == 'default_classement') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_classement', ['page'=>1]); ?>">Classement</a></li>
+
+					<li>Bois :</a></li>
+					<li>Nourriture :</a></li>
+					<li>Eau :</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<?php if ($w_user) { // si l'utilisateur est connecté ?>
