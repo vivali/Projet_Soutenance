@@ -57,13 +57,3 @@ class Hangar
 		return $this->TempsCourant;
 	}
 }
-
-$hangar = new Hangar();
-$hangar->SetStock();
-var_dump($hangar->GetStock());
-
-$hangar->SetPrix();
-var_dump($hangar->GetPrixBois());
-
-$hangar->SetTemps();
-var_dump($hangar->GetTemps());

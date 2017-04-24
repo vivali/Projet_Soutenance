@@ -5,36 +5,36 @@ namespace Buildings;
 /**
 * 
 */
-class Citerne
+class Mur
 {
-	private $RatioStock = 2;
-	private $StockageBase = 2000;
-	private $StockageCourant;
+	private $RatioDef = 2.5;
+	private $DefBase = 5000;
+	private $DefCourant;
 
-	private $RatioPrix = 2;
-	private $PrixBoisBase = 1000;
+	private $RatioPrix = 1.8;
+	private $PrixBoisBase = 800;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 1000;
+	private $PrixNourritureBase = 400;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 1000;
+	private $PrixEauBase = 200;
 	private $PrixEauCourant;
 
-	private $RatioTemps = 1.6;
-	private $TempsBase = 41;
+	private $RatioTemps = 1.4;
+	private $TempsBase = 84;
 	private $TempsCourant; 
 	
 	private $Niveau = 5;
 
-	public function SetStock () {
+	public function SetDef () {
 		if ($this->Niveau !== 0) {
-			$this->StockageCourant = round($this->StockageBase * pow($this->RatioStock, ($this->Niveau - 1)) + $this->StockageBase);
+			$this->DefCourant = round($this->DefBase * pow($this->RatioDef, ($this->Niveau - 1)) + $this->DefBase);
 		} else {
-			$this->StockageCourant = $this->StockageBase;
+			$this->DefCourant = $this->DefBase;
 		}
 	}
 
-	public function GetStock () {
-		return $this->StockageCourant;
+	public function GetDef () {
+		$this->DefCourant;
 	}
 
 	public function SetPrix () {
@@ -81,4 +81,3 @@ class Citerne
 		return $this->TempsCourant;
 	}
 }
-

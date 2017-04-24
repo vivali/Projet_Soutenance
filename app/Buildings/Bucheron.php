@@ -21,8 +21,19 @@ class Bucheron
 
 	private $Niveau = 0;
 
+	public function __construct () {
+		$this->Niveau = $_SESSION["buildings"]->wood_farm;
+		$this->SetProd();
+		$this->SetPrix();
+		$this->SetTemps();
+	}
+
 	public function SetProd () {
+<<<<<<< HEAD
 		if ($this->Niveau !== 0) {
+=======
+		if ($this->Niveau != 0) {
+>>>>>>> 985f9b34731a6541315ebc39c00a6dd9da3fae07
 			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase / 3600;
@@ -34,7 +45,7 @@ class Bucheron
 	}
 
 	public function SetPrix () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixBoisCourant = round($this->PrixBoisBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixBoisBase);
 		} else {
 			$this->PrixBoisCourant = $this->PrixBoisBase;
@@ -46,7 +57,7 @@ class Bucheron
 	}
 
 	public function SetTemps () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->TempsCourant = round($this->TempsBase * pow($this->RatioTemps, ($this->Niveau - 1)) + $this->TempsBase);
 		} else {
 			$this->TempsCourant = $this->TempsBase;
@@ -61,12 +72,12 @@ class Bucheron
 
 
 
-$bucheron = new Bucheron();
-$bucheron->SetProd();
-var_dump($bucheron->GetProd());
+// $bucheron = new Bucheron();
+// $bucheron->SetProd();
+// var_dump($bucheron->GetProd());
 
-$bucheron->SetPrix();
-var_dump($bucheron->GetPrix());
+// $bucheron->SetPrix();
+// var_dump($bucheron->GetPrix());
 
-$bucheron->SetTemps();
-var_dump($bucheron->GetTemps());
+// $bucheron->SetTemps();
+// var_dump($bucheron->GetTemps());
