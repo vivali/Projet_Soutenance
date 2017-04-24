@@ -57,12 +57,6 @@
 
 			<?php } ?>
 		</section>
-
-		<footer>
-			<ul>
-				<li>©copyright : Matmaan ,Zboby ,Vivali ,Sakyo</li>
-			</ul>
-		</footer>
 	</div>
 	<?php var_dump($_SESSION); ?>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
