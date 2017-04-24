@@ -44,7 +44,7 @@ class DefaultController extends Controller
 	}
 
 	public function building($idBuilding)
-	{	
+	{
 		$DefaultModel = new DefaultModel();
 		$ferme = new \Buildings\Ferme();
 		$ferme->SetProd();
@@ -55,7 +55,7 @@ class DefaultController extends Controller
 	}
 
 	public function classement()
-	{	
+	{
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('default/classement');
