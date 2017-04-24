@@ -9,10 +9,16 @@ use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
 
+$DefaultModel = new DefaultModel();
+$UserModel = new UserModel();
+$BuildingsModel = new BuildingsModel();
+$RessourcesModel = new RessourcesModel();
+
 
 class UserController extends Controller
 {
 	public function login() {
+		$DefaultModel = new DefaultModel();
 		// Redirection si l'utilisateur est deja connecté
 		if ($this->getUser()) {
 			$this->redirectToRoute('default_camp');
@@ -36,6 +42,7 @@ class UserController extends Controller
 					$message['error'] = "Mauvais Identifiant ou mot de passe";
 				}
 			}
+			$DefaultModel->refreshTimer();
 			$this->show('user/login', [
 				'messages' => $message,
 				'username' => $username,
@@ -46,7 +53,6 @@ class UserController extends Controller
 
 	public function register()
 	{	
-
 		$DefaultModel = new DefaultModel();
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
@@ -147,6 +153,7 @@ class UserController extends Controller
                 $this->redirectToRoute("user_login");
             }
         }
+        $DefaultModel->refreshTimer();
         $this->show( 'user/register', [
 			'DefaultModel' => $DefaultModel,
 			'messages' => $messages,
@@ -161,13 +168,17 @@ class UserController extends Controller
 
 
 	public function profil()
-	{
+	{	
+		$DefaultModel = new DefaultModel();
+		$DefaultModel->refreshTimer();
 		$this->show('user/profil');
 	}
 
 
 	public function update()
-	{
+	{	
+		$DefaultModel = new DefaultModel();
+		$DefaultModel->refreshTimer();
 		$this->show('user/update');
 	}
 
