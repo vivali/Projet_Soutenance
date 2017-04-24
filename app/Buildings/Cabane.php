@@ -5,36 +5,36 @@ namespace Buildings;
 /**
 * 
 */
-class Puit
+class Citerne
 {
-	private $RatioProd = 1.6;
-	private $ProductionBase = 80;
-	private $ProductionCourante;
+	private $RatioStock = 4;
+	private $StockageBase = 5000;
+	private $StockageCourant;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 300;
+	private $PrixBoisBase = 4000;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 150;
+	private $PrixNourritureBase = 4000;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 50;
+	private $PrixEauBase = 2500;
 	private $PrixEauCourant;
 
-	private $RatioTemps = 1.5;
-	private $TempsBase = 21;
-	private $TempsCourant;
+	private $RatioTemps = 1.6;
+	private $TempsBase = 257;
+	private $TempsCourant; 
+	
+	private $Niveau = 5;
 
-	private $Niveau = 1;
-
-	public function SetProd () {
+	public function SetStock () {
 		if ($this->Niveau !== 0) {
-			$this->ProductionCourante = round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase);
+			$this->StockageCourant = round($this->StockageBase * pow($this->RatioStock, ($this->Niveau - 1)) + $this->StockageBase);
 		} else {
-			$this->ProductionCourante = $this->ProductionBase;
+			$this->StockageCourant = $this->StockageBase;
 		}
 	}
 
-	public function GetProd () {
-		return $this->ProductionCourante;
+	public function GetStock () {
+		return $this->StockageCourant;
 	}
 
 	public function SetPrix () {
@@ -81,15 +81,3 @@ class Puit
 		return $this->TempsCourant;
 	}
 }
-
-$puit = new Puit();
-$puit->SetProd();
-var_dump($puit->GetProd());
-
-$puit->SetPrix();
-var_dump($puit->GetPrixBois());
-var_dump($puit->GetPrixNourriture());
-var_dump($puit->GetPrixEau());
-
-$puit->SetTemps();
-var_dump($puit->GetTemps());

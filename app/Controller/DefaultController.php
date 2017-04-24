@@ -13,6 +13,7 @@ class DefaultController extends Controller
 
 	public function building($idBuilding)
 	{
+
 		$ferme = new \Buildings\Ferme();
 		$ferme->SetProd();
 		var_dump($ferme->GetProd());
