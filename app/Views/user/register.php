@@ -36,13 +36,12 @@
 
                 <div class="form-group">
                     <label for="birthday_day" class="control-label">Date de naissance</label>
-
                     <div class="row">
                         <div class="col-sm-4">
                             <select class="form-control" id="birthday_day" name="birthday_day">
                                 <option value=""></option>
                                 <?php for ($i=1; $i<=31; $i++) : ?>
-                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <option <?= ($i==$birthday_day)?"selected":""; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
@@ -51,7 +50,7 @@
                             <select class="form-control" id="birthday_month" name="birthday_month">
                                 <option value=""></option>
                                 <?php for ($i=1; $i<=12; $i++) : ?>
-                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <option <?= ($i==$birthday_month)?"selected":""; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
@@ -60,7 +59,7 @@
                             <select class="form-control" id="birthday_year" name="birthday_year">
                                 <option value=""></option>
                                 <?php for ($i=date("Y"); $i>date("Y")-100; $i--) : ?>
-                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                    <option <?= ($i==$birthday_year)?"selected":""; ?> value="<?php echo $i; ?>"><?php echo $i; ?></option>
                                 <?php endfor; ?>
                             </select>
                         </div>
