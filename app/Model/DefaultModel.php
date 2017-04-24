@@ -10,10 +10,10 @@ class DefaultModel extends \W\Model\Model {
 	    return $string;
 	}
 
-	function printError ($error, $field) {
-	    foreach ($error as $data) {
-	         if ( $data['field'] == $field ) {
-	             return $data['message'];
+	function printError ($errors, $field) {
+	    foreach ($errors as $key => $data) {
+	         if ( $key == $field ) {
+	             return $data;
 	         }
 	    }
 	}

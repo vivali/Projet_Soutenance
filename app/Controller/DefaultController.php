@@ -11,11 +11,18 @@ class DefaultController extends Controller
 		$this->show('default/camp');
 	}
 
-	public function building()
+	public function building($idBuilding)
 	{
+<<<<<<< HEAD
 		$puit = new \Buildings\Puit();
 		$puit->SetProd();
 		var_dump($puit->GetProd());
+=======
+		$ferme = new \Buildings\Ferme();
+		$ferme->SetProd();
+		var_dump($ferme->GetProd());
+		var_dump($idBuilding);
+>>>>>>> refs/remotes/origin/master
 		$this->show('default/building');
 	}
 
