@@ -95,7 +95,7 @@ class Puit
 	}
 
 	public function GetNiveau () {
-		return $this->Niveau
+		return $this->Niveau;
 	}
 }
 
@@ -105,15 +105,3 @@ class Puit
 
 
 
-
-$puit = new Puit();
-$puit->SetProd();
-var_dump($puit->GetProd());
-
-$puit->SetPrix();
-var_dump($puit->GetPrixBois());
-var_dump($puit->GetPrixNourriture());
-var_dump($puit->GetPrixEau());
-
-$puit->SetTemps();
-var_dump($puit->GetTemps());

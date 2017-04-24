@@ -23,11 +23,11 @@ class StationRadio
 	private $TempsCourant;
 
 	private $Niveau = 1;
-	private $RatioProd = 0.1 * $Niveau;
+	private $RatioProd = 0.1;
 
 	public function SetProd () {
 		if ($this->Niveau !== 0) {
-			$this->ProductionCourante = round(Niveau de tous les bat * (1.2 + $RatioProd));
+			// $this->ProductionCourante = round(Niveau de tous les bat * (1.2 + $RatioProd));
 		} else {
 			$this->ProductionCourante = $this->ProductionBase;
 		}
@@ -95,6 +95,6 @@ class StationRadio
 	}
 
 	public function GetNiveau () {
-		return $this->Niveau
+		return $this->Niveau;
 	}
 }

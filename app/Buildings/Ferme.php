@@ -69,14 +69,3 @@ class Ferme
 		return $this->TempsCourant;
 	}
 }
-
-$ferme = new Ferme();
-$ferme->SetProd();
-var_dump($ferme->GetProd());
-
-$ferme->SetPrix();
-var_dump($ferme->GetPrixBois());
-var_dump($ferme->GetPrixNourriture());
-
-$ferme->SetTemps();
-var_dump($ferme->GetTemps());

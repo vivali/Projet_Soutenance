@@ -82,14 +82,3 @@ class Citerne
 	}
 }
 
-$Citerne = new Citerne();
-$Citerne->SetStock();
-var_dump($Citerne->GetStock());
-
-$Citerne->SetPrix();
-var_dump($Citerne->GetPrixBois());
-var_dump($Citerne->GetPrixNourriture());
-var_dump($Citerne->GetPrixEau());
-
-$Citerne->SetTemps();
-var_dump($Citerne->GetTemps());
