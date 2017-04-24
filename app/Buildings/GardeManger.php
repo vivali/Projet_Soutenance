@@ -70,13 +70,3 @@ class GardeManger
 	}
 }
 
-$GardeManger = new GardeManger();
-$GardeManger->SetStock();
-var_dump($GardeManger->GetStock());
-
-$GardeManger->SetPrix();
-var_dump($GardeManger->GetPrixBois());
-var_dump($GardeManger->GetPrixNourriture());
-
-$GardeManger->SetTemps();
-var_dump($GardeManger->GetTemps());

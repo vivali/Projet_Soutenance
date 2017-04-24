@@ -27,7 +27,7 @@ class Puit
 
 	public function SetProd () {
 		if ($this->Niveau !== 0) {
-			$this->ProductionCourante = round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase);
+			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase;
 		}
@@ -80,16 +80,28 @@ class Puit
 	public function GetTemps () {
 		return $this->TempsCourant;
 	}
+
+	public function SetNiveau () {
+		// Requête récupération ressources de l'utilisateur
+
+		if ($Bois > $PrixBoisCourant && $Food > $PrixNourritureCourant && $Eau > $PrixEauCourant) {
+			// Requête augmentation du niveau en bdd !
+			$Niveau = $Niveau + 1;
+			// Requête suppression des ressources en fonction du prix
+		} else {
+			// Afficher message manque de ressource dans une div 
+			echo "Manque de ressource";
+		}
+	}
+
+	public function GetNiveau () {
+		return $this->Niveau;
+	}
 }
 
-$puit = new Puit();
-$puit->SetProd();
-var_dump($puit->GetProd());
 
-$puit->SetPrix();
-var_dump($puit->GetPrixBois());
-var_dump($puit->GetPrixNourriture());
-var_dump($puit->GetPrixEau());
 
-$puit->SetTemps();
-var_dump($puit->GetTemps());
+
+
+
+

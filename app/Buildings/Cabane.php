@@ -5,7 +5,7 @@ namespace Buildings;
 /**
 * 
 */
-class Citerne
+class Cabane
 {
 	private $RatioStock = 4;
 	private $StockageBase = 5000;
