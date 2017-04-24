@@ -37,3 +37,7 @@ li{
 	color:greenyellow;
 }
 
+#game-board{
+	margin-left:25%;
+	margin-right: 25%;
+}
