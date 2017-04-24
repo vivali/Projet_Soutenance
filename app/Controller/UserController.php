@@ -71,7 +71,7 @@ class UserController extends Controller
                     'role' => '0'
                 ]);
                 $messages = 'Vous êtes bien inscrit.';
-                // $this->redirectToRoute('route'); // La fonction s'arrête
+                $this->redirectToRoute("user_login");
             }
         }
         $this->show( 'user/register', [ 'DefaultModel' => $DefaultModel, 'messages' => $messages, 'username' => $username, 'email' => $email, 'errors' => $errors ] );
