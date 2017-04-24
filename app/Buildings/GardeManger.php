@@ -23,6 +23,13 @@ class GardeManger
 	
 	private $Niveau = 5;
 
+	public function __construct () {
+		$this->Niveau = $_SESSION["buildings"]->water_farm;
+		$this->SetStock();
+		$this->SetPrix();
+		$this->SetTemps();
+	}
+
 	public function SetStock () {
 		if ($this->Niveau !== 0) {
 			$this->StockageCourant = round($this->StockageBase * pow($this->RatioStock, ($this->Niveau - 1)) + $this->StockageBase);
