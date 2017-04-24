@@ -49,7 +49,6 @@
 	</nav>
 <div class="container">
 		<section>
-		<?php var_dump($w_user) ?>
 			<?php if ($this->section('sidebar')) { ?>
 
 				<div class="row">

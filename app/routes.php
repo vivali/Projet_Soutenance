@@ -20,7 +20,7 @@
 		// ---- Back office ----
 		// Users
 		['GET', '/users', 				'Admin#users', 'admin_users'],
-		['GET', '/user/delete/[i:id]',	'Admin#deleteUser', 'admin_deleteUser'],
+		['GET|POST', '/user/delete/[i:id]',	'Admin#deleteUser', 'admin_deleteUser'],
 
 		// Buildings
 		['GET', '/buildings', 			'Admin#buildings', 'admin_buildings'],

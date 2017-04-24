@@ -2,8 +2,9 @@
 
 namespace Model;
 
-class DefaultModel extends \W\Model\Model {
+use \Model\UserModel;
 
+class DefaultModel extends \W\Model\Model {
 	function formatString ($string) {
 	    $string = trim($string);
 	    $string = addslashes($string);
@@ -22,12 +23,21 @@ class DefaultModel extends \W\Model\Model {
 		if (isset($_SESSION["user"])) {
 			$date = date_create();
 	        if (isset($_SESSION["refresh"])){
+	        	$UserModel = new UserModel();
 	            $refresh1 = $_SESSION["refresh"];
 	            $refresh2 = date_format($date, 'U');
 	            $timer = $refresh2 - $refresh1;
 	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.";
 	            $_SESSION["refresh"] = $refresh2;
-	            
+	            $id_user = $_SESSION["user"]["id"];
+	            $wood = &$_SESSION["ressources"]->wood;
+	            $water = &$_SESSION["ressources"]->water;
+	            $food = &$_SESSION["ressources"]->food;
+	            $wood += 2;
+	            $water += 8;
+	            $food += 7;
+	            $UserModel->refreshUpdate($wood, $water, $food, $id_user);
+
 	        }
 	        else {
 	            $_SESSION['refresh'] = date_format($date, 'U'); 
