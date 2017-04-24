@@ -19,7 +19,11 @@
 			</div>
 			<div class="collapse navbar-collapse" id="menu">
 				<ul class="nav navbar-nav">
-					<li <?= ($w_current_route == 'user_login') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_login'); ?>">Accueil</a></li>
+					<?php if ($w_user): ?>
+						<li <?= ($w_current_route == 'default_camp') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_camp'); ?>">Accueil</a></li>
+					<?php else: ?>
+						<li <?= ($w_current_route == 'user_login') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_login'); ?>">Accueil</a></li>
+					<?php endif; ?>
 					<li <?= ($w_current_route == 'default_classement') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_classement', ['page'=>1]); ?>">Classement</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -54,6 +58,7 @@
 			<?php } ?>
 		</section>
 	</div>
+	<?php var_dump($_SESSION); ?>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="<?= $this->assetUrl('js/app.js'); ?>"></script>
