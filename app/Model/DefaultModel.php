@@ -19,17 +19,19 @@ class DefaultModel extends \W\Model\Model {
 	}
 
 	function refreshTimer() {
-		$date = date_create();
-        if (isset($_SESSION["refresh"])){
-            $refresh1 = $_SESSION["refresh"];
-            $refresh2 = date_format($date, 'U');
-            $timer = $refresh2 - $refresh1;
-            echo $timer." seconde ce sont écoulé depuis le dernier refresh.";
-            $_SESSION["refresh"] = $refresh2;
-        }
-        else {
-            $_SESSION['refresh'] = date_format($date, 'U'); 
-        }
+		if (isset($w_user)) {
+			$date = date_create();
+	        if (isset($_SESSION["refresh"])){
+	            $refresh1 = $_SESSION["refresh"];
+	            $refresh2 = date_format($date, 'U');
+	            $timer = $refresh2 - $refresh1;
+	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.";
+	            $_SESSION["refresh"] = $refresh2;
+	        }
+	        else {
+	            $_SESSION['refresh'] = date_format($date, 'U'); 
+	        }
+	    }
 	}
 
 	// Création du message flash

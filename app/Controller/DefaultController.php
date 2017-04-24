@@ -3,6 +3,7 @@
 namespace Controller;
 
 use \W\Controller\Controller;
+use \W\Security\AuthentificationModel;
 use \Model\UserModel;
 use \Model\DefaultModel;
 use \Model\BuildingsModel;
