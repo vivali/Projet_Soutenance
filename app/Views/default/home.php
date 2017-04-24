@@ -11,7 +11,7 @@
             <input id="password" name="password" class="form-control" type="password">
         </div>
         <button class="btn btn-info">Se connecter</button>
-    </form>	
+    </form>
 	<strong><a href="#" title="forgetpassword">Mot de passe oublié ?</a></strong></p>
 
 <?php $this->stop('main_content'); ?>
