@@ -25,10 +25,16 @@
 						<li <?= ($w_current_route == 'user_login') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_login'); ?>">Accueil</a></li>
 					<?php endif; ?>
 
-					<li>Bois :</a></li>
-					<li>Nourriture :</a></li>
-					<li>Eau :</a></li>
+					
 				</ul>
+				<?php if ($w_user) { ?>
+				<ul class="nav navbar-nav">
+					<li>Bois : <?php echo $_SESSION["ressources"]->wood; ?> </li>
+					<li>Nourriture : <?php echo $_SESSION["ressources"]->food; ?> </li>
+					<li>Eau : <?php echo $_SESSION["ressources"]->water; ?> </li>
+				</ul>
+				<?php } ?>
+
 				<ul class="nav navbar-nav navbar-right">
 					<?php if ($w_user) { // si l'utilisateur est connecté ?>
 						<li <?= ($w_current_route == 'default_camp') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_camp'); ?>">Camp</a></li>

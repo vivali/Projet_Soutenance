@@ -17,9 +17,9 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Ferme</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Camp de bûcheron</strong> Niveau : <?php echo $_SESSION["buildings"]->wood_farm; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                <p>Cout en ressources : 200 bois 100 nourriture 0 eau</p>
+                <p>Cout en ressources : <?php echo $bucheron->GetPrixBois(); ?> bois</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>1])?>">Voir</a>
                 <button class="btn btn-success btn-block">Construire</button>
             </div>
@@ -30,7 +30,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Camp de bûcheron</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Ferme</strong> Niveau : <?php echo $_SESSION["buildings"]->food_farm; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : 200 Bois 0 nourriture 0 eau</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>2])?>">Voir</a>
@@ -43,7 +43,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Puit</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Puit</strong> Niveau : <?php echo $_SESSION["buildings"]->water_farm; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : 300 bois 150 nourriture 50 eau</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>3])?>">Voir</a>
@@ -59,7 +59,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Hangar</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Hangar</strong> Niveau : <?php echo $_SESSION["buildings"]->wood_stock; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : Bois 1000 nourriture 0 eau 0</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>6])?>">Voir</a>
@@ -72,7 +72,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Garde manger</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Garde manger</strong> Niveau : <?php echo $_SESSION["buildings"]->food_stock; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : Bois 1000 Nourriture 1000 eau 0</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>5])?>">Voir</a>
@@ -85,7 +85,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Citerne</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Citerne</strong> Niveau : <?php echo $_SESSION["buildings"]->water_stock; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : Bois 1000 Nourriture 1000 Eau 1000</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>7])?>">Voir</a>
@@ -101,7 +101,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Cabanon</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Cabanon</strong> Niveau : <?php echo $_SESSION["buildings"]->cabanon; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : Bois 4000 Nourriture 4000 Eau 2500</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>4])?>">Voir</a>
@@ -114,7 +114,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Station de radio</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Station de radio</strong> Niveau : <?php echo $_SESSION["buildings"]->radio; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : Bois 1200 Nourriture 800 Eau 600</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>9])?>">Voir</a>
@@ -127,7 +127,7 @@
             <div class="media">
             <img class="d-flex mr-3" src="..." alt="Generic placeholder image">
             <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Mur de defense</strong> Niveau : 0</h5>
+                <h5 class="mt-0 text-left"><strong>Mur de defense</strong> Niveau : <?php echo $_SESSION["buildings"]->wall; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : Bois 800 Nourriture 400 Eau 200</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>8])?>">Voir</a>
@@ -137,5 +137,6 @@
         </div>
     </div>
 </div>
+
 
 <?php $this->stop('main_content') ?>

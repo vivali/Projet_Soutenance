@@ -15,7 +15,32 @@ class DefaultController extends Controller
 	{	
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
-		$this->show('default/camp');
+		spl_autoload_register(function($class) {
+		    include  $class . '.php';
+		});
+		$bucheron = new \Buildings\Bucheron();
+		$ferme = new \Buildings\Ferme();
+		$puit = new \Buildings\Puit();
+		$hangar = new \Buildings\Hangar();
+		$garde_manger = new \Buildings\GardeManger();
+		$citerne = new \Buildings\Citerne();
+		$cabane = new \Buildings\Cabane();
+		$mur = new \Buildings\Mur();
+		$radio = new \Buildings\StationRadio();
+
+		$this->show('default/camp', [
+										"bucheron" 		=> $bucheron,
+										"ferme"			=> $ferme,
+										"puit"			=> $puit,
+										"hangar"		=> $hangar,
+										"garde_manger"	=> $garde_manger,
+										"citerne"		=> $citerne,
+										"cabane"		=> $cabane,
+										"mur"			=> $mur,
+										"radio"			=> $radio
+									] );
+
+
 	}
 
 	public function building($idBuilding)
