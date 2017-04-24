@@ -29,10 +29,14 @@ class DefaultModel extends \W\Model\Model {
 	            $timer = $refresh2 - $refresh1;
 	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.";
 	            $_SESSION["refresh"] = $refresh2;
-	            // $wood = $_SESSION["ressources"]->wood + 2;
-	            // $water = $_SESSION["ressources"]->water + 8;
-	            // $food = $_SESSION["ressources"]->food + 7;
-	            // $UserModel->refreshUpdate($wood, $water, $food);
+	            $id_user = $_SESSION["user"]["id"];
+	            $wood = &$_SESSION["ressources"]->wood;
+	            $water = &$_SESSION["ressources"]->water;
+	            $food = &$_SESSION["ressources"]->food;
+	            $wood += 2;
+	            $water += 8;
+	            $food += 7;
+	            $UserModel->refreshUpdate($wood, $water, $food, $id_user);
 
 	        }
 	        else {

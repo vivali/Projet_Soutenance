@@ -76,7 +76,7 @@ class UserModel extends UsersModel
 	    return $query->fetch(\PDO::FETCH_OBJ);
     }
 
-    function refreshUpdate($wood, $water, $food){
+    function refreshUpdate($wood, $water, $food, $id_user){
 
     	$query = $this->dbh->prepare("
     		UPDATE ressources r 
