@@ -13,9 +13,9 @@ class DefaultController extends Controller
 
 	public function building()
 	{
-		$ferme = new \Buildings\Ferme();
-		$ferme->SetProd();
-		var_dump($ferme->GetProd());
+		$puit = new \Buildings\Puit();
+		$puit->SetProd();
+		var_dump($puit->GetProd());
 		$this->show('default/building');
 	}
 
