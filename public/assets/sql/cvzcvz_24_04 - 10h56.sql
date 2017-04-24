@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 24 Avril 2017 à 10:42
+-- Généré le :  Lun 24 Avril 2017 à 10:56
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(120) NOT NULL,
   `birthday` date NOT NULL,
   `role` varchar(20) NOT NULL,
-  `password` tinyint(1) NOT NULL,
+  `password` text NOT NULL,
   `date_create` datetime NOT NULL,
   `date_last_connexion` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `birthday`, `role`, `password`, `date_create`, `date_last_connexion`) VALUES
-(1, 'Vivali', 'ryzommaster@hotmail.fr', '1995-03-01', '0', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 'Vivali', 'ryzommaster@hotmail.fr', '1995-03-01', '0', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

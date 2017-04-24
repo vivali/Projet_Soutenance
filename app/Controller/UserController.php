@@ -68,7 +68,9 @@ class UserController extends Controller
                     'email' => $email,
                     'password' => $auth_manager->hashPassword($password),
                     'birthday' => $birthday,
-                    'role' => '0'
+                    'role' => '0',
+                    'date_create' => 'NOW()',
+                    'date_last_connexion' => 'NOW()'
                 ]);
                 $messages = 'Vous êtes bien inscrit.';
                 $this->redirectToRoute("user_login");
