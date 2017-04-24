@@ -1,6 +1,7 @@
 <?php $this->layout('layout', ['title' => 'Connexion']) ?>
 
 <?php $this->start('main_content') ?>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-6">
