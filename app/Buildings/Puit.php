@@ -5,23 +5,25 @@ namespace Buildings;
 /**
 * 
 */
-class Ferme
+class Puit
 {
-	private $RatioProd = 1.7;
-	private $ProductionBase = 130;
+	private $RatioProd = 1.6;
+	private $ProductionBase = 80;
 	private $ProductionCourante;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 200;
+	private $PrixBoisBase = 300;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 100;
+	private $PrixNourritureBase = 150;
 	private $PrixNourritureCourant;
+	private $PrixEauBase = 50;
+	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 6;
+	private $TempsBase = 21;
 	private $TempsCourant;
 
-	private $Niveau = 0;
+	private $Niveau = 1;
 
 	public function SetProd () {
 		if ($this->Niveau !== 0) {
@@ -47,6 +49,18 @@ class Ferme
 		} else {
 			$this->PrixNourritureCourant = $this->PrixNourritureBase;
 		}
+
+		if ($this->Niveau !== 0) {
+			$this->PrixNourritureCourant = round($this->PrixNourritureBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixNourritureBase);
+		} else {
+			$this->PrixNourritureCourant = $this->PrixNourritureBase;
+		}
+
+		if ($this->Niveau !== 0) {
+			$this->PrixEauCourant = round($this->PrixEauBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixEauBase);
+		} else {
+			$this->PrixEauCourant = $this->PrixEauBase;
+		}
 	}
 
 	public function GetPrixBois () {
@@ -55,6 +69,10 @@ class Ferme
 
 	public function GetPrixNourriture () {
 		return $this->PrixNourritureCourant;
+	}
+
+	public function GetPrixEau () {
+		return $this->PrixEauCourant;
 	}
 
 	public function SetTemps () {
@@ -70,13 +88,14 @@ class Ferme
 	}
 }
 
-$ferme = new Ferme();
-$ferme->SetProd();
-var_dump($ferme->GetProd());
+$puit = new Puit();
+$puit->SetProd();
+var_dump($puit->GetProd());
 
-$ferme->SetPrix();
-var_dump($ferme->GetPrixBois());
-var_dump($ferme->GetPrixNourriture());
+$puit->SetPrix();
+var_dump($puit->GetPrixBois());
+var_dump($puit->GetPrixNourriture());
+var_dump($puit->GetPrixEau());
 
-$ferme->SetTemps();
-var_dump($ferme->GetTemps());
+$puit->SetTemps();
+var_dump($puit->GetTemps());
