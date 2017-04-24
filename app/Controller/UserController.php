@@ -12,10 +12,37 @@ use \Model\RessourcesModel;
 
 class UserController extends Controller
 {
-	public function login()
-	{
-		$this->show('user/login');
+	public function login() {
+		// Redirection si l'utilisateur est deja connecté
+		if ($this->getUser()) {
+			$this->redirectToRoute('default_camp');
+		} else {
+			$username 	= '';
+			$message = [];
+
+			if ( !empty($_POST) ) {
+				$username 	= trim($_POST['username']);
+				$password   = trim($_POST['password']);
+
+				$auth_manager = new \W\Security\AuthentificationModel();
+
+				if ( $user_id = $auth_manager->isValidLoginInfo($username, $password) ) {
+					$user_manager = new UserModel();
+					$user = $user_manager->find($user_id);
+					$auth_manager->logUserIn($user);
+
+					$this->redirectToRoute('default_camp');
+				} else {
+					$message['error'] = "Mauvais Identifiant ou mot de passe";
+				}
+			}
+			$this->show('user/login', [
+				'messages' => $message,
+				'username' => $username,
+			]);
+		}
 	}
+
 
 	public function register()
 	{	
@@ -27,6 +54,9 @@ class UserController extends Controller
 		$messages = '';
         $username = '';
         $email = '';
+        $birthday_year = '';
+        $birthday_month = '';
+        $birthday_day = '';
         $errors = [];
         $date_create = new \DateTime('now');
         $date_last_connexion = new \DateTime('now');
@@ -36,9 +66,13 @@ class UserController extends Controller
             $email = trim($_POST['email']);
             $password = trim($_POST['password']);
             $cfpassword = trim($_POST['cfpassword']);
+
+            $birthday_year = trim($_POST['birthday_year']);
+            $birthday_month = trim($_POST['birthday_month']);
+            $birthday_day = trim($_POST['birthday_day']);
+
             $birthday = trim($_POST['birthday_year']."-".$_POST['birthday_month']."-".$_POST['birthday_day']);
-            
-            
+
             // On vérifie si l'email ou le username existent déjà en BDD
             if ( $UserModel->emailExists($email) ) {
                 $errors['exists_m'] = "L'email existent déjà."; 
@@ -71,7 +105,7 @@ class UserController extends Controller
             if ( empty($_POST['birthday_day']) || empty($_POST['birthday_month']) || empty($_POST['birthday_year']) ) {
                 $errors['birthday'] = "Votre date de naissance n'est pas valide.";
             }
-            
+
             if ( empty($errors) ) {
                 $auth_manager = new AuthentificationModel(); // J'instancie le authentificationmodel qui facilite la gestion de l'authentification des utilisateurs
 
@@ -113,13 +147,24 @@ class UserController extends Controller
                 $this->redirectToRoute("user_login");
             }
         }
-        $this->show( 'user/register', [ 'DefaultModel' => $DefaultModel, 'messages' => $messages, 'username' => $username, 'email' => $email, 'errors' => $errors ] );
+        $this->show( 'user/register', [
+			'DefaultModel' => $DefaultModel,
+			'messages' => $messages,
+			'username' => $username,
+			'email' => $email,
+			'errors' => $errors,
+			'birthday_year' => $birthday_year,
+			'birthday_month' => $birthday_month,
+			'birthday_day' => $birthday_day
+		] );
 	}
+
 
 	public function profil()
 	{
 		$this->show('user/profil');
 	}
+
 
 	public function update()
 	{
