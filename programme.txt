@@ -82,7 +82,7 @@ Prix du niveau 1 : Bois 1000 Nourriture 1000 Eau 1000
 
 Stockage Camper : 									Ratio stockage : x3			Ratio temps construction : x1.7
 
-Stockage de base : 500
+Stockage de base : 5000								Ratio stockage : x4			Ratio temps construction : 
 Prix du niveau 1 : Bois 4000 Nourriture 4000 Eau 2500
 
 
@@ -97,7 +97,7 @@ Prix du niveau 1 : Bois 800 Nourriture 400 Eau 200
 
 Station de radio : 									Ratio Appel campeur : x1.8	Ratio temps construction : x1.5
 
-Gain campeur de base : 50/h
+Gain campeur de base : random 10/100 / h
 Prix du niveau 1 : Bois 1200 Nourriture 800 Eau 600
 
 
