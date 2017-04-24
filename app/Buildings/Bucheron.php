@@ -29,15 +29,13 @@ class Bucheron
 	}
 
 	public function SetProd () {
-<<<<<<< HEAD
 		if ($this->Niveau !== 0) {
-=======
 		if ($this->Niveau != 0) {
->>>>>>> 985f9b34731a6541315ebc39c00a6dd9da3fae07
 			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
+	}
 	}
 
 	public function GetProd () {
