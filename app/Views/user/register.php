@@ -3,34 +3,35 @@
 <?php $this->start('main_content') ?>
 
  <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="col-md-6 col-md-offset-6">
 
-            <h3>Inscription</h3>
+            <h3 class="text-center">Inscription</h3>
+            <br>
 
             <form method="POST">
 
                 <div class="form-group">
                     <label for="username" class="control-label" >Pseudo</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?php echo $username; ?>">
-                    <?php if (isset($error)) echo "<span class=\"text-danger\">".$DefaultModel->printError($error, "username")."</span>"; ?>
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "username")."</span>"; ?>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="control-label">Email</label>
                     <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>">
-                    <?php if (isset($error)) echo "<span class=\"text-danger\">".$DefaultModel->printError($error, "email")."</span>"; ?>
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "email")."</span>"; ?>
                 </div>
 
                 <div class="form-group">
                     <label for="password" class="control-label">Mot de passe</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                    <?php if (isset($error)) echo "<span class=\"text-danger\">".$DefaultModel->printError($error, "password")."</span>"; ?>
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "password")."</span>"; ?>
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="control-label">Retaper le mot de passe</label>
-                    <input type="password" class="form-control" id="password" name="password_confirm" placeholder="Password">
-                    <?php if (isset($error)) echo "<span class=\"text-danger\">".$DefaultModel->printError($error, "password")."</span>"; ?>
+                    <label for="cfpassword" class="control-label">Retaper le mot de passe</label>
+                    <input type="password" class="form-control" id="cfpassword" name="cfpassword" placeholder="Password">
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "cfpassword")."</span>"; ?>
                 </div>
 
                 <div class="form-group">
@@ -64,13 +65,13 @@
                             </select>
                         </div>
                     </div>
-                    <?php if (isset($error)) echo "<span class=\"text-danger\">".$DefaultModel->printError($error, "birthday")."</span>"; ?>
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "birthday")."</span>"; ?>
 
                 </div>
 
                 <button type="submit" class="btn btn-default">Envoyer</button>
                 <div class="container">
-                	<div class="row"><?php echo $message; ?></div>
+                	<div class="row"><?php echo $messages; ?></div>
                 </div>
 
             </form>
