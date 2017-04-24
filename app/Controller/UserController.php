@@ -9,12 +9,6 @@ use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
 
-$DefaultModel = new DefaultModel();
-$UserModel = new UserModel();
-$BuildingsModel = new BuildingsModel();
-$RessourcesModel = new RessourcesModel();
-
-
 class UserController extends Controller
 {
 	public function login() {
@@ -175,17 +169,100 @@ class UserController extends Controller
 	}
 
 
-	public function update()
-	{	
+
+	public function update() {
+
 		$DefaultModel = new DefaultModel();
-		$DefaultModel->refreshTimer();
-		$this->show('user/update');
+    $DefaultModel->refreshTimer();
+        $username = '';
+        $email = '';
+		$messages = [];
+
+		$errors = [];
+
+		if( !empty($_POST) ) {
+			$username 	= trim($_POST['username']);
+			$email	 	= trim($_POST['email']);
+			$password   = trim($_POST['password']);
+			$newPassword   = trim($_POST['npassword']);
+			$cfPassword   = trim($_POST['cfpassword']);
+			$user_manager = new UserModel();
+			$auth_manager = new \W\Security\AuthentificationModel();
+
+			if ($user_id = $auth_manager->isValidLoginInfo( $this->getUser()['username'], $password )) {
+
+				// Si un des champs est rempli
+				if ( !( empty($username) && empty($email) && empty($username) && empty($newPassword) ) ) {
+					// Si le champ username est rempli, on le vérifie
+					if (!empty($username)) {
+						if ( $user_manager->usernameExists($username) ) {
+							$errors['username'] = "Le pseudo est déja pris.";
+						} elseif ( strlen($username) < 3 ) {
+							$errors['username'] = "Votre pseudo doit avoir au moins 3 caractéres.";
+						} else {
+							$newData['username'] = $username;
+						}
+					}
+
+					// Si le champ email est rempli, on le vérifie
+					if (!empty($email)) {
+						if ( $user_manager->emailExists($email) ) {
+							$errors['email'] = "L'email existe déja.";
+						} elseif ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+							$errors['email'] = "L'email n'est pas valides.";
+						} else {
+							$newData['email'] = $email;
+						}
+					}
+
+					// Si le champ mot de passe est rempli, on le vérifie
+					if (!empty($newPassword)) {
+						if ( $newPassword !== $cfPassword ) {
+							$errors['cfpassword'] = "Les mots de passe ne correspondent pas.";
+						} elseif ( strlen($newPassword) < 8 ) {
+							$errors['npassword'] = "Le mot de passe doit contenir au moins 8 caractéres.";
+						} elseif ( !ctype_alnum($newPassword) ) {
+							$errors['npassword'] = "Le mot de passe doit contenir au moins un chiffre et une lettre.";
+						}
+						$newData['password'] = $auth_manager->hashPassword( $newPassword );
+					}
+				} else {
+					echo "Champs vide";
+				}
+			} else {
+				$errors['password'] = "Mauvais mot de passe";
+			}
+
+
+			// S'il y a des nouvelles données et qu'il n'y a pas d'erreurs
+			if ( isset($newData) && empty($errors)  ) {
+				$user_manager->update($newData, $this->getUser()['id']);
+				$auth_manager->refreshUser();
+				$messages['result'] = "Modification effectué avec succées.";
+				$username = '';
+		        $email = '';
+				// $this->redirectToRoute('default_camp');
+			} else {
+				$messages['result'] = "Un ou plusieurs champs ne sont pas valides.";
+			}
+		}
+
+		$this->show('user/update',  [
+			'DefaultModel' => $DefaultModel,
+			'username' => $username,
+			'email' => $email,
+			'errors' => $errors,
+			'messages' => $messages,
+		] );
 	}
+
+
 
 	public function logout()
 	{
 		$auth_manager = new \W\Security\AuthentificationModel();
         $auth_manager->logUserOut();
+        unset($_SESSION['refresh']);
         $this->redirectToRoute('user_login');
 	}
 
