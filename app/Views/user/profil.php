@@ -1,18 +1,13 @@
 <?php $this->layout('layout', ['title' => 'Profil']) ?>
 
 <?php $this->start('main_content') ?>
-<form action="" method="POST">
-    <div class="form-group">
-        <label>Votre pseudo ou votre email :</label>
-        <input id="username" name="username" class="form-control" type="text">
-    </div>
-    <div class="form-group">
-        <label>Votre mot de passe :</label>
-        <input id="password" name="password" class="form-control" type="password">
-    </div>
-    <button class="btn btn-info">Se connecter</button>
-</form>
-<strong><a href="#" title="forgetpassword">Mot de passe oublié ?</a></strong></p>
 
+<h1>Hello <?=$w_user['username']?></h1>
+<h2>Vos informations :</h2>
+</br>
+<p>Votre pseudo :<?=$w_user['username']?></p>
+<p>Votre adresse Email :<?=$w_user['email']?></p>
+<p>Date de création de votre compte :<?=$w_user['date_create']?></p>
+<p>Date de derniere connexion :<?=$w_user['date_last_connexion']?></p>
 
 <?php $this->stop('main_content') ?>
