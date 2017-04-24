@@ -13,6 +13,9 @@ class UserController extends Controller
 {
 	public function login() {
 		$DefaultModel = new DefaultModel();
+		$UserModel = new UserModel();
+		$BuildingsModel = new BuildingsModel();
+		$RessourcesModel = new RessourcesModel();
 		// Redirection si l'utilisateur est deja connecté
 		if ($this->getUser()) {
 			$this->redirectToRoute('default_camp');
@@ -27,9 +30,12 @@ class UserController extends Controller
 				$auth_manager = new \W\Security\AuthentificationModel();
 
 				if ( $user_id = $auth_manager->isValidLoginInfo($username, $password) ) {
-					$user_manager = new UserModel();
-					$user = $user_manager->find($user_id);
+					$user = $UserModel->find($user_id);
+					$buildings = $UserModel->getBTable($user_id);
+					$ressources = $UserModel->getRTable($user_id);
 					$auth_manager->logUserIn($user);
+					$_SESSION["buildings"] = $buildings;
+					$_SESSION["ressources"] = $ressources;
 
 					$this->redirectToRoute('default_camp');
 				} else {
@@ -262,6 +268,8 @@ class UserController extends Controller
 	{
 		$auth_manager = new \W\Security\AuthentificationModel();
         $auth_manager->logUserOut();
+        unset($_SESSION['buildings']);
+        unset($_SESSION['ressources']);
         unset($_SESSION['refresh']);
         $this->redirectToRoute('user_login');
 	}
