@@ -3,22 +3,20 @@
 namespace Buildings;
 
 /**
-* 
+*
 */
-class Ferme
+class Bucheron
 {
-	private $RatioProd = 1.7;
-	private $ProductionBase = 130;
+	private $RatioProd = 1.8;
+	private $ProductionBase = 200;
 	private $ProductionCourante;
-
+	
 	private $RatioPrix = 2;
 	private $PrixBoisBase = 200;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 100;
-	private $PrixNourritureCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 6;
+	private $TempsBase = 5;
 	private $TempsCourant;
 
 	private $Niveau = 0;
@@ -41,20 +39,10 @@ class Ferme
 		} else {
 			$this->PrixBoisCourant = $this->PrixBoisBase;
 		}
-
-		if ($this->Niveau !== 0) {
-			$this->PrixNourritureCourant = round($this->PrixNourritureBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixNourritureBase);
-		} else {
-			$this->PrixNourritureCourant = $this->PrixNourritureBase;
-		}
 	}
 
 	public function GetPrixBois () {
 		return $this->PrixBoisCourant;
-	}
-
-	public function GetPrixNourriture () {
-		return $this->PrixNourritureCourant;
 	}
 
 	public function SetTemps () {
@@ -70,13 +58,15 @@ class Ferme
 	}
 }
 
-$ferme = new Ferme();
-$ferme->SetProd();
-var_dump($ferme->GetProd());
 
-$ferme->SetPrix();
-var_dump($ferme->GetPrixBois());
-var_dump($ferme->GetPrixNourriture());
 
-$ferme->SetTemps();
-var_dump($ferme->GetTemps());
+
+$bucheron = new Bucheron();
+$bucheron->SetProd();
+var_dump($bucheron->GetProd());
+
+$bucheron->SetPrix();
+var_dump($bucheron->GetPrix());
+
+$bucheron->SetTemps();
+var_dump($bucheron->GetTemps());

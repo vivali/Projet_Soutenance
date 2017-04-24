@@ -5,34 +5,34 @@ namespace Buildings;
 /**
 * 
 */
-class Ferme
+class GardeManger
 {
-	private $RatioProd = 1.7;
-	private $ProductionBase = 130;
-	private $ProductionCourante;
+	private $RatioStock = 2;
+	private $StockageBase = 2000;
+	private $StockageCourant;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 200;
+	private $PrixBoisBase = 1000;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 100;
+	private $PrixNourritureBase = 1000;
 	private $PrixNourritureCourant;
 
-	private $RatioTemps = 1.5;
-	private $TempsBase = 6;
-	private $TempsCourant;
+	private $RatioTemps = 1.6;
+	private $TempsBase = 25;
+	private $TempsCourant; 
+	
+	private $Niveau = 5;
 
-	private $Niveau = 0;
-
-	public function SetProd () {
+	public function SetStock () {
 		if ($this->Niveau !== 0) {
-			$this->ProductionCourante = round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase);
+			$this->StockageCourant = round($this->StockageBase * pow($this->RatioStock, ($this->Niveau - 1)) + $this->StockageBase);
 		} else {
-			$this->ProductionCourante = $this->ProductionBase;
+			$this->StockageCourant = $this->StockageBase;
 		}
 	}
 
-	public function GetProd () {
-		return $this->ProductionCourante;
+	public function GetStock () {
+		return $this->StockageCourant;
 	}
 
 	public function SetPrix () {
@@ -70,13 +70,13 @@ class Ferme
 	}
 }
 
-$ferme = new Ferme();
-$ferme->SetProd();
-var_dump($ferme->GetProd());
+$GardeManger = new GardeManger();
+$GardeManger->SetStock();
+var_dump($GardeManger->GetStock());
 
-$ferme->SetPrix();
-var_dump($ferme->GetPrixBois());
-var_dump($ferme->GetPrixNourriture());
+$GardeManger->SetPrix();
+var_dump($GardeManger->GetPrixBois());
+var_dump($GardeManger->GetPrixNourriture());
 
-$ferme->SetTemps();
-var_dump($ferme->GetTemps());
+$GardeManger->SetTemps();
+var_dump($GardeManger->GetTemps());

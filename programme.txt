@@ -39,7 +39,7 @@ Production de bois : 											Ratio prix : x2			Ratio prod : x1.8
 
 prix du camp de bûcheron niveau 1 : 200 Bois
 
-Arrondi ( 200 x (1.8 pow(NivBatiment-1))) = Production/Heure
+Arrondi ( 200 x pow(1.8, NivBatiment-1) ) = Production/Heure
 
 Temps de construction premier niveau : 5 secondes				Ratio augmentation temps de construction : x1.5
 
@@ -47,7 +47,7 @@ Production de nourriture: 										Ratio prix : x2			Ratio prod : x1.7
 
 prix de la Ferme niveau 1 : 200 bois 100 nourriture
 
-Arrondi ( 100 x (1.6 pow(NivBatiment-1))) = Production/Heure
+Arrondi ( 100 x (1.7 pow(NivBatiment-1))) = Production/Heure
 
 Temps de construction premier niveau : 6 secondes				Ratio augmentation temps de construction : x1.5
 
@@ -55,7 +55,7 @@ Production d'eau : 												Ratio prix : x2			Ratio prod : x1.6
 
 prix du puit niveau 1 : 300 bois 150 nourriture 50 eau
 
-Arrondi ( 50 x (1.4 pow(NivBatiment-1))) = Production/Heure
+Arrondi ( 50 x (1.6 pow(NivBatiment-1))) = Production/Heure
 
 Temps de construction premier niveau : 21 secondes				Ratio augmentation temps de construction : x1.5
 
