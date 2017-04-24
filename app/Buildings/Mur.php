@@ -25,6 +25,13 @@ class Mur
 	
 	private $Niveau = 5;
 
+	public function __construct () {
+		$this->Niveau = $_SESSION["buildings"]->water_farm;
+		$this->SetDef();
+		$this->SetPrix();
+		$this->SetTemps();
+	}
+
 	public function SetDef () {
 		if ($this->Niveau !== 0) {
 			$this->DefCourant = round($this->DefBase * pow($this->RatioDef, ($this->Niveau - 1)) + $this->DefBase);

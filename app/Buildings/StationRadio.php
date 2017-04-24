@@ -25,6 +25,13 @@ class StationRadio
 	private $Niveau = 1;
 	private $RatioProd = 0.1;
 
+	public function __construct () {
+		$this->Niveau = $_SESSION["buildings"]->water_farm;
+		$this->SetProd();
+		$this->SetPrix();
+		$this->SetTemps();
+	}
+
 	public function SetProd () {
 		if ($this->Niveau !== 0) {
 			// $this->ProductionCourante = round(Niveau de tous les bat * (1.2 + $RatioProd));
