@@ -22,8 +22,9 @@ class AdminController extends Controller
 		$this->show('admin/buildings');
 	}
 
-	public function updateBuilding()
+	public function updateBuilding($idBuilding)
 	{
+		var_dump($idBuilding);
 		$this->show('admin/updateBuilding');
 	}
 
