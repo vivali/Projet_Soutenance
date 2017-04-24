@@ -9,15 +9,11 @@ use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
 
-$DefaultModel = new DefaultModel();
-$UserModel = new UserModel();
-$BuildingsModel = new BuildingsModel();
-$RessourcesModel = new RessourcesModel();
-
 class DefaultController extends Controller
 {
 	public function camp()
 	{	
+		var_dump($_SESSION["buildings"]->food_farm);
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('default/camp');
