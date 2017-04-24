@@ -10,10 +10,37 @@ use \Model\DefaultModel;
 
 class UserController extends Controller
 {
-	public function login()
-	{
-		$this->show('user/login');
+	public function login() {
+		// Redirection si l'utilisateur est deja connecté
+		if ($this->getUser()) {
+			$this->redirectToRoute('default_camp');
+		} else {
+			$username 	= '';
+			$message = [];
+
+			if ( !empty($_POST) ) {
+				$username 	= trim($_POST['username']);
+				$password   = trim($_POST['password']);
+
+				$auth_manager = new \W\Security\AuthentificationModel();
+
+				if ( $user_id = $auth_manager->isValidLoginInfo($username, $password) ) {
+					$user_manager = new UserModel();
+					$user = $user_manager->find($user_id);
+					$auth_manager->logUserIn($user);
+
+					$this->redirectToRoute('default_camp');
+				} else {
+					$message['error'] = "Mauvais Identifiant ou mot de passe";
+				}
+			}
+			$this->show('user/login', [
+				'messages' => $message,
+				'username' => $username,
+			]);
+		}
 	}
+
 
 	public function register()
 	{
@@ -96,10 +123,12 @@ class UserController extends Controller
 		] );
 	}
 
+
 	public function profil()
 	{
 		$this->show('user/profil');
 	}
+
 
 	public function update()
 	{

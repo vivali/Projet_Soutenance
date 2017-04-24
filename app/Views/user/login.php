@@ -4,7 +4,7 @@
     <form action="" method="POST">
         <div class="form-group">
             <label>Votre pseudo ou votre email :</label>
-            <input id="username" name="username" class="form-control" type="text">
+            <input id="username" name="username" class="form-control" type="text" value="<?=$username?>">
         </div>
         <div class="form-group">
             <label>Votre mot de passe :</label>
