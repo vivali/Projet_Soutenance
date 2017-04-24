@@ -7,19 +7,21 @@
 
             <h3 class="text-center">Inscription</h3>
             <br>
-
+            
             <form method="POST">
 
                 <div class="form-group">
                     <label for="username" class="control-label" >Pseudo</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?php echo $username; ?>">
                     <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "username")."</span>"; ?>
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "exists_u")."</span>"; ?>
                 </div>
 
                 <div class="form-group">
                     <label for="email" class="control-label">Email</label>
                     <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $email; ?>">
                     <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "email")."</span>"; ?>
+                    <?php if (isset($errors)) echo "<span class=\"text-danger\">".$DefaultModel->printError($errors, "exists_m")."</span>"; ?>
                 </div>
 
                 <div class="form-group">
