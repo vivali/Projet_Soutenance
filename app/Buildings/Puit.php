@@ -27,9 +27,9 @@ class Puit
 
 	public function SetProd () {
 		if ($this->Niveau !== 0) {
-			$this->ProductionCourante = round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase);
+			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
 		} else {
-			$this->ProductionCourante = $this->ProductionBase;
+			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
 	}
 
