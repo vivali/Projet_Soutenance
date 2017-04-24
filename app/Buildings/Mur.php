@@ -5,34 +5,36 @@ namespace Buildings;
 /**
 * 
 */
-class Ferme
+class Mur
 {
-	private $RatioProd = 1.7;
-	private $ProductionBase = 130;
-	private $ProductionCourante;
+	private $RatioDef = 2.5;
+	private $DefBase = 5000;
+	private $DefCourant;
 
-	private $RatioPrix = 2;
-	private $PrixBoisBase = 200;
+	private $RatioPrix = 1.8;
+	private $PrixBoisBase = 800;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 100;
+	private $PrixNourritureBase = 400;
 	private $PrixNourritureCourant;
+	private $PrixEauBase = 200;
+	private $PrixEauCourant;
 
-	private $RatioTemps = 1.5;
-	private $TempsBase = 6;
-	private $TempsCourant;
+	private $RatioTemps = 1.4;
+	private $TempsBase = 84;
+	private $TempsCourant; 
+	
+	private $Niveau = 5;
 
-	private $Niveau = 0;
-
-	public function SetProd () {
+	public function SetDef () {
 		if ($this->Niveau !== 0) {
-			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
+			$this->DefCourant = round($this->DefBase * pow($this->RatioDef, ($this->Niveau - 1)) + $this->DefBase);
 		} else {
-			$this->ProductionCourante = $this->ProductionBase;
+			$this->DefCourant = $this->DefBase;
 		}
 	}
 
-	public function GetProd () {
-		return $this->ProductionCourante;
+	public function GetDef () {
+		$this->DefCourant;
 	}
 
 	public function SetPrix () {
@@ -47,6 +49,12 @@ class Ferme
 		} else {
 			$this->PrixNourritureCourant = $this->PrixNourritureBase;
 		}
+
+		if ($this->Niveau !== 0) {
+			$this->PrixEauCourant = round($this->PrixEauBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixEauBase);
+		} else {
+			$this->PrixEauCourant = $this->PrixEauBase;
+		}
 	}
 
 	public function GetPrixBois () {
@@ -55,6 +63,10 @@ class Ferme
 
 	public function GetPrixNourriture () {
 		return $this->PrixNourritureCourant;
+	}
+
+	public function GetPrixEau () {
+		return $this->PrixEauCourant;
 	}
 
 	public function SetTemps () {
@@ -69,14 +81,3 @@ class Ferme
 		return $this->TempsCourant;
 	}
 }
-
-$ferme = new Ferme();
-$ferme->SetProd();
-var_dump($ferme->GetProd());
-
-$ferme->SetPrix();
-var_dump($ferme->GetPrixBois());
-var_dump($ferme->GetPrixNourriture());
-
-$ferme->SetTemps();
-var_dump($ferme->GetTemps());
