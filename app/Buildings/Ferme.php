@@ -23,6 +23,13 @@ class Ferme
 
 	private $Niveau = 0;
 
+	public function __construct () {
+		$this->Niveau = $_SESSION["buildings"]->food_farm;
+		$this->SetProd();
+		$this->SetPrix();
+		$this->SetTemps();
+	}
+
 	public function SetProd () {
 		if ($this->Niveau !== 0) {
 			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
