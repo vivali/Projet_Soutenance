@@ -9,12 +9,6 @@ use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
 
-$DefaultModel = new DefaultModel();
-$UserModel = new UserModel();
-$BuildingsModel = new BuildingsModel();
-$RessourcesModel = new RessourcesModel();
-
-
 class UserController extends Controller
 {
 	public function login() {
@@ -186,6 +180,7 @@ class UserController extends Controller
 	{
 		$auth_manager = new \W\Security\AuthentificationModel();
         $auth_manager->logUserOut();
+        unset($_SESSION['refresh']);
         $this->redirectToRoute('user_login');
 	}
 
