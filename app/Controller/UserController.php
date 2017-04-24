@@ -6,6 +6,8 @@ use \W\Controller\Controller;
 use \W\Security\AuthentificationModel;
 use \Model\UserModel;
 use \Model\DefaultModel;
+use \Model\BuildingsModel;
+use \Model\RessourcesModel;
 
 
 class UserController extends Controller
@@ -17,11 +19,17 @@ class UserController extends Controller
 
 	public function register()
 	{	
+
 		$DefaultModel = new DefaultModel();
+		$UserModel = new UserModel();
+		$BuildingsModel = new BuildingsModel();
+		$RessourcesModel = new RessourcesModel();
 		$messages = '';
         $username = '';
         $email = '';
         $errors = [];
+        $date_create = new \DateTime('now');
+        $date_last_connexion = new \DateTime('now');
         // Traitement du formulaire d'inscription
         if (!empty($_POST)) {
             $username = trim($_POST['username']); // On peut se passer de addslashes car avec PDO on fait une requête préparé
@@ -29,11 +37,15 @@ class UserController extends Controller
             $password = trim($_POST['password']);
             $cfpassword = trim($_POST['cfpassword']);
             $birthday = trim($_POST['birthday_year']."-".$_POST['birthday_month']."-".$_POST['birthday_day']);
-            $user_manager = new UserModel();
+            
             
             // On vérifie si l'email ou le username existent déjà en BDD
-            if ( $user_manager->emailExists($email) || $user_manager->usernameExists($username) ) {
-                $errors['exists'] = "L'email ou l'username existent."; // Equivalent du array_push($array, $data)
+            if ( $UserModel->emailExists($email) ) {
+                $errors['exists_m'] = "L'email existent déjà."; 
+            }
+
+            if ( $UserModel->usernameExists($username) ) {
+                $errors['exists_u'] = "Ce pseudo existent déjà."; 
             }
 
             if ( strlen($username) < 3 ) {
@@ -44,12 +56,12 @@ class UserController extends Controller
                 $errors['email'] = "L'email n'est pas valides.";
             }
 
-            if ( strlen($password) < 8 ) {
-                $errors['password'] = "Le mot de passe doit contenir au moins 8 caractéres.";
+            if ( strlen($password) < 7 ) {
+                $errors['password'] = "Le mot de passe doit contenir au moins 7 caractéres.";
             }
 
             if ( !ctype_alnum($password) ) {
-                $errors['password'] = "Le mot de passe doit contenir au moins un chiffre et une lettre.";
+                $errors['password'] = "Le mot de passe doit contenir au moins un chiffre et une lettre, les carractéres spéciaux ne sont pas accepter.";
             }
 
             if ( $password !== $cfpassword ) {
@@ -62,17 +74,42 @@ class UserController extends Controller
             
             if ( empty($errors) ) {
                 $auth_manager = new AuthentificationModel(); // J'instancie le authentificationmodel qui facilite la gestion de l'authentification des utilisateurs
-                // S'il n'y a pas d'erreurs, on inscrit l'utilisateur en base de données
-                $user_manager->insert([
+
+                $UserModel->insert([
                     'username' => $username,
                     'email' => $email,
                     'password' => $auth_manager->hashPassword($password),
                     'birthday' => $birthday,
                     'role' => '0',
-                    'date_create' => 'NOW()',
-                    'date_last_connexion' => 'NOW()'
+                    'date_create' => $date_create->format('Y-m-d H:i:s'),
+                    'date_last_connexion' => $date_last_connexion->format('Y-m-d H:i:s')
+                ]);
+                $id_user = $UserModel->getUserByUsernameOrEmail($email)["id"];
+                var_dump($id_user);
+                $BuildingsModel->insert([
+                    'id_user' => $id_user,
+                    'camp' => '0',
+                    'food_farm' => '0',
+                    'wood_farm' => '0',
+                    'water_farm' => '0',
+                    'cabanon' => '0',
+                    'food_stock' => '0',
+                    'wood_stock' => '0',
+                    'water_stock' => '0',
+                    'wall' => '0',
+                    'radio' => '0'
+                    
+                ]);
+                $RessourcesModel->insert([
+                    'id_user' => $id_user,
+                    'camper' => '1',
+                    'food' => '500',
+                    'wood' => '1000',
+                    'water' => '100'
+                    
                 ]);
                 $messages = 'Vous êtes bien inscrit.';
+
                 $this->redirectToRoute("user_login");
             }
         }
