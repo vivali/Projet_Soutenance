@@ -59,10 +59,58 @@ class DefaultController extends Controller
 
 	public function upgrade ($idBuilding) {
 		$DefaultModel = new DefaultModel();
-		$DefaultModel->refreshTimer();
-		echo "function uprage !";
-		echo $idBuilding;
-		//$this->redirectToRoute('default_camp');
+		$UserModel = new UserModel();
+
+		if ($idBuilding == 2) {
+			$bucheron = new \Buildings\Bucheron();
+			$bucheron->SetNiveau();
+		}
+
+		if ($idBuilding == 3) {
+			$ferme = new \Buildings\Ferme();
+			$ferme->SetNiveau();
+		}
+
+		if ($idBuilding == 4) {
+			$puit = new \Buildings\Puit();
+			$puit->SetNiveau();
+		}
+
+		if ($idBuilding == 5) {
+			$hangar = new \Buildings\Hangar();
+			$hangar->SetNiveau();
+		}
+
+		if ($idBuilding == 6) {
+			$garde_manger = new \Buildings\GardeManger();
+			$garde_manger->SetNiveau();
+		}
+
+		if ($idBuilding == 7) {
+			$citerne = new \Buildings\Citerne();
+			$citerne->SetNiveau();
+		}
+
+		if ($idBuilding == 8) {
+			$cabane = new \Buildings\Cabane();
+			$cabane->SetNiveau();
+		}
+
+		if ($idBuilding == 9) {
+			$radio = new \Buildings\StationRadio();
+			$radio->SetNiveau();
+		}
+
+		if ($idBuilding == 10) {
+			$mur = new \Buildings\Mur();
+			$mur->SetNiveau();
+		}
+
+
+		
+
+
+		// $this->redirectToRoute('default_camp');
 	}
 
 }
