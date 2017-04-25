@@ -8,7 +8,7 @@
 </head>
 <body>
 	<header>
-	<img src="../public/assets/img/LOGO_Campeurs_VS_Zombies.png" alt="logo" class="img-responsive" id="logo">
+	<!--<img src="../public/assets/img/LOGO_Campeurs_VS_Zombies.png" alt="logo" class="img-responsive" id="logo">-->
 	</header>
 	<nav class="navbar navbar-inverse">
 			<div class="navbar-header">
