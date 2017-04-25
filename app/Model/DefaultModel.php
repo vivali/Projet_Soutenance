@@ -46,7 +46,7 @@ class DefaultModel extends \W\Model\Model {
 	            // Calcule Wood
 	            $calcul_wood = round(($bucheron->GetProd()) * $timer);
 	            $final_wood = null;
-	            if ($calcul_wood < 1) {
+	            if ($calcul_wood < 3) {
 	            	$final_wood = 3;
 	            } 
 	            else {
@@ -66,7 +66,7 @@ class DefaultModel extends \W\Model\Model {
 	        	// Calcul Food
 	        	$calcul_food = round(($puit->GetProd()) * $timer);
 	            $final_food = null;
-	            if ($calcul_food < 1) {
+	            if ($calcul_food < 2) {
 	            	$final_food = 2;
 	            } 
 	            else {
