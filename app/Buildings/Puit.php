@@ -89,9 +89,8 @@ class Puit
 	}
 
 	public function SetNiveau () {
-		// Requête récupération ressources de l'utilisateur
 
-		if ($Bois > $PrixBoisCourant && $Food > $PrixNourritureCourant && $Eau > $PrixEauCourant) {
+		if ($_SESSION["ressources"]->wood >= $PrixBoisCourant && $_SESSION["ressources"]->food >= $PrixNourritureCourant && $_SESSION["ressources"]->water >= $PrixEauCourant) {
 			// Requête augmentation du niveau en bdd !
 			$Niveau = $Niveau + 1;
 			// Requête suppression des ressources en fonction du prix
