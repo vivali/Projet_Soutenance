@@ -69,7 +69,7 @@ class DefaultModel extends \W\Model\Model {
 	        	// }
 
 	        	// Calcul Water
-	        	$_SESSION["calcul_water"] = round(($ferme->GetProd()) * $timer_water);
+	        	$_SESSION["calcul_water"] = round(($puit->GetProd()) * $timer_water);
 	            $final_water = 0;
 	            if ($_SESSION["calcul_water"] >= 1) {
 	            	$final_water = $_SESSION["calcul_water"];
@@ -81,7 +81,7 @@ class DefaultModel extends \W\Model\Model {
 	        	// }
 
 	        	// Calcul Food
-	        	$_SESSION["calcul_food"] = round(($puit->GetProd()) * $timer_food);
+	        	$_SESSION["calcul_food"] = round(($ferme->GetProd()) * $timer_food);
 	            $final_food = 0;
 	            if ($_SESSION["calcul_food"] >= 1) {
 	            	$final_food = $_SESSION["calcul_food"];
