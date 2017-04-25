@@ -2,6 +2,8 @@
 
 namespace Buildings;
 
+use \Model\UserModel;
+
 /**
 * 
 */
