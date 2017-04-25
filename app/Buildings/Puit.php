@@ -94,6 +94,17 @@ class Puit
 			// Requête augmentation du niveau en bdd !
 			$Niveau = $Niveau + 1;
 			// Requête suppression des ressources en fonction du prix
+			$id_user = $_SESSION["user"]["id"];
+
+			$wood 	= &$_SESSION["ressources"]->wood;
+            $water 	= &$_SESSION["ressources"]->water;
+	        $food 	= &$_SESSION["ressources"]->food;
+
+	        $wood 	-= $PrixBoisCourant;
+            $water 	-= $PrixEauCourant;
+            $food 	-= $PrixNourritureCourant;
+
+			$UserModel->refreshRessources($wood, $water, $food, $id_user);
 		} else {
 			// Afficher message manque de ressource dans une div 
 			echo "Manque de ressource";
