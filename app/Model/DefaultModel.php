@@ -59,7 +59,7 @@ class DefaultModel extends \W\Model\Model {
 	            // Calcule Wood
 	            $_SESSION["calcul_wood"] = round(($bucheron->GetProd()) * $timer_wood);
 	            $final_wood = 0;
-	            if ($_SESSION["calcul_wood"] > 1) {
+	            if ($_SESSION["calcul_wood"] >= 1) {
 	            	$final_wood = $_SESSION["calcul_wood"];
 	            	$wood += $final_wood;
 	            	$_SESSION["refresh_wood"] = $refresh_wood2;
@@ -69,9 +69,9 @@ class DefaultModel extends \W\Model\Model {
 	        	// }
 
 	        	// Calcul Water
-	        	$_SESSION["calcul_water"] = round(($ferme->GetProd()) * $timer_water);
+	        	$_SESSION["calcul_water"] = round(($puit->GetProd()) * $timer_water);
 	            $final_water = 0;
-	            if ($_SESSION["calcul_water"] > 1) {
+	            if ($_SESSION["calcul_water"] >= 1) {
 	            	$final_water = $_SESSION["calcul_water"];
 	            	$water += $final_water;
 	            	$_SESSION["refresh_water"] = $refresh_water2;
@@ -81,9 +81,9 @@ class DefaultModel extends \W\Model\Model {
 	        	// }
 
 	        	// Calcul Food
-	        	$_SESSION["calcul_food"] = round(($puit->GetProd()) * $timer_food);
+	        	$_SESSION["calcul_food"] = round(($ferme->GetProd()) * $timer_food);
 	            $final_food = 0;
-	            if ($_SESSION["calcul_food"] > 1) {
+	            if ($_SESSION["calcul_food"] >= 1) {
 	            	$final_food = $_SESSION["calcul_food"];
 	            	$food += $final_food;
 	            	$_SESSION["refresh_food"] = $refresh_food2;
@@ -92,7 +92,7 @@ class DefaultModel extends \W\Model\Model {
 	         //    	$final_food = round(($puit->GetProd()) * $timer);
 	        	// }
 	        	// var_dump( $bucheron->GetProd());
-	        	// var_dump( $ferme->GetProd());
+	        	var_dump( $ferme->GetProd());
 	        	// var_dump( $puit->GetProd());
 	        	// var_dump( $_SESSION["calcul_wood"]);
 	        	// var_dump( $_SESSION["calcul_food"]);
