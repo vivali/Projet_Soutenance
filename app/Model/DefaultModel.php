@@ -23,64 +23,86 @@ class DefaultModel extends \W\Model\Model {
 	function refreshTimer() {
 		if (isset($_SESSION["user"])) {
 			$date = date_create();
-	        if (isset($_SESSION["refresh"])){
-	        	spl_autoload_register(function($class) {
-		    		include  $class . '.php';
-				});
-
+	        if (isset($_SESSION["refresh_wood"]) || isset($_SESSION["refresh_water"]) || isset($_SESSION["refresh_food"])){
+	        	
 				$bucheron = new \Buildings\Bucheron();
 				$ferme = new \Buildings\Ferme();
 				$puit = new \Buildings\Puit();
 
 	        	$UserModel = new UserModel();
-	        	var_dump($bucheron->GetProd()/3600);
-	            $refresh1 = $_SESSION["refresh"];
-	            $refresh2 = date_format($date, 'U');
-	            $timer = $refresh2 - $refresh1;
-	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.";
-	            $_SESSION["refresh"] = $refresh2;
+
+	            // Timmer Wood
+	            $refresh_wood1 = $_SESSION["refresh_wood"];
+	            $refresh_wood2 = date_format($date, 'U');
+	            $timer_wood = $refresh_wood2 - $refresh_wood1;
+
+	            // Timmer Water
+	            $refresh_water1 = $_SESSION["refresh_water"];
+	            $refresh_water2 = date_format($date, 'U');
+	            $timer_water = $refresh_water2 - $refresh_water1;
+
+	            // Timmer Food
+	            $refresh_food1 = $_SESSION["refresh_food"];
+	            $refresh_food2 = date_format($date, 'U');
+	            $timer_food = $refresh_food2 - $refresh_food1;
+
+	         	
+	            echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
+	            echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
+	            echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
+
 	            $id_user = $_SESSION["user"]["id"];
 	            $wood = &$_SESSION["ressources"]->wood;
 	            $water = &$_SESSION["ressources"]->water;
 	            $food = &$_SESSION["ressources"]->food;
 
 	            // Calcule Wood
-	            $calcul_wood = round(($bucheron->GetProd()/3600) * $timer);
-	            $final_wood = null;
-	            if ($calcul_wood < 1) {
-	            	$final_wood = 3;
-	            } 
-	            else {
-	            	$final_wood = round(($bucheron->GetProd()/3600) * $timer);
-	        	}
+	            $_SESSION["calcul_wood"] = round(($bucheron->GetProd()) * $timer_wood);
+	            $final_wood = 0;
+	            if ($_SESSION["calcul_wood"] >= 1) {
+	            	$final_wood = $_SESSION["calcul_wood"];
+	            	$wood += $final_wood;
+	            	$_SESSION["refresh_wood"] = $refresh_wood2;
+	            }
 
 	        	// Calcul Water
-	        	$calcul_water = round(($ferme->GetProd()/3600) * $timer);
-	            $final_water = null;
-	            if ($calcul_water < 1) {
-	            	$final_water = 3;
+	        	$_SESSION["calcul_water"] = round(($puit->GetProd()) * $timer_water);
+	            $final_water = 0;
+	            if ($_SESSION["calcul_water"] >= 1) {
+	            	$final_water = $_SESSION["calcul_water"];
+	            	$water += $final_water;
+	            	$_SESSION["refresh_water"] = $refresh_water2;
 	            } 
-	            else {
-	            	$final_water = round(($ferme->GetProd()/3600) * $timer);
-	        	}
 
 	        	// Calcul Food
-	        	$calcul_food = round(($puit->GetProd()/3600) * $timer);
-	            $final_food = null;
-	            if ($calcul_food < 1) {
-	            	$final_food = 3;
+	        	$_SESSION["calcul_food"] = round(($ferme->GetProd()) * $timer_food);
+	            $final_food = 0;
+	            if ($_SESSION["calcul_food"] >= 1) {
+	            	$final_food = $_SESSION["calcul_food"];
+	            	$food += $final_food;
+	            	$_SESSION["refresh_food"] = $refresh_food2;
 	            } 
-	            else {
-	            	$final_food = round(($puit->GetProd()/3600) * $timer);
-	        	}
-	            $wood += $final_wood;
-	            $water += $final_water;
-	            $food += $final_food;
-	            $UserModel->refreshUpdate($wood, $water, $food, $id_user);
+	        	// var_dump( $bucheron->GetProd());
+	        	// var_dump( $ferme->GetProd());
+	        	// var_dump( $puit->GetProd());
+	        	// var_dump( $_SESSION["calcul_wood"]);
+	        	// var_dump( $_SESSION["calcu
+	        	// var_dump( $_SESSION["calcul_water"]);
+
+	        	echo "Vous avez gagné ".$final_wood." bois.<br>";
+	        	echo "Vous avez gagné ".$final_water." eaux.<br>";
+	        	echo "Vous avez gagné ".$final_food." nourritures.<br>";
+	            // $wood += $final_wood;
+	            // $water += $final_water;
+	            // $food += $final_food;
+	            $UserModel->refreshRessources($wood, $water, $food, $id_user);
+	            // $UserModel->refreshBuildings(1,1,1,1,1,1,1,1,1,1,1);
 
 	        }
 	        else {
-	            $_SESSION['refresh'] = date_format($date, 'U'); 
+	            $_SESSION['refresh_wood'] = date_format($date, 'U'); 
+	            $_SESSION['refresh_water'] = date_format($date, 'U'); 
+	            $_SESSION['refresh_food'] = date_format($date, 'U'); 
 	        }
 	    }
 	}

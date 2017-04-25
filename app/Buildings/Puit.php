@@ -2,6 +2,8 @@
 
 namespace Buildings;
 
+use \Model\UserModel;
+
 /**
 * 
 */
@@ -33,10 +35,10 @@ class Puit
 	}
 
 	public function SetProd () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
 		} else {
-			$this->ProductionCourante = $this->ProductionBase;
+			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
 	}
 
@@ -45,19 +47,19 @@ class Puit
 	}
 
 	public function SetPrix () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixBoisCourant = round($this->PrixBoisBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixBoisBase);
 		} else {
 			$this->PrixBoisCourant = $this->PrixBoisBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixNourritureCourant = round($this->PrixNourritureBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixNourritureBase);
 		} else {
 			$this->PrixNourritureCourant = $this->PrixNourritureBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixEauCourant = round($this->PrixEauBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixEauBase);
 		} else {
 			$this->PrixEauCourant = $this->PrixEauBase;
@@ -77,7 +79,7 @@ class Puit
 	}
 
 	public function SetTemps () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->TempsCourant = round($this->TempsBase * pow($this->RatioTemps, ($this->Niveau - 1)) + $this->TempsBase);
 		} else {
 			$this->TempsCourant = $this->TempsBase;
@@ -89,12 +91,23 @@ class Puit
 	}
 
 	public function SetNiveau () {
-		// Requête récupération ressources de l'utilisateur
 
-		if ($Bois > $PrixBoisCourant && $Food > $PrixNourritureCourant && $Eau > $PrixEauCourant) {
+		if ($_SESSION["ressources"]->wood >= $this->PrixBoisCourant && $_SESSION["ressources"]->food >= $this->PrixNourritureCourant && $_SESSION["ressources"]->water >= $this->PrixEauCourant) {
 			// Requête augmentation du niveau en bdd !
-			$Niveau = $Niveau + 1;
+			$UserModel = new UserModel();
+			$this->Niveau = $this->Niveau + 1;
 			// Requête suppression des ressources en fonction du prix
+			$id_user = $_SESSION["user"]["id"];
+
+			$wood 	= &$_SESSION["ressources"]->wood;
+            $water 	= &$_SESSION["ressources"]->water;
+	        $food 	= &$_SESSION["ressources"]->food;
+
+	        $wood 	-= $this->PrixBoisCourant;
+            $water 	-= $this->PrixEauCourant;
+            $food 	-= $this->PrixNourritureCourant;
+
+			$UserModel->refreshRessources($wood, $water, $food, $id_user);
 		} else {
 			// Afficher message manque de ressource dans une div 
 			echo "Manque de ressource";

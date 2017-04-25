@@ -394,7 +394,12 @@ class UserController extends Controller
         $auth_manager->logUserOut();
         unset($_SESSION['buildings']);
         unset($_SESSION['ressources']);
-        unset($_SESSION['refresh']);
+        unset($_SESSION['refresh_wood']);
+        unset($_SESSION['refresh_water']);
+        unset($_SESSION['refresh_food']);
+        unset($_SESSION['calcul_wood']);
+        unset($_SESSION['calcul_water']);
+        unset($_SESSION['calcul_food']);
         $this->redirectToRoute('user_login');
 	}
 
