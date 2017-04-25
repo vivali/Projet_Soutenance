@@ -33,11 +33,11 @@ class DefaultModel extends \W\Model\Model {
 				$puit = new \Buildings\Puit();
 
 	        	$UserModel = new UserModel();
-	        	var_dump($bucheron->GetProd()/3600);
 	            $refresh1 = $_SESSION["refresh"];
 	            $refresh2 = date_format($date, 'U');
-	            $timer = $refresh2 - $refresh1;
-	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.";
+	            // $timer = $refresh2 - $refresh1;
+	            $timer = 3600;
+	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.<br>";
 	            $_SESSION["refresh"] = $refresh2;
 	            $id_user = $_SESSION["user"]["id"];
 	            $wood = &$_SESSION["ressources"]->wood;
@@ -45,38 +45,43 @@ class DefaultModel extends \W\Model\Model {
 	            $food = &$_SESSION["ressources"]->food;
 
 	            // Calcule Wood
-	            $calcul_wood = round(($bucheron->GetProd()/3600) * $timer);
+	            $calcul_wood = round(($bucheron->GetProd()) * $timer);
 	            $final_wood = null;
 	            if ($calcul_wood < 1) {
 	            	$final_wood = 3;
 	            } 
 	            else {
-	            	$final_wood = round(($bucheron->GetProd()/3600) * $timer);
+	            	$final_wood = round(($bucheron->GetProd()) * $timer);
 	        	}
 
 	        	// Calcul Water
-	        	$calcul_water = round(($ferme->GetProd()/3600) * $timer);
+	        	$calcul_water = round(($ferme->GetProd()) * $timer);
 	            $final_water = null;
 	            if ($calcul_water < 1) {
-	            	$final_water = 3;
+	            	$final_water = 1;
 	            } 
 	            else {
-	            	$final_water = round(($ferme->GetProd()/3600) * $timer);
+	            	$final_water = round(($ferme->GetProd()) * $timer);
 	        	}
 
 	        	// Calcul Food
-	        	$calcul_food = round(($puit->GetProd()/3600) * $timer);
+	        	$calcul_food = round(($puit->GetProd()) * $timer);
 	            $final_food = null;
 	            if ($calcul_food < 1) {
-	            	$final_food = 3;
+	            	$final_food = 2;
 	            } 
 	            else {
-	            	$final_food = round(($puit->GetProd()/3600) * $timer);
+	            	$final_food = round(($puit->GetProd()) * $timer);
 	        	}
+
+	        	echo "Vous avez gagné ".$final_wood." bois.<br>";
+	        	echo "Vous avez gagné ".$final_water." eaux.<br>";
+	        	echo "Vous avez gagné ".$final_food." nourritures.<br>";
 	            $wood += $final_wood;
 	            $water += $final_water;
 	            $food += $final_food;
-	            $UserModel->refreshUpdate($wood, $water, $food, $id_user);
+	            $UserModel->refreshRessources($wood, $water, $food, $id_user);
+	            // $UserModel->refreshBuildings(1,1,1,1,1,1,1,1,1,1,1);
 
 	        }
 	        else {
