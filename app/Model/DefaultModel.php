@@ -35,8 +35,7 @@ class DefaultModel extends \W\Model\Model {
 	        	$UserModel = new UserModel();
 	            $refresh1 = $_SESSION["refresh"];
 	            $refresh2 = date_format($date, 'U');
-	            // $timer = $refresh2 - $refresh1;
-	            $timer = 3600;
+	            $timer = $refresh2 - $refresh1;
 	            echo $timer." secondes ce sont écoulé depuis le dernier refresh.<br>";
 	            $_SESSION["refresh"] = $refresh2;
 	            $id_user = $_SESSION["user"]["id"];
