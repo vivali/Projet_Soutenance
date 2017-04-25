@@ -92,9 +92,10 @@ class Puit
 
 	public function SetNiveau () {
 
-		if ($_SESSION["ressources"]->wood >= $PrixBoisCourant && $_SESSION["ressources"]->food >= $PrixNourritureCourant && $_SESSION["ressources"]->water >= $PrixEauCourant) {
+		if ($_SESSION["ressources"]->wood >= $this->PrixBoisCourant && $_SESSION["ressources"]->food >= $this->PrixNourritureCourant && $_SESSION["ressources"]->water >= $this->PrixEauCourant) {
 			// Requête augmentation du niveau en bdd !
-			$Niveau = $Niveau + 1;
+			$UserModel = new UserModel();
+			$this->Niveau = $this->Niveau + 1;
 			// Requête suppression des ressources en fonction du prix
 			$id_user = $_SESSION["user"]["id"];
 
@@ -102,9 +103,9 @@ class Puit
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;
 
-	        $wood 	-= $PrixBoisCourant;
-            $water 	-= $PrixEauCourant;
-            $food 	-= $PrixNourritureCourant;
+	        $wood 	-= $this->PrixBoisCourant;
+            $water 	-= $this->PrixEauCourant;
+            $food 	-= $this->PrixNourritureCourant;
 
 			$UserModel->refreshRessources($wood, $water, $food, $id_user);
 		} else {
