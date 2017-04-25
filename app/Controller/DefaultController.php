@@ -74,6 +74,7 @@ class DefaultController extends Controller
 		if ($idBuilding == 4) {
 			$puit = new \Buildings\Puit();
 			$puit->SetNiveau();
+			var_dump($puit);
 		}
 
 		if ($idBuilding == 5) {
@@ -110,7 +111,7 @@ class DefaultController extends Controller
 		
 
 
-		// $this->redirectToRoute('default_camp');
+		$this->redirectToRoute('default_camp');
 	}
 
 }
