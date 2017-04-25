@@ -46,10 +46,6 @@ class DefaultController extends Controller
 	public function building($idBuilding)
 	{
 		$DefaultModel = new DefaultModel();
-		$ferme = new \Buildings\Ferme();
-		$ferme->SetProd();
-		var_dump($ferme->GetProd());
-		var_dump($idBuilding);
 		$DefaultModel->refreshTimer();
 		$this->show('default/building');
 	}
@@ -59,6 +55,14 @@ class DefaultController extends Controller
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('default/classement');
+	}
+
+	public function upgrade ($idBuilding) {
+		$DefaultModel = new DefaultModel();
+		$DefaultModel->refreshTimer();
+		echo "function uprage !";
+		echo $idBuilding;
+		//$this->redirectToRoute('default_camp');
 	}
 
 }

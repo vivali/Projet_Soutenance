@@ -12,9 +12,9 @@ class Ferme
 	private $ProductionCourante;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 200;
+	private $PrixBoisBase = 240;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 100;
+	private $PrixNourritureBase = 120;
 	private $PrixNourritureCourant;
 
 	private $RatioTemps = 1.5;
