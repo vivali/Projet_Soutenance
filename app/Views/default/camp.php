@@ -25,7 +25,7 @@
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Cout en ressources : <?php echo $bucheron->GetPrixBois(); ?> bois</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>2])?>">Voir</a>
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>2])?>">Construire</a>
+                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>2])?>" onclick="loadBar()">Construire</a>
             </div>
             </div>
         </div>
@@ -59,7 +59,9 @@
                 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>4])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>4])?>">Construire</a>
+                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>4])?>" onclick="loadBar()">Construire</a>
+                <button onclick="loadBar()">click</button>
+                <div class="loadBar"></div>
             </div>
             </div>
         </div>
@@ -80,6 +82,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>5])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>5])?>">Construire</a>
+                <div></div>
             </div>
             </div>
         </div>
@@ -96,6 +99,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>6])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>6])?>">Construire</a>
+                <div ></div>
             </div>
             </div>
         </div>
@@ -113,6 +117,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>7])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>7])?>">Construire</a>
+                <div ></div>
             </div>
             </div>
         </div>
@@ -133,6 +138,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>8])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>8])?>">Construire</a>
+                <div ></div>
             </div>
             </div>
         </div>
@@ -150,6 +156,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>9])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>9])?>">Construire</a>
+                <div></div>
             </div>
             </div>
         </div>
@@ -167,6 +174,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>10])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>10])?>">Construire</a>
+                <div></div>
             </div>
             </div>
         </div>
