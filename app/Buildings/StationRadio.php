@@ -9,7 +9,7 @@ use \Model\UserModel;
 class StationRadio
 {	
 	private $nom = "radio";
-	private $ProductionBase = 1;
+	private $ProductionBase = 10;
 	private $ProductionCourante;
 
 	private $RatioPrix = 2;
@@ -25,7 +25,7 @@ class StationRadio
 	private $TempsCourant;
 
 	private $Niveau = 1;
-	private $RatioProd = 0.1;
+	private $RatioProd = 1.2;
 
 	public function __construct () {
 		$this->Niveau = $_SESSION["buildings"]->radio;
@@ -35,12 +35,19 @@ class StationRadio
 	}
 
 	public function SetProd () {
-		if ($this->Niveau !== 0) {
-			// $this->ProductionCourante = round(Niveau de tous les bat * (1.2 + $RatioProd));
-		} else {
-			$this->ProductionCourante = $this->ProductionBase;
+		
+		$this->ProductionCourante = round($this->RatioProd * (
+			$_SESSION['buildings']->camp + 
+			$_SESSION['buildings']->food_farm + 
+			$_SESSION['buildings']->wood_farm + 
+			$_SESSION['buildings']->water_farm + 
+			$_SESSION['buildings']->cabanon + 
+			$_SESSION['buildings']->food_stock + 
+			$_SESSION['buildings']->wood_stock + 
+			$_SESSION['buildings']->water_stock + 
+			$_SESSION['buildings']->wall + 
+			$_SESSION['buildings']->radio));
 		}
-	}
 
 	public function GetProd () {
 		return $this->ProductionCourante;
@@ -97,6 +104,7 @@ class StationRadio
 			
 			$UserModel = new UserModel();
 			$this->Niveau = $this->Niveau + 1;
+			$this->RatioProd = $this->RatioProd + 0.1;
 			$id_user = $_SESSION["user"]["id"];
 
 			$UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);

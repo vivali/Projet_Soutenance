@@ -9,8 +9,8 @@ use \Model\UserModel;
 class Bucheron
 {
 	private $nom = "wood_farm";
-	private $RatioProd = 1.8;
-	private $ProductionBase = 200;
+	private $RatioProd = 2.5;
+	private $ProductionBase = 600;
 	private $ProductionCourante;
 	
 	private $RatioPrix = 2;
@@ -31,11 +31,13 @@ class Bucheron
 	}
 
 	public function SetProd () {
+		if ($this->Niveau !== 0) {
 		if ($this->Niveau != 0) {
 			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
+	}
 	}
 
 	public function GetProd () {
