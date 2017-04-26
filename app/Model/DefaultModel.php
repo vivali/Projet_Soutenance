@@ -23,23 +23,23 @@ class DefaultModel extends \W\Model\Model {
 	function refreshTimer() {
 		if (isset($_SESSION["user"])) {
 			$date = date_create();
-	        if (isset($_SESSION["refresh_wood"]) || isset($_SESSION["refresh_water"]) || isset($_SESSION["refresh_food"])){
+	        if (isset($_SESSION["refresh"])){
 	        	
 				$bucheron = new \Buildings\Bucheron();
 				$ferme = new \Buildings\Ferme();
 				$puit = new \Buildings\Puit();
 
 	        	$UserModel = new UserModel();
-
+				
 	            // Timmer Wood
-	            $refresh_wood1 = $_SESSION["refresh_wood"];
+	            $refresh_wood1 = $_SESSION["refresh"]->refresh_wood;
 	            $refresh_wood2 = date_format($date, 'U');
 	            $timer_wood = $refresh_wood2 - $refresh_wood1;
 
 	            // $timer_wood = 500000;
 
 	            // Timmer Water
-	            $refresh_water1 = $_SESSION["refresh_water"];
+	            $refresh_water1 = $_SESSION["refresh"]->refresh_water;
 	            $refresh_water2 = date_format($date, 'U');
 	            $timer_water = $refresh_water2 - $refresh_water1;
 
@@ -47,7 +47,7 @@ class DefaultModel extends \W\Model\Model {
 
 
 	            // Timmer Food
-	            $refresh_food1 = $_SESSION["refresh_food"];
+	            $refresh_food1 = $_SESSION["refresh"]->refresh_food;
 	            $refresh_food2 = date_format($date, 'U');
 	            $timer_food = $refresh_food2 - $refresh_food1;
 
@@ -70,7 +70,7 @@ class DefaultModel extends \W\Model\Model {
 	            if ($_SESSION["calcul_wood"] >= 1) {
 	            	$final_wood = $_SESSION["calcul_wood"];
 	            	$wood += $final_wood;
-	            	$_SESSION["refresh_wood"] = $refresh_wood2;
+	            	$_SESSION["refresh"]->refresh_wood = $refresh_wood2;
 	            }
 
 	        	// Calcul Water
@@ -79,7 +79,7 @@ class DefaultModel extends \W\Model\Model {
 	            if ($_SESSION["calcul_water"] >= 1) {
 	            	$final_water = $_SESSION["calcul_water"];
 	            	$water += $final_water;
-	            	$_SESSION["refresh_water"] = $refresh_water2;
+	            	$_SESSION["refresh"]->refresh_water = $refresh_water2;
 	            } 
 
 	        	// Calcul Food
@@ -88,7 +88,7 @@ class DefaultModel extends \W\Model\Model {
 	            if ($_SESSION["calcul_food"] >= 1) {
 	            	$final_food = $_SESSION["calcul_food"];
 	            	$food += $final_food;
-	            	$_SESSION["refresh_food"] = $refresh_food2;
+	            	$_SESSION["refresh"]->refresh_food = $refresh_food2;
 	            } 
 	        	// var_dump( $bucheron->GetProd());
 	        	// var_dump( $ferme->GetProd());
@@ -108,9 +108,10 @@ class DefaultModel extends \W\Model\Model {
 
 	        }
 	        else {
-	            $_SESSION['refresh_wood'] = date_format($date, 'U'); 
-	            $_SESSION['refresh_water'] = date_format($date, 'U'); 
-	            $_SESSION['refresh_food'] = date_format($date, 'U'); 
+	        	$UserModel = new UserModel();
+	        	$id_user = $_SESSION["user"]["id"];
+
+	            $_SESSION['refresh'] = $UserModel->selectTimeBDD($id_user); 
 	        }
 	    }
 	}
