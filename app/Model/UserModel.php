@@ -98,7 +98,7 @@ class UserModel extends UsersModel
     	
     }
 
-    function refreshBuildings($wood_farm, $water_farm,  $food_farm, $wood_stock, $water_stock, $food_stock, $cabanon, $radio, $wall, $camp, $id_user){
+    function refreshAllBuildings($wood_farm, $water_farm,  $food_farm, $wood_stock, $water_stock, $food_stock, $cabanon, $radio, $wall, $camp, $id_user){
 
     	$query = $this->dbh->prepare("
     		UPDATE buildings b 
@@ -125,6 +125,42 @@ class UserModel extends UsersModel
 
         return $query->rowCount() > 0 ? true : false;
     	
+    }
+
+    function refreshBuildings($nom_bdd, $nom_jointure, $valeur, $id_user){
+
+    	$query = $this->dbh->prepare("
+    		UPDATE buildings b 
+			SET $nom_bdd = $nom_jointure
+			WHERE b.id_user = :id_user
+    	");
+
+        $query->bindParam($nom_jointure, $valeur, \PDO::PARAM_INT);
+        
+        $query->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
+
+        $query->execute();
+
+        return $query->rowCount() > 0 ? true : false;
+    	
+    }
+
+    function refreshBDD (){
+    	$query = $this->dbh->prepare("
+    		UPDATE users u  
+			SET wood = :wood, water = :water, food = :food 
+			WHERE r.id_user = :id_user
+    	");
+
+        $query->bindParam(':wood', $wood, \PDO::PARAM_INT);
+        $query->bindParam(':water', $water, \PDO::PARAM_INT);
+        $query->bindParam(':food', $food, \PDO::PARAM_INT);
+
+        $query->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
+
+        $query->execute();
+
+        return $query->rowCount() > 0 ? true : false;
     }
 
 }
