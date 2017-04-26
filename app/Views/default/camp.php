@@ -7,7 +7,7 @@
         <!--Camp -->
         <div class="col-md-12">
             <h1 class="text-center">Campement</h1>
-            <img class="d-flex mr-3" src="assets/img/LOGO_Campeurs_VS_Zombies.png" alt="Generic placeholder image" id="camp">
+            <img class="d-flex img-responsive mr-3" src="assets/img/LOGO_Campeurs_VS_Zombies.png" alt="Generic placeholder image" id="camp">
             <div>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>1])?>">Voir</a>
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>1])?>">Construire</a>
@@ -39,7 +39,7 @@
 
                 <p>Prix : <?php echo $ferme->GetPrixBois(); ?> Bois <?php echo $ferme->GetPrixNourriture(); ?> nourriture</p>
 
-               
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>3])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>3])?>">Construire</a>
@@ -56,7 +56,7 @@
 
                 <p>Prix : <?php echo $puit->GetPrixBois(); ?> bois <?php echo $puit->GetPrixNourriture(); ?> nourriture <?php echo $puit->GetPrixEau(); ?> eau</p>
 
-                
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>4])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>4])?>" onclick="loadBar()">Construire</a>
@@ -78,7 +78,7 @@
 
                 <p>Prix : <?php echo $hangar->GetPrixBois(); ?></p>
 
-               
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>5])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>5])?>">Construire</a>
@@ -134,7 +134,7 @@
 
                 <p>Prix : <?php echo $cabane->GetPrixBois(); ?> bois <?php echo $cabane->GetPrixNourriture(); ?> nourriture <?php echo $cabane->GetPrixEau(); ?> eau</p>
 
-           
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>8])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>8])?>">Construire</a>
@@ -152,7 +152,7 @@
 
                 <p>Prix : <?php echo $radio->GetPrixBois(); ?> bois <?php echo $radio->GetPrixNourriture(); ?> nourriture <?php echo $radio->GetPrixEau(); ?> eau</p>
 
-               
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>9])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>9])?>">Construire</a>
@@ -170,7 +170,7 @@
 
                 <p>Prix : <?php echo $mur->GetPrixBois(); ?> bois <?php echo $mur->GetPrixNourriture(); ?> nourriture <?php echo $mur->GetPrixEau(); ?> eau</p>
 
-           
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>10])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>10])?>">Construire</a>

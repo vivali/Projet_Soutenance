@@ -11,22 +11,23 @@ class Puit
 {
 	private $nom = "water_farm";
 	private $RatioProd = 1.2;
-	private $ProductionBase = 400;
+	private $ProductionBase = 0;
 	private $ProductionCourante;
 
 	private $RatioPrix = 1.5;
-	private $PrixBoisBase = 300;
+	private $PrixBoisBase = 225;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 150;
+	private $PrixNourritureBase = 75;
 	private $PrixNourritureCourant;
 	private $PrixEauBase = 50;
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 21;
+	private $TempsBase = 43;
 	private $TempsCourant;
 
-	private $Niveau = 1;
+	private $Niveau = 0;
+	private $Vitesse = 1;
 
 	public function __construct () {
 		$this->Niveau = $_SESSION["buildings"]->water_farm;
@@ -36,11 +37,22 @@ class Puit
 	}
 
 	public function SetProd () {
-		if ($this->Niveau != 0) {
-			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
+		$niveau = ($this->Niveau < 20) ? $this->Niveau : 20; 
+		if ($niveau != 0) {
+
+		$resultat = 10 * $niveau;
+		$resultat *= (1.1 + pow(($niveau / 1000), $niveau));
+		$resultat *= (1 + ($niveau / 100));
+		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
+		$resultat = $resultat / 3600;
+		var_dump($resultat * 3600);
+		var_dump($resultat);
+
+		$this->ProductionCourante = $resultat;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
+
 	}
 
 	public function GetProd () {

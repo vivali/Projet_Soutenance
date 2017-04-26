@@ -275,7 +275,7 @@ class UserController extends Controller
             }
 
             if ( !ctype_alnum($password) ) {
-                $errors['password'] = "Le mot de passe doit contenir au moins un chiffre et une lettre, les carractéres spéciaux ne sont pas accepter.";
+                $errors['password'] = "Le mot de passe doit contenir au moins un chiffre et une lettre, les caractéres spéciaux ne sont pas accepter.";
             }
 
             if ( $password !== $cfpassword ) {
@@ -324,9 +324,9 @@ class UserController extends Controller
                 $RessourcesModel->insert([
                     'id_user' => $id_user,
                     'camper' => '1',
-                    'food' => '3000',
-                    'wood' => '5000',
-                    'water' => '1000'
+                    'food' => '500',
+                    'wood' => '1000',
+                    'water' => '100'
 
                 ]);
                 $messages = 'Vous êtes bien inscrit.';
@@ -451,8 +451,8 @@ class UserController extends Controller
 		$UserModel = new UserModel();
 
 		$id_user = $_SESSION["user"]["id"];
-		
-		
+
+
 		$UserModel->refreshTimeBDD("refresh_wood", ":"."refresh_wood", $_SESSION["refresh"]->refresh_wood, $id_user);
 		$UserModel->refreshTimeBDD("refresh_water", ":"."refresh_water", $_SESSION["refresh"]->refresh_water, $id_user);
 		$UserModel->refreshTimeBDD("refresh_food", ":"."refresh_food", $_SESSION["refresh"]->refresh_food, $id_user);
