@@ -54,6 +54,7 @@ class UserController extends Controller
 			]);
 		}
 	}
+
 	public function reset() {
 		$DefaultModel = new DefaultModel();
 		$BuildingsModel = new BuildingsModel();
@@ -80,22 +81,48 @@ class UserController extends Controller
 					if ($res) {
 						// Si on trouve l'utilisateur
 						// On lui genere une clé unique valable 48h max
-						$demain = date('m').( date('d') + 1 );
-						$encrypt = $demain.md5(( 1290*3+$res['id']) );
-						echo "Clé : ";
-						echo ($demain.( 1290*3+$res['id']) ) . "<br>";
-						echo "Token : " . $encrypt."<br>";
+						$tomorrow = date('m').( date('d') + 1 );
+						$encrypt = $tomorrow.md5(( 1290*3+$res['id']) );
 
+						//
+						// echo "Clé : " . $tomorrow.( 1290*3+$res['id']) . "<br>";
+						// echo "Token : " . $encrypt."<br>";
+
+						// Ajout du token dans la bdd
 						$newData['token'] = $encrypt;
 						$user_manager->update($newData, $res['id']);
-						$url = $_SERVER['HTTP_HOST'];
-						$url .= $this->generateUrl('user_reset');
+
+						// Préparation du mail :
+						// Création de l'url de reset password
+						$url = $_SERVER['HTTP_REFERER'];
 						$url .= "?token=".$encrypt;
-						var_dump($url);
-						$directUrl = "http://soutenance.local/reset?token=".$encrypt;
+
+						// Contenu du mail
+						$message = "
+						<html>
+						    <head>
+						        <title>Créez votre nouveau mot de passe</title>
+						    </head>
+						    <body>
+						          <p>Bonjour ".$res['username'].",</p>
+
+								<p>Vous avez demandé un nouveau mot de passe afin d'accéder à votre compte.</p>
+
+								<p>Pour définir votre nouveau mot de passe, cliquez sur ce lien</p>
+								<p><a href='".$url."'>".$url."</a></p>
+
+								<p>Pour des raisons de sécurité, ce lien de changement de mot de passe expirera dans 2 jours (ou après que vous ayez créé votre nouveau mot de passe).</p>
+						    </body>
+						</html>";
+
+						// Header du mail
+						$headers  = 'MIME-Version: 1.0' . "\r\n";
+						$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+						// Envoie du mail
+						mail('philippe.gruet@outlook.fr', 'Créez votre nouveau mot de passe', $message, $headers);
 
 						$this->show('user/reset', [
-							'messages' => $message,
 							'display' => "mailSent",
 							'mail' => $url,
 						]);
@@ -138,11 +165,11 @@ class UserController extends Controller
 									$user = $value;
 								}
 							}
-
+							// Si l'utilisateur a été trouvé
 							if (isset($user)) {
 								// Token validity
-								echo substr($user['token'], 0, 4);
-								echo date('md');
+								// echo substr($user['token'], 0, 4);
+								// echo date('md');
 
 								// On détruit le token
 								$newData['token'] = "";
@@ -150,12 +177,27 @@ class UserController extends Controller
 								// Si le token a expiré
 								if (substr($user['token'], 0, 4) < date('md')) {
 									unset($newData['password']);
-									echo "Token expired";
+
+									// On supprime le token sans changer le mot de passe
+									$user_manager->update($newData, $user['id']);
+									$this->show('user/reset', [
+										'DefaultModel' => $DefaultModel,
+										'display' => "error",
+										'message' => "Le lien n'est plus valide.",
+									]);
+								} else {
+									// On modifie le mot de passe
+									$user_manager->update($newData, $user['id']);
+									$this->redirectToRoute('user_login');
+									echo "Modif. password";
 								}
-								// Update user password
-								$user_manager->update($newData, $user['id']);
-								$this->redirectToRoute('user_login');
-								echo "Modif. password";
+							} else {
+								// Si on n'a pas trouvé l'utilisateur
+								$this->show('user/reset', [
+									'DefaultModel' => $DefaultModel,
+									'display' => "error",
+									'message' => "Le lien n'est pas valide.",
+								]);
 							}
 						} else {
 							$message['error'] = "Mot de passe incorect";
@@ -171,7 +213,11 @@ class UserController extends Controller
 				}
 			}
 		}
-		echo "Il y a eu des erreurs";
+		$this->show('user/reset', [
+			'DefaultModel' => $DefaultModel,
+			'display' => "error",
+			'message' => "Le lien n'est pas valide.",
+		]);
 	}
 
 

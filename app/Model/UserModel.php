@@ -98,7 +98,9 @@ class UserModel extends UsersModel
     	
     }
 
+
     function refreshAllBuildings($wood_farm, $water_farm,  $food_farm, $wood_stock, $water_stock, $food_stock, $cabanon, $radio, $wall, $camp, $id_user){
+
 
     	$query = $this->dbh->prepare("
     		UPDATE buildings b 

@@ -24,8 +24,12 @@
 
 <?php elseif ($display == "mailSent"): ?>
     <!-- Mail envoyé -->
-    <h2>Un email de réinitialisation vous a été envoyé.</h2>
-    <a href="<?=$mail?>"><?= $mail ?></a>
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center">Un email de réinitialisation vous a été envoyé.</h2>
+            <a href="<?php // echo $mail?>"><?php // echo $mail ?></a>
+        </div>
+    </div>
 
 
 <?php elseif ($display == "password"): ?>
@@ -53,11 +57,20 @@
             </div>
         </div>
     </div>
+
+
+<?php elseif ($display == "error"): ?>
+    <div class="container">
+        <div class="row">
+            <h2 class="text-center"><?= $message ?></h2>
+        </div>
+    </div>
 <?php endif; ?>
 
 
-<?php var_dump($_GET); ?>
-<?php var_dump($_POST); ?>
-<?php var_dump($_SERVER); ?>
-<?= $w_current_route ?>
+
+
+<?php // var_dump($_GET); ?>
+<?php // var_dump($_POST); ?>
+<?php // var_dump($_SERVER); ?>
 <?php $this->stop('main_content') ?>

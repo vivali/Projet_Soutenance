@@ -35,19 +35,24 @@ class DefaultModel extends \W\Model\Model {
 	            $refresh_wood1 = $_SESSION["refresh_wood"];
 	            $refresh_wood2 = date_format($date, 'U');
 	            $timer_wood = $refresh_wood2 - $refresh_wood1;
+
 	            // $timer_wood = 500000;
 
 	            // Timmer Water
 	            $refresh_water1 = $_SESSION["refresh_water"];
 	            $refresh_water2 = date_format($date, 'U');
 	            $timer_water = $refresh_water2 - $refresh_water1;
+
 	            // $timer_water = 50000;
+
 
 	            // Timmer Food
 	            $refresh_food1 = $_SESSION["refresh_food"];
 	            $refresh_food2 = date_format($date, 'U');
 	            $timer_food = $refresh_food2 - $refresh_food1;
+
 	            // $timer_food = 50000;
+
 
 	         	
 	            echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
