@@ -9,11 +9,11 @@ use \Model\UserModel;
 class Ferme
 {
 	private $nom = "food_farm";
-	private $RatioProd = 2.4;
+	private $RatioProd = 1.3;
 	private $ProductionBase = 500;
 	private $ProductionCourante;
 
-	private $RatioPrix = 2;
+	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 240;
 	private $PrixBoisCourant;
 	private $PrixNourritureBase = 120;
