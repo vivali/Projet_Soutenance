@@ -46,11 +46,11 @@ class DefaultModel extends \W\Model\Model {
 	            $refresh_food2 = date_format($date, 'U');
 	            $timer_food = $refresh_food2 - $refresh_food1;
 
-	            // $timer = 60;
-	         
+	         	
 	            echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
 	            echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
 	            echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
+
 	            $id_user = $_SESSION["user"]["id"];
 	            $wood = &$_SESSION["ressources"]->wood;
 	            $water = &$_SESSION["ressources"]->water;
@@ -63,10 +63,7 @@ class DefaultModel extends \W\Model\Model {
 	            	$final_wood = $_SESSION["calcul_wood"];
 	            	$wood += $final_wood;
 	            	$_SESSION["refresh_wood"] = $refresh_wood2;
-	            } 
-	         //    else {
-	         //    	$final_wood = round(($bucheron->GetProd()) * $timer);
-	        	// }
+	            }
 
 	        	// Calcul Water
 	        	$_SESSION["calcul_water"] = round(($puit->GetProd()) * $timer_water);
@@ -76,9 +73,6 @@ class DefaultModel extends \W\Model\Model {
 	            	$water += $final_water;
 	            	$_SESSION["refresh_water"] = $refresh_water2;
 	            } 
-	         //    else {
-	         //    	$final_water = round(($ferme->GetProd()) * $timer);
-	        	// }
 
 	        	// Calcul Food
 	        	$_SESSION["calcul_food"] = round(($ferme->GetProd()) * $timer_food);
@@ -88,14 +82,11 @@ class DefaultModel extends \W\Model\Model {
 	            	$food += $final_food;
 	            	$_SESSION["refresh_food"] = $refresh_food2;
 	            } 
-	         //    else {
-	         //    	$final_food = round(($puit->GetProd()) * $timer);
-	        	// }
 	        	// var_dump( $bucheron->GetProd());
-	        	var_dump( $ferme->GetProd());
+	        	// var_dump( $ferme->GetProd());
 	        	// var_dump( $puit->GetProd());
 	        	// var_dump( $_SESSION["calcul_wood"]);
-	        	// var_dump( $_SESSION["calcul_food"]);
+	        	// var_dump( $_SESSION["calcu
 	        	// var_dump( $_SESSION["calcul_water"]);
 
 	        	echo "Vous avez gagné ".$final_wood." bois.<br>";
