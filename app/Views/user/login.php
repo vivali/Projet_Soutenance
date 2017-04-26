@@ -19,9 +19,8 @@
                 <?php endforeach; ?>
                 <button class="btn btn-info">Se connecter</button>
             </form>
-            <strong><a href="#" title="forgetpassword">Mot de passe oublié ?</a></strong>
+            <strong><a href="<?= $this->url('user_reset') ?>" title="forgetpassword">Mot de passe oublié ?</a></strong>
         </div>
     </div>
 </div>
-
 <?php $this->stop('main_content') ?>

@@ -9,6 +9,7 @@ use \Model\UserModel;
 */
 class Puit
 {
+	private $nom = "water_farm";
 	private $RatioProd = 1.6;
 	private $ProductionBase = 80;
 	private $ProductionCourante;
@@ -96,9 +97,14 @@ class Puit
 			// Requête augmentation du niveau en bdd !
 			$UserModel = new UserModel();
 			$this->Niveau = $this->Niveau + 1;
-			// Requête suppression des ressources en fonction du prix
+
 			$id_user = $_SESSION["user"]["id"];
 
+			$UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
+			$nom = $this->nom;
+			$_SESSION["buildings"]->$nom = $this->Niveau;
+
+			// Requête suppression des ressources en fonction du prix
 			$wood 	= &$_SESSION["ressources"]->wood;
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;

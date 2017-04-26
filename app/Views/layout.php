@@ -11,24 +11,37 @@
 	<!--<img src="../public/assets/img/LOGO_Campeurs_VS_Zombies.png" alt="logo" class="img-responsive" id="logo">-->
 	</header>
 	<nav class="navbar navbar-inverse">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<?php echo $this->url('user_login'); ?>"><?php echo $w_site_name; ?></a>
-			</div>
-			<div class="collapse navbar-collapse" id="menu">
-				<ul class="nav navbar-nav">
-					<?php if ($w_user): ?>
-						<li <?= ($w_current_route == 'default_camp') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_camp'); ?>">Accueil</a></li>
-					<?php else: ?>
-						<li <?= ($w_current_route == 'user_login') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_login'); ?>">Accueil</a></li>
-					<?php endif; ?>
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="<?php echo $this->url('user_login'); ?>"><?php echo $w_site_name; ?></a>
+		</div>
+		<div class="collapse navbar-collapse" id="menu">
+			<ul class="nav navbar-nav">
+			<?php if ($w_user): ?>
+				<!-- Utilisateur connecté -->
+				<li <?= ($w_current_route == 'default_camp') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_camp'); ?>">Accueil</a></li>
+			<?php else: ?>
+				<!-- Utilisateur non connecté -->
+				<li <?= ($w_current_route == 'user_login') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_login'); ?>">Accueil</a></li>
+			<?php endif; ?>
+			<li <?= ($w_current_route == 'default_classement') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_classement',['page'=>1]); ?>">Classement</a></li>
+			</ul>
 
+			<?php if ($w_user) { ?>
+			<!-- Affichage des ressources -->
+			<ul class="nav navbar-nav text-center">
+				<li><a href="<?=$this->url('default_building',['idBuilding'=>1])?>">Bois : <?php echo $_SESSION["ressources"]->wood; ?> </a></li>
+				<li><a href="<?=$this->url('default_building',['idBuilding'=>2])?>">Nourriture : <?php echo $_SESSION["ressources"]->food; ?> </a></li>
+				<li><a href="<?=$this->url('default_building',['idBuilding'=>3])?>">Eau : <?php echo $_SESSION["ressources"]->water; ?></a></li>
+			</ul>
+			<?php } ?>
 
+<<<<<<< HEAD
 				</ul>
 				<?php if ($w_user) { ?>
 				<ul class="nav navbar-nav">
@@ -49,6 +62,19 @@
 					<?php } ?>
 				</ul>
 			</div>
+=======
+			<ul class="nav navbar-nav navbar-right">
+			<?php if ($w_user) { // si l'utilisateur est connecté ?>
+				<li <?= ($w_current_route == 'default_camp') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_camp'); ?>">Camp</a></li>
+				<li <?= ($w_current_route == 'user_profil') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_profil'); ?>">Profil</a></li>
+				<li <?= ($w_current_route == 'default_tchat') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('default_tchat'); ?>">Tchat</a></li>
+				<li <?= ($w_current_route == 'user_logout') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_logout'); ?>">Déconnexion</a></li>
+			<?php } else { ?>
+				<li <?= ($w_current_route == 'user_register') ? 'class="active"' : ''; ?>><a href="<?php echo $this->url('user_register'); ?>">Inscription</a></li>
+			<?php } ?>
+			</ul>
+		</div>
+>>>>>>> 9aec4fb1c98ca78e6d5653ed6d8a6c62e8677ec6
 	</nav>
 <div class="container">
 		<section>
