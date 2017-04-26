@@ -8,6 +8,7 @@ use \Model\UserModel;
 use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
+use \Model\ConstructModel;
 
 class UserController extends Controller
 {
@@ -34,12 +35,14 @@ class UserController extends Controller
 
 					$user = $UserModel->find($user_id);
 					$buildings = $UserModel->getBTable($user_id);
+					$construct = $UserModel->getCTable($user_id);
 					$ressources = $UserModel->getRTable($user_id);
 					$user_manager = new UserModel();
 
 					$user = $user_manager->find($user_id);
 					$auth_manager->logUserIn($user);
 					$_SESSION["buildings"] = $buildings;
+					$_SESSION["construct"] = $construct;
 					$_SESSION["ressources"] = $ressources;
 
 					$this->redirectToRoute('default_camp');
@@ -227,6 +230,7 @@ class UserController extends Controller
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
 		$RessourcesModel = new RessourcesModel();
+		$ConstructModel = new ConstructModel();
 		$messages = '';
         $username = '';
         $email = '';
@@ -298,9 +302,9 @@ class UserController extends Controller
                     'date_last_connexion' => date_format($date, 'U')
                 ]);
                 $id_user = $UserModel->getUserByUsernameOrEmail($email)["id"];
-                var_dump($id_user);
                 $BuildingsModel->insert([
                     'id_user' => $id_user,
+                    'rank' => '0',
                     'camp' => '0',
                     'food_farm' => '0',
                     'wood_farm' => '0',
@@ -311,6 +315,10 @@ class UserController extends Controller
                     'water_stock' => '0',
                     'wall' => '0',
                     'radio' => '0'
+
+                ]);
+                $ConstructModel->insert([
+                    'id_user' => $id_user
 
                 ]);
                 $RessourcesModel->insert([
@@ -443,19 +451,16 @@ class UserController extends Controller
 		$UserModel = new UserModel();
 
 		$id_user = $_SESSION["user"]["id"];
-
+		
+		
 		$UserModel->refreshTimeBDD("refresh_wood", ":"."refresh_wood", $_SESSION["refresh"]->refresh_wood, $id_user);
 		$UserModel->refreshTimeBDD("refresh_water", ":"."refresh_water", $_SESSION["refresh"]->refresh_water, $id_user);
 		$UserModel->refreshTimeBDD("refresh_food", ":"."refresh_food", $_SESSION["refresh"]->refresh_food, $id_user);
 
         $auth_manager->logUserOut();
 
-        unset($_SESSION['buildings']);
-        unset($_SESSION['ressources']);
-        unset($_SESSION["refresh"]);
-        unset($_SESSION['calcul_wood']);
-        unset($_SESSION['calcul_water']);
-        unset($_SESSION['calcul_food']);
+        $_SESSION = array();
+        session_destroy();
 
         $this->redirectToRoute('user_login');
 	}
