@@ -97,6 +97,7 @@ class Puit
 			// Requête augmentation du niveau en bdd !
 			$UserModel = new UserModel();
 			$this->Niveau = $this->Niveau + 1;
+
 			$id_user = $_SESSION["user"]["id"];
 
 			$UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
@@ -104,8 +105,6 @@ class Puit
 			$_SESSION["buildings"]->$nom = $this->Niveau;
 
 			// Requête suppression des ressources en fonction du prix
-			
-
 			$wood 	= &$_SESSION["ressources"]->wood;
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;
