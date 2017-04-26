@@ -11,12 +11,21 @@ class AdminController extends Controller
 	public function users()
 	{
 		$this->allowTo('1');
-		$this->show('admin/users');
+		$user_manager = new UserModel();
+
+		$users = $user_manager->findAll();
+
+
+		$this->show('admin/users', [
+			'users' => $users,
+		]);
 	}
 
 	public function deleteUser($id)
 	{
 		$this->allowTo('1');
+		$user_manager = new UserModel();
+		$user = $user_manager->find($id);
 
 		$choice = ( isset($_POST['choice']) ) ? $_POST['choice'] : "";
 		switch ($choice) {
@@ -33,7 +42,10 @@ class AdminController extends Controller
 			default:
 				break;
 		}
-		$this->show('admin/deleteUser');
+		var_dump($_POST);
+		$this->show('admin/deleteUser', [
+			'user' => $user
+		]);
 	}
 
 

@@ -53,8 +53,14 @@ class DefaultController extends Controller
 	public function classement()
 	{
 		$DefaultModel = new DefaultModel();
+		$user_manager = new UserModel();
+
+		$users = $user_manager->findAllJoinCampers("camper", "DESC");
+
 		$DefaultModel->refreshTimer();
-		$this->show('default/classement');
+		$this->show('default/classement', [
+			'users' => $users,
+		]);
 	}
 
 	public function tchat()
