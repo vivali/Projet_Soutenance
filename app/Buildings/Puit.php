@@ -16,7 +16,7 @@ class Puit
 
 	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 225;
-	private $PrixBoisCourant;
+	private $PrixBoisCourant; 
 	private $PrixNourritureBase = 75;
 	private $PrixNourritureCourant;
 	private $PrixEauBase = 50;
@@ -45,8 +45,6 @@ class Puit
 		$resultat *= (1 + ($niveau / 100));
 		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
 		$resultat = $resultat / 3600;
-		var_dump($resultat * 3600);
-		var_dump($resultat);
 
 		$this->ProductionCourante = $resultat;
 		} else {
