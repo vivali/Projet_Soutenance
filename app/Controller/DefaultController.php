@@ -121,9 +121,6 @@ class DefaultController extends Controller
 		}
 
 
-
-
-
 		$this->redirectToRoute('default_camp');
 	}
 

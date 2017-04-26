@@ -5,6 +5,7 @@ namespace Controller;
 use \W\Controller\Controller;
 use \Model\AdminModel;
 use \Model\UserModel;
+use \Model\ParamModel;
 
 class AdminController extends Controller
 {
@@ -65,8 +66,25 @@ class AdminController extends Controller
 
 	public function parameters()
 	{
+		$param_manager = new ParamModel();
+		$param = $param_manager->findAll();
+		var_dump($_POST);
+
+		if (!empty($_POST)) {
+			// Changement de la vitesse global du jeu
+			if ( isset($_POST['speed']) && $_POST['speed'] > 0 && $_POST['speed'] < 11 ) {
+				$param_manager->update(['speed'=>$_POST['speed']], $param[0]['id']);
+				// $param = $param_manager->findAll();
+				// var_dump($param);
+			}
+
+		}
+		// Refresh params
+		$param = $param_manager->findAll();
 		$this->allowTo('1');
-		$this->show('admin/parameters');
+		$this->show('admin/parameters', [
+			'param' => $param[0],
+		]);
 	}
 
 }
