@@ -4,7 +4,7 @@ namespace Buildings;
 
 use \Model\UserModel;
 /**
-*
+*  
 */
 class Bucheron
 {
