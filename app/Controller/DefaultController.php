@@ -12,7 +12,7 @@ use \Model\RessourcesModel;
 class DefaultController extends Controller
 {
 	public function camp()
-	{	
+	{
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		spl_autoload_register(function($class) {
@@ -53,8 +53,21 @@ class DefaultController extends Controller
 	public function classement()
 	{
 		$DefaultModel = new DefaultModel();
+		$user_manager = new UserModel();
+
+		$users = $user_manager->findAllJoinCampers("camper", "DESC");
+
 		$DefaultModel->refreshTimer();
-		$this->show('default/classement');
+		$this->show('default/classement', [
+			'users' => $users,
+		]);
+	}
+
+	public function tchat()
+	{
+		$DefaultModel = new DefaultModel();
+		$DefaultModel->refreshTimer();
+		$this->show('default/tchat');
 	}
 
 	public function upgrade ($idBuilding) {
@@ -108,7 +121,7 @@ class DefaultController extends Controller
 		}
 
 
-		
+
 
 
 		$this->redirectToRoute('default_camp');

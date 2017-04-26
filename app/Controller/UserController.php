@@ -16,6 +16,7 @@ class UserController extends Controller
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
 		$RessourcesModel = new RessourcesModel();
+		// var_dump($message);
 		// Redirection si l'utilisateur est deja connecté
 		if ($this->getUser()) {
 			$this->redirectToRoute('default_camp');
@@ -52,6 +53,171 @@ class UserController extends Controller
 				'username' => $username,
 			]);
 		}
+	}
+
+	public function reset() {
+		$DefaultModel = new DefaultModel();
+		$BuildingsModel = new BuildingsModel();
+		$RessourcesModel = new RessourcesModel();
+		// Redirection si l'utilisateur est deja connecté
+		if ($this->getUser()) {
+			$this->redirectToRoute('user_update');
+		} else {
+			$message = [];
+			$user_manager = new UserModel();
+
+			// S'il n'y a pas de token
+			if ( empty($_GET) ) {
+				// On demande son identifiant à l'utilisateur
+				if ( empty($_POST) ) {
+					$this->show('user/reset', [
+						'messages' => $message,
+						'display' => "mail",
+					]);
+				} else {
+					// Le login a été rentré, on cherche son mail
+					$res = $user_manager->getUserByUsernameOrEmail($_POST["login"]);
+
+					if ($res) {
+						// Si on trouve l'utilisateur
+						// On lui genere une clé unique valable 48h max
+						$tomorrow = date('m').( date('d') + 1 );
+						$encrypt = $tomorrow.md5(( 1290*3+$res['id']) );
+
+						//
+						// echo "Clé : " . $tomorrow.( 1290*3+$res['id']) . "<br>";
+						// echo "Token : " . $encrypt."<br>";
+
+						// Ajout du token dans la bdd
+						$newData['token'] = $encrypt;
+						$user_manager->update($newData, $res['id']);
+
+						// Préparation du mail :
+						// Création de l'url de reset password
+						$url = $_SERVER['HTTP_REFERER'];
+						$url .= "?token=".$encrypt;
+
+						// Contenu du mail
+						$message = "
+						<html>
+						    <head>
+						        <title>Créez votre nouveau mot de passe</title>
+						    </head>
+						    <body>
+						          <p>Bonjour ".$res['username'].",</p>
+
+								<p>Vous avez demandé un nouveau mot de passe afin d'accéder à votre compte.</p>
+
+								<p>Pour définir votre nouveau mot de passe, cliquez sur ce lien</p>
+								<p><a href='".$url."'>".$url."</a></p>
+
+								<p>Pour des raisons de sécurité, ce lien de changement de mot de passe expirera dans 2 jours (ou après que vous ayez créé votre nouveau mot de passe).</p>
+						    </body>
+						</html>";
+
+						// Header du mail
+						$headers  = 'MIME-Version: 1.0' . "\r\n";
+						$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+						// Envoie du mail
+						mail('philippe.gruet@outlook.fr', 'Créez votre nouveau mot de passe', $message, $headers);
+
+						$this->show('user/reset', [
+							'display' => "mailSent",
+							'mail' => $url,
+						]);
+					} else {
+						$this->show('user/reset', [
+							'messages' => ["Identifiant invalide"],
+							'display' => "mail",
+						]);
+					}
+				}
+
+			// Si on a un parametre dans l'url
+			} else {
+				if ( isset($_GET['token']) ) {
+					$errors = [];
+
+					// Formulaire de mot de passe envoyé
+					if ( !empty($_POST) ) {
+						$password   = trim($_POST['password']);
+						$cfpassword = trim($_POST['cfpassword']);
+						$auth_manager = new \W\Security\AuthentificationModel();
+
+						// Vérif. mot de passe
+						if ( $password !== $cfpassword ) {
+							$errors['cfpassword'] = "Les mots de passe ne correspondent pas.";
+						} elseif ( strlen($password) < 8 ) {
+							$errors['password'] = "Le mot de passe doit contenir au moins 8 caractéres.";
+						} elseif ( !ctype_alnum($password) ) {
+							$errors['password'] = "Le mot de passe doit contenir au moins un chiffre et une lettre.";
+						}
+						$newData['password'] = $auth_manager->hashPassword( $password );
+
+						// S'il n'y a pas d'erreur
+						if ( empty($errors) ) {
+							// On cherche le token dans la table users
+							$result = $user_manager->search( ['token' => $_GET['token']] );
+							foreach ($result as $value) {
+								if ($value['token'] == $_GET['token']){
+									// On récupére l'user avec le token exact
+									$user = $value;
+								}
+							}
+							// Si l'utilisateur a été trouvé
+							if (isset($user)) {
+								// Token validity
+								// echo substr($user['token'], 0, 4);
+								// echo date('md');
+
+								// On détruit le token
+								$newData['token'] = "";
+
+								// Si le token a expiré
+								if (substr($user['token'], 0, 4) < date('md')) {
+									unset($newData['password']);
+
+									// On supprime le token sans changer le mot de passe
+									$user_manager->update($newData, $user['id']);
+									$this->show('user/reset', [
+										'DefaultModel' => $DefaultModel,
+										'display' => "error",
+										'message' => "Le lien n'est plus valide.",
+									]);
+								} else {
+									// On modifie le mot de passe
+									$user_manager->update($newData, $user['id']);
+									$this->redirectToRoute('user_login');
+									echo "Modif. password";
+								}
+							} else {
+								// Si on n'a pas trouvé l'utilisateur
+								$this->show('user/reset', [
+									'DefaultModel' => $DefaultModel,
+									'display' => "error",
+									'message' => "Le lien n'est pas valide.",
+								]);
+							}
+						} else {
+							$message['error'] = "Mot de passe incorect";
+						}
+					}
+					$DefaultModel->refreshTimer();
+					$this->show('user/reset', [
+						'DefaultModel' => $DefaultModel,
+						'messages' => $message,
+						'errors' => $errors,
+						'display' => "password",
+					]);
+				}
+			}
+		}
+		$this->show('user/reset', [
+			'DefaultModel' => $DefaultModel,
+			'display' => "error",
+			'message' => "Le lien n'est pas valide.",
+		]);
 	}
 
 
@@ -118,15 +284,18 @@ class UserController extends Controller
 
             if ( empty($errors) ) {
                 $auth_manager = new AuthentificationModel(); // J'instancie le authentificationmodel qui facilite la gestion de l'authentification des utilisateurs
-
+                $date = date_create();
                 $UserModel->insert([
                     'username' => $username,
                     'email' => $email,
                     'password' => $auth_manager->hashPassword($password),
                     'birthday' => $birthday,
                     'role' => '0',
+                    'refresh_wood' => date_format($date, 'U'),
+                    'refresh_water' => date_format($date, 'U'),
+                    'refresh_food' => date_format($date, 'U'),
                     'date_create' => $date_create->format('Y-m-d H:i:s'),
-                    'date_last_connexion' => $date_last_connexion->format('Y-m-d H:i:s')
+                    'date_last_connexion' => date_format($date, 'U')
                 ]);
                 $id_user = $UserModel->getUserByUsernameOrEmail($email)["id"];
                 var_dump($id_user);
@@ -183,7 +352,7 @@ class UserController extends Controller
 	public function update() {
 
 		$DefaultModel = new DefaultModel();
-    $DefaultModel->refreshTimer();
+    	$DefaultModel->refreshTimer();
         $username = '';
         $email = '';
 		$messages = [];
@@ -271,15 +440,23 @@ class UserController extends Controller
 	public function logout()
 	{
 		$auth_manager = new \W\Security\AuthentificationModel();
+		$UserModel = new UserModel();
+
+		$id_user = $_SESSION["user"]["id"];
+
+		$UserModel->refreshTimeBDD("refresh_wood", ":"."refresh_wood", $_SESSION["refresh"]->refresh_wood, $id_user);
+		$UserModel->refreshTimeBDD("refresh_water", ":"."refresh_water", $_SESSION["refresh"]->refresh_water, $id_user);
+		$UserModel->refreshTimeBDD("refresh_food", ":"."refresh_food", $_SESSION["refresh"]->refresh_food, $id_user);
+
         $auth_manager->logUserOut();
+
         unset($_SESSION['buildings']);
         unset($_SESSION['ressources']);
-        unset($_SESSION['refresh_wood']);
-        unset($_SESSION['refresh_water']);
-        unset($_SESSION['refresh_food']);
+        unset($_SESSION["refresh"]);
         unset($_SESSION['calcul_wood']);
         unset($_SESSION['calcul_water']);
         unset($_SESSION['calcul_food']);
+
         $this->redirectToRoute('user_login');
 	}
 
