@@ -51,7 +51,8 @@
 				</ul>
 			</div>
 	</nav>
-<div class="container">
+
+	<div class="container">
 		<section>
 			<?php if ($this->section('sidebar')) { ?>
 
