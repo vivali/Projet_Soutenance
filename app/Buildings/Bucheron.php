@@ -9,11 +9,11 @@ use \Model\UserModel;
 class Bucheron
 {
 	private $nom = "wood_farm";
-	private $RatioProd = 2.5;
+	private $RatioProd = 1.4;
 	private $ProductionBase = 600;
 	private $ProductionCourante;
 	
-	private $RatioPrix = 2;
+	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 200;
 	private $PrixBoisCourant;
 

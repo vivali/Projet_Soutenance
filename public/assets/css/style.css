@@ -45,3 +45,13 @@ li{
 p{
 	color:greenyellow;
 }
+
+img {
+	width: 360px;
+	height: 360px;
+}
+
+#camp {
+	width: 1170px;
+	height: 500px;
+}
