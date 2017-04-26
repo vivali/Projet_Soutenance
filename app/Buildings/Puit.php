@@ -10,11 +10,11 @@ use \Model\UserModel;
 class Puit
 {
 	private $nom = "water_farm";
-	private $RatioProd = 2.3;
+	private $RatioProd = 1.2;
 	private $ProductionBase = 400;
 	private $ProductionCourante;
 
-	private $RatioPrix = 2;
+	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 300;
 	private $PrixBoisCourant;
 	private $PrixNourritureBase = 150;

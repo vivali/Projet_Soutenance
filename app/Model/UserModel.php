@@ -48,6 +48,21 @@ class UserModel extends UsersModel
 
 	    return $query->fetch(\PDO::FETCH_OBJ);
     }
+
+    function getCTable($id_user){
+	    $query = $this->dbh->prepare("
+	    	SELECT c.*
+			FROM users u
+			INNER JOIN construct c
+			ON u.id = c.id_user
+			WHERE u.id = :id_user
+		");
+	    $query->bindValue(":id_user", $id_user, \PDO::PARAM_INT);
+	    $query->execute();
+
+	    return $query->fetch(\PDO::FETCH_OBJ);
+    }
+
     function getBLevel($id_user){
 	    $query = $this->dbh->prepare("
 	    	SELECT b.*
