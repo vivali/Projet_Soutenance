@@ -5,7 +5,11 @@
     <div class="col-md-8 col-md-offset-4">
 
         <h2 class="text-center">Changer les paramètres du serveur</h2><br>
+        <form method="POST">
             <div class="form-group">
+                <label for="speed">Vitesse du jeu <small>(entre 1 et 10)</small> :</label>
+                <div>
+                    <input type="text" id="speed" name="speed" class="form-control" placeholder="<?= $param['speed'] ?>">
                 </div>
             </div><br>
 
