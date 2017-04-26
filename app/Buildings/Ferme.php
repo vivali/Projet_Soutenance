@@ -9,21 +9,21 @@ use \Model\UserModel;
 class Ferme
 {
 	private $nom = "food_farm";
-	private $RatioProd = 1.3;
-	private $ProductionBase = 500;
+	private $ProductionBase = 100;
 	private $ProductionCourante;
 
 	private $RatioPrix = 1.5;
-	private $PrixBoisBase = 240;
+	private $PrixBoisBase = 60;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 120;
+	private $PrixNourritureBase = 25;
 	private $PrixNourritureCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 6;
+	private $TempsBase = 12;
 	private $TempsCourant;
 
 	private $Niveau = 0;
+	private $Vitesse = 1;
 
 	public function __construct () {
 		$this->Niveau = $_SESSION["buildings"]->food_farm;
@@ -33,11 +33,22 @@ class Ferme
 	}
 
 	public function SetProd () {
-		if ($this->Niveau != 0) {
-			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
+		$niveau = ($this->Niveau < 20) ? $this->Niveau : 20; 
+		if ($niveau != 0) {
+
+		$resultat = 20 * $niveau;
+		$resultat *= (1.1 + pow(($niveau / 1000), $niveau));
+		$resultat *= (1 + ($niveau / 100));
+		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
+		$resultat = $resultat / 3600;
+		var_dump($resultat * 3600);
+		var_dump($resultat);
+
+		$this->ProductionCourante = $resultat;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
+
 	}
 
 	public function GetProd () {
