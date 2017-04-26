@@ -23,14 +23,14 @@ class DefaultModel extends \W\Model\Model {
 	function refreshTimer() {
 		if (isset($_SESSION["user"])) {
 			$date = date_create();
-	        if (isset($_SESSION["refresh_wood"]) || isset($_SESSION["refresh_water"]) || isset($_SESSION["refresh_food"])){
+	        if (isset($_SESSION["refresh"])){
 	        	
 				$bucheron = new \Buildings\Bucheron();
 				$ferme = new \Buildings\Ferme();
 				$puit = new \Buildings\Puit();
 
 	        	$UserModel = new UserModel();
-				var_dump($UserModel->selectTimeBDD($_SESSION["user"]["id"]));
+				
 	            // Timmer Wood
 	            $refresh_wood1 = $_SESSION["refresh"]->refresh_wood;
 	            $refresh_wood2 = date_format($date, 'U');
@@ -110,7 +110,6 @@ class DefaultModel extends \W\Model\Model {
 	        else {
 	        	$UserModel = new UserModel();
 	        	$id_user = $_SESSION["user"]["id"];
-	        	unset($_SESSION['refresh']);
 
 	            $_SESSION['refresh'] = $UserModel->selectTimeBDD($id_user); 
 	        }
