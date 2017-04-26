@@ -8,6 +8,7 @@
 		['GET', '/profil', 				'User#profil', 'user_profil'],
 		['GET|POST', '/profil/update',  'User#update', 'user_update'],
 		['GET', '/logout', 				'User#logout', 'user_logout'],
+		['GET|POST', '/reset', 			'User#reset', 'user_reset'],
 
 		// Classement
 		['GET', '/classement/[i:page]',	'Default#classement', 'default_classement'],

@@ -28,7 +28,7 @@
 
 				</ul>
 				<?php if ($w_user) { ?>
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav text-center">
 					<li><a href="<?=$this->url('default_building',['idBuilding'=>1])?>">Bois : <?php echo $_SESSION["ressources"]->wood; ?> </a></li>
 					<li><a href="<?=$this->url('default_building',['idBuilding'=>2])?>">Nourriture : <?php echo $_SESSION["ressources"]->food; ?> </a></li>
 					<li><a href="<?=$this->url('default_building',['idBuilding'=>3])?>">Eau : <?php echo $_SESSION["ressources"]->water; ?></a></li>

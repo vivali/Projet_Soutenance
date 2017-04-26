@@ -16,6 +16,7 @@ class UserController extends Controller
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
 		$RessourcesModel = new RessourcesModel();
+		// var_dump($message);
 		// Redirection si l'utilisateur est deja connecté
 		if ($this->getUser()) {
 			$this->redirectToRoute('default_camp');
@@ -52,6 +53,125 @@ class UserController extends Controller
 				'username' => $username,
 			]);
 		}
+	}
+	public function reset() {
+		$DefaultModel = new DefaultModel();
+		$BuildingsModel = new BuildingsModel();
+		$RessourcesModel = new RessourcesModel();
+		// Redirection si l'utilisateur est deja connecté
+		if ($this->getUser()) {
+			$this->redirectToRoute('user_update');
+		} else {
+			$message = [];
+			$user_manager = new UserModel();
+
+			// S'il n'y a pas de token
+			if ( empty($_GET) ) {
+				// On demande son identifiant à l'utilisateur
+				if ( empty($_POST) ) {
+					$this->show('user/reset', [
+						'messages' => $message,
+						'display' => "mail",
+					]);
+				} else {
+					// Le login a été rentré, on cherche son mail
+					$res = $user_manager->getUserByUsernameOrEmail($_POST["login"]);
+
+					if ($res) {
+						// Si on trouve l'utilisateur
+						// On lui genere une clé unique valable 48h max
+						$demain = date('m').( date('d') + 1 );
+						$encrypt = $demain.md5(( 1290*3+$res['id']) );
+						echo "Clé : ";
+						echo ($demain.( 1290*3+$res['id']) ) . "<br>";
+						echo "Token : " . $encrypt."<br>";
+
+						$newData['token'] = $encrypt;
+						$user_manager->update($newData, $res['id']);
+						$url = $_SERVER['HTTP_HOST'];
+						$url .= $this->generateUrl('user_reset');
+						$url .= "?token=".$encrypt;
+						var_dump($url);
+						$directUrl = "http://soutenance.local/reset?token=".$encrypt;
+
+						$this->show('user/reset', [
+							'messages' => $message,
+							'display' => "mailSent",
+							'mail' => $url,
+						]);
+					} else {
+						$this->show('user/reset', [
+							'messages' => ["Identifiant invalide"],
+							'display' => "mail",
+						]);
+					}
+				}
+
+			// Si on a un parametre dans l'url
+			} else {
+				if ( isset($_GET['token']) ) {
+					$errors = [];
+
+					// Formulaire de mot de passe envoyé
+					if ( !empty($_POST) ) {
+						$password   = trim($_POST['password']);
+						$cfpassword = trim($_POST['cfpassword']);
+						$auth_manager = new \W\Security\AuthentificationModel();
+
+						// Vérif. mot de passe
+						if ( $password !== $cfpassword ) {
+							$errors['cfpassword'] = "Les mots de passe ne correspondent pas.";
+						} elseif ( strlen($password) < 8 ) {
+							$errors['password'] = "Le mot de passe doit contenir au moins 8 caractéres.";
+						} elseif ( !ctype_alnum($password) ) {
+							$errors['password'] = "Le mot de passe doit contenir au moins un chiffre et une lettre.";
+						}
+						$newData['password'] = $auth_manager->hashPassword( $password );
+
+						// S'il n'y a pas d'erreur
+						if ( empty($errors) ) {
+							// On cherche le token dans la table users
+							$result = $user_manager->search( ['token' => $_GET['token']] );
+							foreach ($result as $value) {
+								if ($value['token'] == $_GET['token']){
+									// On récupére l'user avec le token exact
+									$user = $value;
+								}
+							}
+
+							if (isset($user)) {
+								// Token validity
+								echo substr($user['token'], 0, 4);
+								echo date('md');
+
+								// On détruit le token
+								$newData['token'] = "";
+
+								// Si le token a expiré
+								if (substr($user['token'], 0, 4) < date('md')) {
+									unset($newData['password']);
+									echo "Token expired";
+								}
+								// Update user password
+								$user_manager->update($newData, $user['id']);
+								$this->redirectToRoute('user_login');
+								echo "Modif. password";
+							}
+						} else {
+							$message['error'] = "Mot de passe incorect";
+						}
+					}
+					$DefaultModel->refreshTimer();
+					$this->show('user/reset', [
+						'DefaultModel' => $DefaultModel,
+						'messages' => $message,
+						'errors' => $errors,
+						'display' => "password",
+					]);
+				}
+			}
+		}
+		echo "Il y a eu des erreurs";
 	}
 
 
@@ -183,7 +303,7 @@ class UserController extends Controller
 	public function update() {
 
 		$DefaultModel = new DefaultModel();
-    $DefaultModel->refreshTimer();
+    	$DefaultModel->refreshTimer();
         $username = '';
         $email = '';
 		$messages = [];
