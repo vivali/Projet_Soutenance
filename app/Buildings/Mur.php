@@ -2,11 +2,13 @@
 
 namespace Buildings;
 
+use \Model\UserModel;
 /**
 * 
 */
 class Mur
 {
+	private $nom = "wall";
 	private $RatioDef = 2.5;
 	private $DefBase = 5000;
 	private $DefCourant;
@@ -26,7 +28,7 @@ class Mur
 	private $Niveau = 5;
 
 	public function __construct () {
-		$this->Niveau = $_SESSION["buildings"]->water_farm;
+		$this->Niveau = $_SESSION["buildings"]->wall;
 		$this->SetDef();
 		$this->SetPrix();
 		$this->SetTemps();
@@ -86,5 +88,37 @@ class Mur
 
 	public function GetTemps () {
 		return $this->TempsCourant;
+	}
+
+	public function SetNiveau () {
+		// Requête récupération ressources de l'utilisateur
+
+		if ($_SESSION["ressources"]->wood >= $this->PrixBoisCourant && $_SESSION["ressources"]->food >= $this->PrixNourritureCourant && $_SESSION["ressources"]->water >= $this->PrixEauCourant) {
+			
+			$UserModel = new UserModel();
+			$this->Niveau = $this->Niveau + 1;
+			$id_user = $_SESSION["user"]["id"];
+
+			$UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
+			$nom = $this->nom;
+			$_SESSION["buildings"]->$nom = $this->Niveau;
+
+			// Requête suppression des ressources en fonction du prix
+			
+
+			$wood 	= &$_SESSION["ressources"]->wood;
+            $water 	= &$_SESSION["ressources"]->water;
+	        $food 	= &$_SESSION["ressources"]->food;
+
+	        $wood 	-= $this->PrixBoisCourant;
+            $water 	-= $this->PrixEauCourant;
+            $food 	-= $this->PrixNourritureCourant;
+
+			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+
+		} else {
+			// Afficher message manque de ressource dans une div 
+			echo "Manque de ressource";
+		}
 	}
 }
