@@ -284,15 +284,18 @@ class UserController extends Controller
 
             if ( empty($errors) ) {
                 $auth_manager = new AuthentificationModel(); // J'instancie le authentificationmodel qui facilite la gestion de l'authentification des utilisateurs
-
+                $date = date_create();
                 $UserModel->insert([
                     'username' => $username,
                     'email' => $email,
                     'password' => $auth_manager->hashPassword($password),
                     'birthday' => $birthday,
                     'role' => '0',
+                    'refresh_wood' => date_format($date, 'U'),
+                    'refresh_water' => date_format($date, 'U'),
+                    'refresh_food' => date_format($date, 'U'),
                     'date_create' => $date_create->format('Y-m-d H:i:s'),
-                    'date_last_connexion' => $date_last_connexion->format('Y-m-d H:i:s')
+                    'date_last_connexion' => date_format($date, 'U')
                 ]);
                 $id_user = $UserModel->getUserByUsernameOrEmail($email)["id"];
                 var_dump($id_user);
@@ -437,15 +440,23 @@ class UserController extends Controller
 	public function logout()
 	{
 		$auth_manager = new \W\Security\AuthentificationModel();
+		$UserModel = new UserModel();
+
+		$id_user = $_SESSION["user"]["id"];
+
+		$UserModel->refreshTimeBDD("refresh_wood", ":"."refresh_wood", $_SESSION["refresh"]->refresh_wood, $id_user);
+		$UserModel->refreshTimeBDD("refresh_water", ":"."refresh_water", $_SESSION["refresh"]->refresh_water, $id_user);
+		$UserModel->refreshTimeBDD("refresh_food", ":"."refresh_food", $_SESSION["refresh"]->refresh_food, $id_user);
+
         $auth_manager->logUserOut();
+
         unset($_SESSION['buildings']);
         unset($_SESSION['ressources']);
-        unset($_SESSION['refresh_wood']);
-        unset($_SESSION['refresh_water']);
-        unset($_SESSION['refresh_food']);
+        unset($_SESSION["refresh"]);
         unset($_SESSION['calcul_wood']);
         unset($_SESSION['calcul_water']);
         unset($_SESSION['calcul_food']);
+
         $this->redirectToRoute('user_login');
 	}
 
