@@ -21,7 +21,24 @@
                 <td><?= $user["username"] ?></td>
                 <td><?= $user["email"] ?></td>
                 <td><?= $user["date_create"] ?></td>
-                <td><?= $user["date_last_connexion"] ?></td>
+                <?php
+                // Inactivité de l'utilisateur
+                $lastCo = round( (time()-$user["date_last_connexion"])/(24*60*60) );
+                if ($lastCo > 30){
+                    $class = "text-danger";
+                } elseif ($lastCo > 10){
+                    $class = "text-warning";
+                } else {
+                    $class = "";
+                }
+                ?>
+                <td class="<?= $class ?>">
+                    <?php if ($lastCo == 0): ?>
+                        Aujourd'hui
+                    <?php else: ?>
+                        <?= $lastCo." jours" ?>
+                    <?php endif; ?>
+                </td>
                 <td><a class="btn btn-danger" href="<?= $this->url("admin_deleteUser",['id'=>$user["id"]]) ?>">
                     Supprimer
                 </a></td>
