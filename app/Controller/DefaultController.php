@@ -12,7 +12,7 @@ use \Model\RessourcesModel;
 class DefaultController extends Controller
 {
 	public function camp()
-	{	
+	{
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		spl_autoload_register(function($class) {
@@ -55,6 +55,13 @@ class DefaultController extends Controller
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('default/classement');
+	}
+
+	public function tchat()
+	{
+		$DefaultModel = new DefaultModel();
+		$DefaultModel->refreshTimer();
+		$this->show('default/tchat');
 	}
 
 	public function upgrade ($idBuilding) {
@@ -108,7 +115,7 @@ class DefaultController extends Controller
 		}
 
 
-		
+
 
 
 		$this->redirectToRoute('default_camp');
