@@ -24,9 +24,9 @@
                 <?php
                 // Inactivité de l'utilisateur
                 $lastCo = round( (time()-$user["date_last_connexion"])/(24*60*60) );
-                if ($lastCo > 30){
+                if ($lastCo > 20){
                     $class = "text-danger";
-                } elseif ($lastCo > 10){
+                } elseif ($lastCo > 13){
                     $class = "text-warning";
                 } else {
                     $class = "";
