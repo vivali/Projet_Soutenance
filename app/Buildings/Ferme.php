@@ -10,7 +10,7 @@ class Ferme
 {
 	private $nom = "food_farm";
 	private $RatioProd = 2.4;
-	private $ProductionBase = 530;
+	private $ProductionBase = 500;
 	private $ProductionCourante;
 
 	private $RatioPrix = 2;

@@ -10,7 +10,7 @@ class Bucheron
 {
 	private $nom = "wood_farm";
 	private $RatioProd = 2.5;
-	private $ProductionBase = 530;
+	private $ProductionBase = 600;
 	private $ProductionCourante;
 	
 	private $RatioPrix = 2;
