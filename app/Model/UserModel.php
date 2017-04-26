@@ -145,16 +145,26 @@ class UserModel extends UsersModel
     	
     }
 
-    function refreshBDD (){
+	function selectTimeBDD ($id_user){
+	    	$query = $this->dbh->prepare("
+		    	SELECT u.refresh_wood, u.refresh_water, u.refresh_food
+				FROM users u
+				WHERE u.id = :id_user
+			");
+		    $query->bindValue(":id_user", $id_user, \PDO::PARAM_INT);
+		    $query->execute();
+
+		    return $query->fetch(\PDO::FETCH_OBJ);
+	    }
+
+    function refreshTimeBDD ($nom_bdd, $nom_jointure, $valeur, $id_user){
     	$query = $this->dbh->prepare("
     		UPDATE users u  
-			SET wood = :wood, water = :water, food = :food 
-			WHERE r.id_user = :id_user
+			SET $nom_bdd = $nom_jointure
+			WHERE u.id = :id_user
     	");
 
-        $query->bindParam(':wood', $wood, \PDO::PARAM_INT);
-        $query->bindParam(':water', $water, \PDO::PARAM_INT);
-        $query->bindParam(':food', $food, \PDO::PARAM_INT);
+        $query->bindParam($nom_jointure, $valeur, \PDO::PARAM_INT);
 
         $query->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
 
@@ -162,5 +172,7 @@ class UserModel extends UsersModel
 
         return $query->rowCount() > 0 ? true : false;
     }
+
+    
 
 }
