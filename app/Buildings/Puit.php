@@ -16,7 +16,7 @@ class Puit
 
 	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 225;
-	private $PrixBoisCourant;
+	private $PrixBoisCourant; 
 	private $PrixNourritureBase = 75;
 	private $PrixNourritureCourant;
 	private $PrixEauBase = 50;
