@@ -45,8 +45,6 @@ class Puit
 		$resultat *= (1 + ($niveau / 100));
 		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
 		$resultat = $resultat / 3600;
-		var_dump($resultat * 3600);
-		var_dump($resultat);
 
 		$this->ProductionCourante = $resultat;
 		} else {
