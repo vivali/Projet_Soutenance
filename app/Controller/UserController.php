@@ -147,9 +147,9 @@ class UserController extends Controller
                 $RessourcesModel->insert([
                     'id_user' => $id_user,
                     'camper' => '1',
-                    'food' => '500',
-                    'wood' => '1000',
-                    'water' => '100'
+                    'food' => '3000',
+                    'wood' => '5000',
+                    'water' => '1000'
 
                 ]);
                 $messages = 'Vous êtes bien inscrit.';
