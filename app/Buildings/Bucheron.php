@@ -9,6 +9,7 @@ use \Model\DefaultModel;
 */
 class Bucheron
 {
+	public $id = 2;
 	private $nom = "wood_farm";
 	private $ProductionBase = 200;
 	private $ProductionCourante;
@@ -37,7 +38,7 @@ class Bucheron
 		$UserModel = new UserModel();
 		$DefaultModel = new DefaultModel();
 		if (!empty($_SESSION["construct"]->$nom)){
-			$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
                 $this->Niveau = $this->Niveau + 1;
@@ -45,7 +46,7 @@ class Bucheron
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
             }
             else{
-            	$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
             }
 		}
 	}

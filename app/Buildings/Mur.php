@@ -9,6 +9,7 @@ use \Model\DefaultModel;
 */
 class Mur
 {
+	public $id = 10;
 	private $nom = "wall";
 	private $RatioDef = 2.5;
 	private $DefBase = 5000;
@@ -41,7 +42,7 @@ class Mur
 		$UserModel = new UserModel();
 		$DefaultModel = new DefaultModel();
 		if (!empty($_SESSION["construct"]->$nom)){
-			$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
                 $this->Niveau = $this->Niveau + 1;
@@ -49,7 +50,7 @@ class Mur
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
             }
             else{
-            	$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
             }
 		}
 	}
