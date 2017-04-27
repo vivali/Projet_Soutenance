@@ -21,7 +21,7 @@ class Bucheron
 	private $TempsCourant;
 
 	private $Niveau = 0;
-	private $Vitesse = 1;
+	private $Vitesse = 10;
 
 	public function __construct () {
 		$this->Niveau = $_SESSION["buildings"]->wood_farm;
