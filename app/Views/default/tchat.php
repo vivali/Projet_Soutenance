@@ -1,10 +1,8 @@
 <?php $this->layout('layout', ['title' => 'Tchat']) ?>
 
 <?php $this->start('main_content') ?>
-<div class="container">
-    <div class="row">
         <div class="col-md-6 col-md-offset-6">
-            <h1>Messagerie instantanée</h1>
+            <h1 class="text-center">Feu de camps</h1>
 
 
 
@@ -13,12 +11,10 @@
             </section>
                         <form action="/" method="post" id="formulaire_chat">
                 <div class="form-group">
-                <input type="text" name="message" id="message" placeholder="Votre message..."  class=" btn-default form-control"size="50" autofocus />
+                <input type="text" name="message" id="message" placeholder="Votre message..."  class=" btn-default form-control"size="50" autocomplete="off" autofocus />
                 <input type="submit" id="envoi_message" value="Envoyer"class="btn btn-default form-control" />
             </form>
         </div>
-    </div>
-</div>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
         <script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <script>

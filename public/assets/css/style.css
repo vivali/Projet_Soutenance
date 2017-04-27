@@ -55,9 +55,9 @@ img {
 #camp {
 	width: 1170px;
 	height: 500px;
-
-header {
-	width: 70%;
-	display: block;
-	margin: auto;
+}
+#zone_chat{
+    width: 100%;
+    height: 380px;
+	overflow: auto;
 }
