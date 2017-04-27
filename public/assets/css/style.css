@@ -42,10 +42,12 @@ li{
 	margin-right: 25%;
 }
 
-p{
+/*p{
 	color:greenyellow;
+}*/
+.report-preview p{
+	color: grey;
 }
-
 
 img {
 	width: 360px;
@@ -66,5 +68,21 @@ header {
 	width: 70%;
 	display: block;
 	margin: auto;
+}
 
+#reportList {
+	height: 500px;
+	overflow: overlay;
+}
+
+div#reportList {
+     height:150px;
+     direction: ltr;
+}
+
+.scroll {
+      unicode-bidi:bidi-override;
+      direction: rtl;
+      overflow: scroll;
+      overflow-x: hidden!important;
 }

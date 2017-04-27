@@ -9,6 +9,8 @@ use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
 use \Model\ConstructModel;
+use \Model\ParamModel;
+use \Model\ReportsModel;
 
 class UserController extends Controller
 {
@@ -17,7 +19,7 @@ class UserController extends Controller
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
 		$RessourcesModel = new RessourcesModel();
-		// var_dump($message);
+
 		// Redirection si l'utilisateur est deja connecté
 		if ($this->getUser()) {
 			$this->redirectToRoute('default_camp');
@@ -45,6 +47,32 @@ class UserController extends Controller
 					$_SESSION["construct"] = $construct;
 					$_SESSION["ressources"] = $ressources;
 
+					// Attaque
+					$lastLogD = date( 'd-m', ( $user["date_last_connexion"] ) ) ;
+					$today = date('d-m');
+
+					if ($lastLogD != $today) {
+						$lastCo=round((time()-$user["date_last_connexion"])/(24*60*60));
+
+						$param_manager = new ParamModel();
+						$param = $param_manager->findAll();
+
+						// Subit une attaque éventuelle pour chaque jour de puis sa dernière co
+						for ($i=0; $i < $lastCo; $i++) {
+							$user_manager->getAttacked($user_id, $buildings->wall, $param[0]['z_atk_proba']);
+						}
+					}
+
+					// Récupére les rapports
+					$report_manager = new ReportsModel();
+					$reports = $report_manager->findAllById($user_id);
+					$newReport = 0;
+					foreach ($reports as $report) {
+						if($report['seen'] == 0){ $newReport++; }
+					}
+					$_SESSION["newReport"] = $newReport;
+
+					// Mise à jour de la date de dernière connexion
 					$user_manager->update(['date_last_connexion'=>time()], $user_id);
 
 					$this->redirectToRoute('default_camp');
