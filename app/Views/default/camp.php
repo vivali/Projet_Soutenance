@@ -39,7 +39,6 @@
 
                 <p>Prix : <?php echo $ferme->GetPrixBois(); ?> Bois <?php echo $ferme->GetPrixNourriture(); ?> nourriture</p>
 
-               
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>3])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>3])?>">Construire</a>
@@ -49,18 +48,24 @@
         <!--batiment 3-->
         <div class="col-md-4">
             <div class="media">
-            <img class="d-flex mr-3" src="assets/img/LOGO_Campeurs_VS_Zombies.png" alt="Generic placeholder image">
-            <div class="media-body">
-                <h5 class="mt-0 text-left"><strong>Puit</strong> Niveau : <?php echo $_SESSION["buildings"]->water_farm; ?></h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <img class="d-flex mr-3" src="assets/img/LOGO_Campeurs_VS_Zombies.png" alt="Generic placeholder image">
+                <div class="media-body">
+                    <h5 class="mt-0 text-left"><strong>Puit</strong> Niveau : <?php echo $_SESSION["buildings"]->water_farm; ?></h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
-                <p>Prix : <?php echo $puit->GetPrixBois(); ?> bois <?php echo $puit->GetPrixNourriture(); ?> nourriture <?php echo $puit->GetPrixEau(); ?> eau</p>
+                    <p>Prix : <?php echo $puit->GetPrixBois(); ?> bois <?php echo $puit->GetPrixNourriture(); ?> nourriture <?php echo $puit->GetPrixEau(); ?> eau</p>
 
-                
-                <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>4])?>">Voir</a>
+                    
+                    <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>4])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>4])?>">Construire</a>
-            </div>
+                    <?php if(empty($_SESSION["construct"]->water_farm)):?>
+                        <?php if($puit->action == 1): ?>
+                            <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>4])?>'>Construire</a>
+                        <?php endif ?>
+                    <?php else:?>
+                        <div><?php echo $puit->barre ?></div>
+                    <?php endif ?>
+                </div>
             </div>
         </div>
     </div>
