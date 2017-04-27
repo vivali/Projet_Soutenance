@@ -28,7 +28,6 @@
             // On demande le pseudo, on l'envoie au serveur et on l'affiche dans le titre
             
             var pseudo = "<?php echo $_SESSION['user']['username'];?>";
-            console.log(pseudo);
             if(pseudo.length > 0){
             socket.emit('nouveau_client', pseudo);
             document.title = pseudo + ' - ' + document.title;
