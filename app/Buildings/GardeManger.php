@@ -111,6 +111,7 @@ class GardeManger
 			$wood 	= &$_SESSION["ressources"]->wood;
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;
+	        $camper = &$_SESSION["ressources"]->camper;
 
 	        $wood 	-= $this->PrixBoisCourant;
             $food 	-= $this->PrixNourritureCourant;
