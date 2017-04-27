@@ -47,6 +47,7 @@ class Puit
 			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
+                $UserModel->TimeConstruct($this->nom, ":".$this->nom, null, $id_user);
                 $this->Niveau = $this->Niveau + 1;
                 $_SESSION["buildings"]->$nom = $this->Niveau;
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
@@ -143,6 +144,7 @@ class Puit
 
 			$date = date_create();
 			$_SESSION["construct"]->$nom = date_format($date, 'U') + $this->GetTemps();
+			$UserModel->TimeConstruct($this->nom, ":".$this->nom, date_format($date, 'U') + $this->GetTemps(), $id_user);
 
 			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 		} else {
@@ -150,31 +152,6 @@ class Puit
 			echo "Manque de ressource";
 
 		}
-		// 	if($UserModel->refreshRessources($wood, $water, $food, $id_user)){
-
-		// 		if (empty($_SESSION["construct"]->$nom)){
-		//             $this->action = 1;
-		//             // $_SESSION["buildings"]->water_farm = 0;
-		//         }
-		//         else{      		            
-		//             if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
-		//                 $button.$_nom = "<div>"."Batiment Construit."."</div>";
-		//                 $_SESSION["construct"]->$nom = null;
-		//                 $this->Niveau += 1;
-		//                 $_SESSION["buildings"]->$nom = $this->Niveau;
-		//                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
-		//             }
-		//             else{
-		//             	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
-		//             }
-		//         }
-		// 	}
-
-		// } else {
-		// 	// Afficher message manque de ressource dans une div
-		// 	$this->barre = "b";
-		// 	echo "Manque de ressource";
-		// }
 	}
 
 	public function GetNiveau () {
