@@ -25,7 +25,7 @@ class Bucheron
 	private $TempsCourant;
 
 	private $Niveau = 0;
-	private $Vitesse = 10;
+	private $Vitesse = 20;
 
 	public function __construct () {
 		$this->Niveau = $_SESSION["buildings"]->wood_farm;
@@ -55,7 +55,7 @@ class Bucheron
 		if ($niveau != 0) {
 
 		$resultat = 30 * $niveau;
-		$resultat *= (1.1 + pow(($niveau / 1000), $niveau));
+		$resultat *= (1.5 + pow(($niveau / 1000), $niveau));
 		$resultat *= (1 + ($niveau / 100));
 		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
 		$resultat = $resultat / 3600;
