@@ -42,10 +42,12 @@ li{
 	margin-right: 25%;
 }
 
-p{
+/*p{
 	color:greenyellow;
+}*/
+.report-preview p{
+	color: grey;
 }
-
 
 img {
 	width: 360px;
@@ -57,3 +59,4 @@ header {
 	display: block;
 	margin: auto;
 }
+
