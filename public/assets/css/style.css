@@ -42,10 +42,12 @@ li{
 	margin-right: 25%;
 }
 
-p{
+/*p{
 	color:greenyellow;
+}*/
+.report-preview p{
+	color: grey;
 }
-
 
 img {
 	width: 360px;
@@ -53,13 +55,17 @@ img {
 }
 
 
+<<<<<<< HEAD
 #zone_chat{
     width: 100%;
     height: 380px;
 	overflow: auto;
 }
+=======
+>>>>>>> e960dbd793e1270b28bac31b8cf9c9084329376f
 header {
 	width: 70%;
 	display: block;
 	margin: auto;
 }
+
