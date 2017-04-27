@@ -36,7 +36,7 @@ class StationRadio
 
 	public function SetProd () {
 		
-		$this->ProductionCourante = round(($this->RatioProd + ($this->Niveau * 0.1)) * (
+		$this->ProductionCourante = (($this->RatioProd + ($this->Niveau * 0.1)) * (
 			$_SESSION['buildings']->camp + 
 			$_SESSION['buildings']->food_farm + 
 			$_SESSION['buildings']->wood_farm + 
@@ -47,7 +47,7 @@ class StationRadio
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
 			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante);
+			$this->ProductionCourante) / 3600;
 		}
 
 	public function GetProd () {

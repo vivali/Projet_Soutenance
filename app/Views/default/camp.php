@@ -7,7 +7,7 @@
         <!--Camp -->
         <div class="col-md-12">
             <h1 class="text-center">Campement</h1>
-            <img class="d-flex img-responsive mr-3" src="assets/img/LOGO_Campeurs_VS_Zombies.png" alt="Generic placeholder image" id="camp">
+            <img class="d-flex img-responsive mr-3" src="" alt="Generic placeholder image" id="camp">
             <div>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>1])?>">Voir</a>
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>1])?>">Construire</a>
