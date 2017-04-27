@@ -4,24 +4,24 @@ namespace Buildings;
 
 use \Model\UserModel;
 /**
-*
+*  
 */
 class Bucheron
 {
 	private $nom = "wood_farm";
-	private $RatioProd = 2.5;
-	private $ProductionBase = 600;
+	private $ProductionBase = 200;
 	private $ProductionCourante;
 	
-	private $RatioPrix = 2;
-	private $PrixBoisBase = 200;
+	private $RatioPrix = 1.5;
+	private $PrixBoisBase = 50;
 	private $PrixBoisCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 5;
+	private $TempsBase = 10;
 	private $TempsCourant;
 
 	private $Niveau = 0;
+	private $Vitesse = 1;
 
 	public function __construct () {
 		$this->Niveau = $_SESSION["buildings"]->wood_farm;
@@ -31,13 +31,20 @@ class Bucheron
 	}
 
 	public function SetProd () {
-		if ($this->Niveau !== 0) {
-		if ($this->Niveau != 0) {
-			$this->ProductionCourante = (round($this->ProductionBase * pow($this->RatioProd, ($this->Niveau - 1)) + $this->ProductionBase)) / 3600;
+		$niveau = ($this->Niveau < 20) ? $this->Niveau : 20; 
+		if ($niveau != 0) {
+
+		$resultat = 30 * $niveau;
+		$resultat *= (1.1 + pow(($niveau / 1000), $niveau));
+		$resultat *= (1 + ($niveau / 100));
+		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
+		$resultat = $resultat / 3600;
+
+		$this->ProductionCourante = $resultat;
 		} else {
 			$this->ProductionCourante = $this->ProductionBase / 3600;
 		}
-	}
+
 	}
 
 	public function GetProd () {
@@ -55,6 +62,7 @@ class Bucheron
 	public function GetPrixBois () {
 		return $this->PrixBoisCourant;
 	}
+
 
 	public function SetTemps () {
 		if ($this->Niveau != 0) {
@@ -98,16 +106,3 @@ class Bucheron
 		}
 	}
 }
-
-
-
-
-// $bucheron = new Bucheron();
-// $bucheron->SetProd();
-// var_dump($bucheron->GetProd());
-
-// $bucheron->SetPrix();
-// var_dump($bucheron->GetPrix());
-
-// $bucheron->SetTemps();
-// var_dump($bucheron->GetTemps());
