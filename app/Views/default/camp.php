@@ -25,7 +25,14 @@
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Prix : <?php echo $bucheron->GetPrixBois(); ?> bois</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>2])?>">Voir</a>
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>2])?>" onclick="loadBar()">Construire</a>
+
+                <?php if(empty($_SESSION["construct"]->wood_farm)):?>
+                    <?php if($bucheron->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>2])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $bucheron->barre ?></div>
+                <?php endif ?>
             </div>
             </div>
         </div>
@@ -41,7 +48,14 @@
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>3])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>3])?>">Construire</a>
+                <?php if(empty($_SESSION["construct"]->food_farm)):?>
+                    <?php if($ferme->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>3])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $ferme->barre ?></div>
+                <?php endif ?>
+
             </div>
             </div>
         </div>
@@ -79,12 +93,19 @@
                 <h5 class="mt-0 text-left"><strong>Hangar</strong> Niveau : <?php echo $_SESSION["buildings"]->wood_stock; ?></h5>
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
 
-                <p>Prix : <?php echo $hangar->GetPrixBois(); ?></p>
+                <p>Prix : <?php echo $hangar->GetPrixBois(); ?> bois</p>
 
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>5])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>5])?>">Construire</a>
+                <?php if(empty($_SESSION["construct"]->wood_stock)):?>
+                    <?php if($hangar->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>5])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $hangar->barre ?></div>
+                <?php endif ?>
+
                 <div></div>
             </div>
             </div>
@@ -101,7 +122,14 @@
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>6])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>6])?>">Construire</a>
+                <?php if(empty($_SESSION["construct"]->food_stock)):?>
+                    <?php if($garde_manger->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>6])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $garde_manger->barre ?></div>
+                <?php endif ?>
+
                 <div ></div>
             </div>
             </div>
@@ -119,7 +147,13 @@
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>7])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>7])?>">Construire</a>
+                    <?php if(empty($_SESSION["construct"]->water_stock)):?>
+                        <?php if($citerne->action == 1): ?>
+                            <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>7])?>'>Construire</a>
+                        <?php endif ?>
+                    <?php else:?>
+                        <div><?php echo $citerne->barre ?></div>
+                    <?php endif ?>
                 <div ></div>
             </div>
             </div>
@@ -140,7 +174,14 @@
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>8])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>8])?>">Construire</a>
+                <?php if(empty($_SESSION["construct"]->cabanon)):?>
+                    <?php if($cabane->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>8])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $cabane->barre ?></div>
+                <?php endif ?>
+
                 <div ></div>
             </div>
             </div>
@@ -158,7 +199,14 @@
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>9])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>9])?>">Construire</a>
+                <?php if(empty($_SESSION["construct"]->radio)):?>
+                    <?php if($radio->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>9])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $radio->barre ?></div>
+                <?php endif ?>
+
                 <div></div>
             </div>
             </div>
@@ -176,7 +224,14 @@
 
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>10])?>">Voir</a>
 
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>10])?>">Construire</a>
+                <?php if(empty($_SESSION["construct"]->wall)):?>
+                    <?php if($mur->action == 1): ?>
+                        <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>10])?>'>Construire</a>
+                    <?php endif ?>
+                <?php else:?>
+                    <div><?php echo $mur->barre ?></div>
+                <?php endif ?>
+
                 <div></div>
             </div>
             </div>
