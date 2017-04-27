@@ -45,6 +45,8 @@ class UserController extends Controller
 					$_SESSION["construct"] = $construct;
 					$_SESSION["ressources"] = $ressources;
 
+					$user_manager->update(['date_last_connexion'=>time()], $user_id);
+
 					$this->redirectToRoute('default_camp');
 				} else {
 					$message['error'] = "Mauvais Identifiant ou mot de passe";
