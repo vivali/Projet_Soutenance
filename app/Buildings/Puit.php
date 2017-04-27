@@ -10,7 +10,6 @@ use \Model\DefaultModel;
 */
 class Puit
 {
-	private $name = "puit";
 	private $nom = "water_farm";
 	private $RatioProd = 1.2;
 	private $ProductionBase = 0;
@@ -133,6 +132,7 @@ class Puit
 			$wood 	= &$_SESSION["ressources"]->wood;
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;
+	        $camper = &$_SESSION["ressources"]->camper;
 
 	        $wood 	-= $this->PrixBoisCourant;
             $water 	-= $this->PrixEauCourant;
@@ -143,7 +143,7 @@ class Puit
 			$date = date_create();
 			$_SESSION["construct"]->$nom = date_format($date, 'U') + $this->GetTemps();
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 		} else {
 			// Afficher message manque de ressource dans une div 
 			echo "Manque de ressource";
