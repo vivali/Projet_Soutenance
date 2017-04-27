@@ -13,7 +13,11 @@ class DefaultController extends Controller
 {
 	public function camp()
 	{
-		
+
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
+
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		spl_autoload_register(function($class) {
@@ -91,12 +95,18 @@ class DefaultController extends Controller
 
 	public function tchat()
 	{
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('default/tchat');
 	}
 
 	public function upgrade ($idBuilding) {
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$DefaultModel = new DefaultModel();
 		$UserModel = new UserModel();
 
@@ -144,9 +154,6 @@ class DefaultController extends Controller
 			$mur = new \Buildings\Mur();
 			$mur->SetNiveau();
 		}
-
-
-
 
 
 		$this->redirectToRoute('default_camp');

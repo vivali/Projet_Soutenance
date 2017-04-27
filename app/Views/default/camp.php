@@ -7,7 +7,7 @@
         <!--Camp -->
         <div class="col-md-12">
             <h1 class="text-center">Campement</h1>
-            <img class="d-flex mr-3" src="assets/img/LOGO_Campeurs_VS_Zombies.png" alt="Generic placeholder image" id="camp">
+            <img class="d-flex img-responsive mr-3" src="" alt="Generic placeholder image" id="camp">
             <div>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>1])?>">Voir</a>
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>1])?>">Construire</a>
@@ -25,7 +25,7 @@
                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
                 <p>Prix : <?php echo $bucheron->GetPrixBois(); ?> bois</p>
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>2])?>">Voir</a>
-                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>2])?>">Construire</a>
+                <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>2])?>" onclick="loadBar()">Construire</a>
             </div>
             </div>
         </div>
@@ -81,10 +81,11 @@
 
                 <p>Prix : <?php echo $hangar->GetPrixBois(); ?></p>
 
-               
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>5])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>5])?>">Construire</a>
+                <div></div>
             </div>
             </div>
         </div>
@@ -101,6 +102,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>6])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>6])?>">Construire</a>
+                <div ></div>
             </div>
             </div>
         </div>
@@ -118,6 +120,7 @@
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>7])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>7])?>">Construire</a>
+                <div ></div>
             </div>
             </div>
         </div>
@@ -134,10 +137,11 @@
 
                 <p>Prix : <?php echo $cabane->GetPrixBois(); ?> bois <?php echo $cabane->GetPrixNourriture(); ?> nourriture <?php echo $cabane->GetPrixEau(); ?> eau</p>
 
-           
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>8])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>8])?>">Construire</a>
+                <div ></div>
             </div>
             </div>
         </div>
@@ -151,10 +155,11 @@
 
                 <p>Prix : <?php echo $radio->GetPrixBois(); ?> bois <?php echo $radio->GetPrixNourriture(); ?> nourriture <?php echo $radio->GetPrixEau(); ?> eau</p>
 
-               
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>9])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>9])?>">Construire</a>
+                <div></div>
             </div>
             </div>
         </div>
@@ -168,10 +173,11 @@
 
                 <p>Prix : <?php echo $mur->GetPrixBois(); ?> bois <?php echo $mur->GetPrixNourriture(); ?> nourriture <?php echo $mur->GetPrixEau(); ?> eau</p>
 
-           
+
                 <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>10])?>">Voir</a>
 
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>10])?>">Construire</a>
+                <div></div>
             </div>
             </div>
         </div>

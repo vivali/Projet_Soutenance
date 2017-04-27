@@ -10,19 +10,19 @@ class Citerne
 {
 	private $nom = "water_stock";
 	private $RatioStock = 2;
-	private $StockageBase = 2000;
+	private $StockageBase = 100000;
 	private $StockageCourant;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 1000;
+	private $PrixBoisBase = 2000;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 1000;
+	private $PrixNourritureBase = 2000;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 1000;
+	private $PrixEauBase = 2000;
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.6;
-	private $TempsBase = 41;
+	private $TempsBase = 221;
 	private $TempsCourant; 
 	
 	private $Niveau = 5;
@@ -35,7 +35,7 @@ class Citerne
 	}
 
 	public function SetStock () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->StockageCourant = round($this->StockageBase * pow($this->RatioStock, ($this->Niveau - 1)) + $this->StockageBase);
 		} else {
 			$this->StockageCourant = $this->StockageBase;
@@ -47,19 +47,19 @@ class Citerne
 	}
 
 	public function SetPrix () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixBoisCourant = round($this->PrixBoisBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixBoisBase);
 		} else {
 			$this->PrixBoisCourant = $this->PrixBoisBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixNourritureCourant = round($this->PrixNourritureBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixNourritureBase);
 		} else {
 			$this->PrixNourritureCourant = $this->PrixNourritureBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixEauCourant = round($this->PrixEauBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixEauBase);
 		} else {
 			$this->PrixEauCourant = $this->PrixEauBase;
@@ -79,7 +79,7 @@ class Citerne
 	}
 
 	public function SetTemps () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->TempsCourant = round($this->TempsBase * pow($this->RatioTemps, ($this->Niveau - 1)) + $this->TempsBase);
 		} else {
 			$this->TempsCourant = $this->TempsBase;
