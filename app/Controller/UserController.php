@@ -331,6 +331,7 @@ class UserController extends Controller
                     'refresh_wood' => date_format($date, 'U'),
                     'refresh_water' => date_format($date, 'U'),
                     'refresh_food' => date_format($date, 'U'),
+                    'refresh_camper' => date_format($date, 'U'),
                     'date_create' => $date_create->format('Y-m-d H:i:s'),
                     'date_last_connexion' => date_format($date, 'U')
                 ]);
@@ -497,6 +498,7 @@ class UserController extends Controller
 		$UserModel->refreshTimeBDD("refresh_wood", ":"."refresh_wood", $_SESSION["refresh"]->refresh_wood, $id_user);
 		$UserModel->refreshTimeBDD("refresh_water", ":"."refresh_water", $_SESSION["refresh"]->refresh_water, $id_user);
 		$UserModel->refreshTimeBDD("refresh_food", ":"."refresh_food", $_SESSION["refresh"]->refresh_food, $id_user);
+		$UserModel->refreshTimeBDD("refresh_camper", ":"."refresh_camper", $_SESSION["refresh"]->refresh_camper, $id_user);
 
         $auth_manager->logUserOut();
 
