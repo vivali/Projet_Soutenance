@@ -16,7 +16,7 @@ class GardeManger
 	private $RatioPrix = 2;
 	private $PrixBoisBase = 2000;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 2000;
+	private $PrixNourritureBase = 4000;
 	private $PrixNourritureCourant;
 
 	private $RatioTemps = 1.6;
@@ -101,7 +101,7 @@ class GardeManger
 	        $wood 	-= $this->PrixBoisCourant;
             $food 	-= $this->PrixNourritureCourant;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 
 		} else {
 			// Afficher message manque de ressource dans une div 

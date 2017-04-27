@@ -123,7 +123,7 @@ class StationRadio
             $water 	-= $this->PrixEauCourant;
             $food 	-= $this->PrixNourritureCourant;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 
 		} else {
 			// Afficher message manque de ressource dans une div 
