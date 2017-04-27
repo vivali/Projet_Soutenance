@@ -6,6 +6,7 @@ use \W\Model\Model;
 
 class ReportsModel extends Model
 {
+    public function findAllById($id_user, $orderBy = '', $orderDir = 'DESC', $limit = null, $offset = null)
     {
 
         $sql = 'SELECT * FROM ' . $this->table;

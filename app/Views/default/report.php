@@ -9,6 +9,7 @@
             <div class="row report-preview <?=!($report['seen'])?"bg-warning":""?>">
                 <p class="report-name"><?=$report['name']?></p>
                 <p class="report-date"><?=$report['report_date']?></p>
+                <button type="button" id="btn<?=$report['id']?>" class="btn btn-xs btn-default btn-report" name="button">Voir le rapport</button>
             </div><br>
         <?php endforeach; ?>
     </div>
