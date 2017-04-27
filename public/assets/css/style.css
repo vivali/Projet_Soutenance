@@ -56,24 +56,8 @@ img {
 	width: 1170px;
 	height: 500px;
 
-#logo {
-	width: 100%;
-	height:50%;
-	background-size: cover;
-}
-
 header {
 	width: 70%;
 	display: block;
 	margin: auto;
-<<<<<<< HEAD
-}
-
-.loadBar {
-  width: 100%;
-  height: 20px;
-  position: relative;
-=======
-
->>>>>>> 88f2672adb14b1b5ce9d2e50e7ce129a64fbe312
 }
