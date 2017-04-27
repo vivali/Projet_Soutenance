@@ -9,6 +9,7 @@ use \Model\DefaultModel;
 */
 class GardeManger
 {
+	public $id = 6;
 	private $nom = "food_stock";
 	private $RatioStock = 2;
 	private $StockageBase = 100000;
@@ -39,7 +40,7 @@ class GardeManger
 		$UserModel = new UserModel();
 		$DefaultModel = new DefaultModel();
 		if (!empty($_SESSION["construct"]->$nom)){
-			$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
                 $this->Niveau = $this->Niveau + 1;
@@ -47,7 +48,7 @@ class GardeManger
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
             }
             else{
-            	$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
             }
 		}
 	}

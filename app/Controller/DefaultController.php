@@ -54,7 +54,7 @@ class DefaultController extends Controller
   //           else{
   //           	$fin = $puit->GetTemps(); // 42
   //           	$duree = $_SESSION["construct"]->water_farm; // timestamp de fin de construction now + $fin
-  //           	$button = "<div id='bar'>".$DefaultModel->buttonConstruct($duree, $fin)."</div>";
+  //           	$button = "<div class='bar'>".$DefaultModel->buttonConstruct($duree, $fin)."</div>";
   //               // $button = "<div>".($_SESSION["construct"]->water_farm - date_format(date_create(),'U'))."</div>";
   //           }
   //       }

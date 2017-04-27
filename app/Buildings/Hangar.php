@@ -8,7 +8,8 @@ use \Model\DefaultModel;
 * 
 */
 class Hangar
-{	
+{
+	public $id = 5;
 	private $nom = "wood_stock";
 	private $RatioStock = 2;
 	private $StockageBase = 100000;
@@ -37,7 +38,7 @@ class Hangar
 		$UserModel = new UserModel();
 		$DefaultModel = new DefaultModel();
 		if (!empty($_SESSION["construct"]->$nom)){
-			$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
                 $this->Niveau = $this->Niveau + 1;
@@ -45,7 +46,7 @@ class Hangar
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
             }
             else{
-            	$this->barre = "<div id='bar'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps())."</div>";
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
             }
 		}
 	}
