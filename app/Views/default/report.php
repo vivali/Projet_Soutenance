@@ -5,6 +5,11 @@
     <h2>Rapports d'attaques.</h2>
     <br>
     <div class="col-md-3" id="reportList" style="height: 500px; overflow: overlay;">
+        <?php if (empty($reports)): ?>
+            <div class="row report-preview">
+                <p class="report-name">Aucun rapports</p>
+            </div><br>
+        <?php endif; ?>
         <?php foreach ($reports as $key => $report): ?>
             <div class="row report-preview <?=!($report['seen'])?"bg-warning":""?>">
                 <p class="report-name"><?=$report['name']?></p>
