@@ -45,6 +45,8 @@ class UserController extends Controller
 					$_SESSION["construct"] = $construct;
 					$_SESSION["ressources"] = $ressources;
 
+					$user_manager->update(['date_last_connexion'=>time()], $user_id);
+
 					$this->redirectToRoute('default_camp');
 				} else {
 					$message['error'] = "Mauvais Identifiant ou mot de passe";
@@ -226,6 +228,9 @@ class UserController extends Controller
 
 	public function register()
 	{
+		if ( ($this->getUser()) ) {
+			$this->redirectToRoute('default_camp');
+		}
 		$DefaultModel = new DefaultModel();
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
@@ -350,6 +355,9 @@ class UserController extends Controller
 
 	public function profil()
 	{
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('user/profil');
@@ -358,7 +366,9 @@ class UserController extends Controller
 
 
 	public function update() {
-
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$DefaultModel = new DefaultModel();
     	$DefaultModel->refreshTimer();
         $username = '';
@@ -447,6 +457,9 @@ class UserController extends Controller
 
 	public function logout()
 	{
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$auth_manager = new \W\Security\AuthentificationModel();
 		$UserModel = new UserModel();
 
