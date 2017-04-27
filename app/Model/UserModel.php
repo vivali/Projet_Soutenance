@@ -157,7 +157,7 @@ class UserModel extends UsersModel
 
     }
 
-    function setTimeConstruct($nom_bdd, $nom_jointure, $valeur, $id_user){
+    function TimeConstruct($nom_bdd, $nom_jointure, $valeur, $id_user){
 
     	$query = $this->dbh->prepare("
     		UPDATE construct c
