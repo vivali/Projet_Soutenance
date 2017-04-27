@@ -18,7 +18,7 @@ class Citerne
 	private $PrixBoisCourant;
 	private $PrixNourritureBase = 2000;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 2000;
+	private $PrixEauBase = 4000;
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.6;
@@ -114,7 +114,7 @@ class Citerne
             $water 	-= $this->PrixEauCourant;
             $food 	-= $this->PrixNourritureCourant;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 
 		} else {
 			// Afficher message manque de ressource dans une div 

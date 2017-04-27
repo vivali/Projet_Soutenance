@@ -13,9 +13,9 @@ class Ferme
 	private $ProductionCourante;
 
 	private $RatioPrix = 1.5;
-	private $PrixBoisBase = 60;
+	private $PrixBoisBase = 25;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 25;
+	private $PrixNourritureBase = 60;
 	private $PrixNourritureCourant;
 
 	private $RatioTemps = 1.5;
@@ -110,7 +110,7 @@ class Ferme
 	        $wood 	-= $this->PrixBoisCourant;
             $food 	-= $this->PrixNourritureCourant;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 
 		} else {
 			// Afficher message manque de ressource dans une div 

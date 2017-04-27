@@ -16,7 +16,7 @@ class Cabane
 	private $RatioPrix = 2;
 	private $PrixBoisBase = 4000;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 4000;
+	private $PrixNourritureBase = 16000;
 	private $PrixNourritureCourant;
 	private $PrixEauBase = 8000;
 	private $PrixEauCourant;
@@ -114,7 +114,7 @@ class Cabane
             $water 	-= $this->PrixEauCourant;
             $food 	-= $this->PrixNourritureCourant;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 
 		} else {
 			// Afficher message manque de ressource dans une div 
