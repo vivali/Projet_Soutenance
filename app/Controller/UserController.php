@@ -226,6 +226,9 @@ class UserController extends Controller
 
 	public function register()
 	{
+		if ( ($this->getUser()) ) {
+			$this->redirectToRoute('default_camp');
+		}
 		$DefaultModel = new DefaultModel();
 		$UserModel = new UserModel();
 		$BuildingsModel = new BuildingsModel();
@@ -350,6 +353,9 @@ class UserController extends Controller
 
 	public function profil()
 	{
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('user/profil');
@@ -358,7 +364,9 @@ class UserController extends Controller
 
 
 	public function update() {
-
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$DefaultModel = new DefaultModel();
     	$DefaultModel->refreshTimer();
         $username = '';
@@ -447,6 +455,9 @@ class UserController extends Controller
 
 	public function logout()
 	{
+		if ( !($this->getUser()) ) {
+			$this->redirectToRoute('user_login');
+		}
 		$auth_manager = new \W\Security\AuthentificationModel();
 		$UserModel = new UserModel();
 
