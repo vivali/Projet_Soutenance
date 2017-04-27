@@ -68,7 +68,7 @@ class StationRadio
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
 			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante) / 3600;
+			$this->ProductionCourante);
 		}
 
 	public function GetProd () {
