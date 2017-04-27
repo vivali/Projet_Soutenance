@@ -133,9 +133,9 @@ class DefaultModel extends \W\Model\Model {
 	    }
 	}
 
-	function buttonConstruct($duree, $fin) {
+	function buttonConstruct($duree, $fin, $id) {
 		return "<style>
-		#bar {
+		#bar".$id." {
 		margin-top: 7px; 
 		height: 30px; 
 		background: red; 
@@ -143,30 +143,30 @@ class DefaultModel extends \W\Model\Model {
 		transition: 1s; 
 	    }</style><script>
 
-		var debut = 0;
-		var calcul = ".$duree.";
-		var calcul2 = calcul - Math.round(Date.now() / 1000);
-		var fin = ".$fin.";
-		var now = fin - calcul2; 
-		console.log(now);
+		var debut".$id." = 0;
+		var calcul".$id." = ".$duree.";
+		var calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000);
+		var fin".$id." = ".$fin.";
+		var now".$id." = fin".$id." - calcul2".$id."; 
+		console.log(now".$id.");
 		$(document).ready(function(){ 
-			$('#bar').css({ 
-				'width': ((now * 100) / fin) + '%' });
+			$('#bar".$id."').css({ 
+				'width': ((now".$id." * 100) / fin".$id.") + '%' });
 			 });
-		var barre = setInterval(function(){ myTimer() }, 1000);
-		function StopFunction() {
-		 	clearInterval(barre);
+		var barre".$id." = setInterval(function(){ myTimer".$id."() }, 1000);
+		function StopFunction".$id."() {
+		 	clearInterval(barre".$id.");
 		}
 
-		function myTimer() {
-			calcul2 = calcul - Math.round(Date.now() / 1000); 
-			now = fin - calcul2;
+		function myTimer".$id."() {
+			calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000); 
+			now".$id." = fin".$id." - calcul2".$id.";
 			$(document).ready(function(){ 
-				$('#bar').css({ 
-					'width': ((now * 100) / fin) + '%' });
+				$('#bar".$id."').css({ 
+					'width': ((now".$id." * 100) / fin".$id.") + '%' });
 				 });
-			if (((now * 100) / fin) >= 100){
-				StopFunction();
+			if (((now".$id." * 100) / fin".$id.") >= 100){
+				StopFunction".$id."();
 				window.location.reload();
 			}
 		}
