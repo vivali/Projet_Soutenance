@@ -13,15 +13,15 @@ class StationRadio
 	private $ProductionCourante;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 1200;
+	private $PrixBoisBase = 2000;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 800;
+	private $PrixNourritureBase = 4000;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 600;
+	private $PrixEauBase = 8000;
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 55;
+	private $TempsBase = 401;
 	private $TempsCourant;
 
 	private $Niveau = 1;
@@ -36,7 +36,7 @@ class StationRadio
 
 	public function SetProd () {
 		
-		$this->ProductionCourante = round($this->RatioProd * (
+		$this->ProductionCourante = (($this->RatioProd + ($this->Niveau * 0.1)) * (
 			$_SESSION['buildings']->camp + 
 			$_SESSION['buildings']->food_farm + 
 			$_SESSION['buildings']->wood_farm + 
@@ -46,7 +46,8 @@ class StationRadio
 			$_SESSION['buildings']->wood_stock + 
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
-			$_SESSION['buildings']->radio));
+			$_SESSION['buildings']->radio) +
+			$this->ProductionCourante) / 3600;
 		}
 
 	public function GetProd () {
@@ -54,19 +55,19 @@ class StationRadio
 	}
 
 	public function SetPrix () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixBoisCourant = round($this->PrixBoisBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixBoisBase);
 		} else {
 			$this->PrixBoisCourant = $this->PrixBoisBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixNourritureCourant = round($this->PrixNourritureBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixNourritureBase);
 		} else {
 			$this->PrixNourritureCourant = $this->PrixNourritureBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixEauCourant = round($this->PrixEauBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixEauBase);
 		} else {
 			$this->PrixEauCourant = $this->PrixEauBase;
@@ -86,7 +87,7 @@ class StationRadio
 	}
 
 	public function SetTemps () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->TempsCourant = round($this->TempsBase * pow($this->RatioTemps, ($this->Niveau - 1)) + $this->TempsBase);
 		} else {
 			$this->TempsCourant = $this->TempsBase;

@@ -28,6 +28,7 @@ class DefaultModel extends \W\Model\Model {
 				$bucheron = new \Buildings\Bucheron();
 				$ferme = new \Buildings\Ferme();
 				$puit = new \Buildings\Puit();
+				$radio = new \Buildings\StationRadio();
 
 	        	$UserModel = new UserModel();
 				
@@ -53,16 +54,23 @@ class DefaultModel extends \W\Model\Model {
 
 	            // $timer_food = 50000;
 
+	            // Timmer camper
+	            $refresh_camper1 = $_SESSION["refresh"]->refresh_camper;
+	            $refresh_camper2 = date_format($date, 'U');
+	            $timer_camper = $refresh_camper2 - $refresh_camper1;
+	            
+	            // $timer_camper = 3600;
 
 	         	
-	            echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
-	            echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
-	            echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
+	            // echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
+	            // echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
+	            // echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
 
 	            $id_user = $_SESSION["user"]["id"];
 	            $wood = &$_SESSION["ressources"]->wood;
 	            $water = &$_SESSION["ressources"]->water;
 	            $food = &$_SESSION["ressources"]->food;
+	            $camper = &$_SESSION["ressources"]->camper;
 
 	            // Calcule Wood
 	            $_SESSION["calcul_wood"] = round(($bucheron->GetProd()) * $timer_wood);
@@ -90,6 +98,15 @@ class DefaultModel extends \W\Model\Model {
 	            	$food += $final_food;
 	            	$_SESSION["refresh"]->refresh_food = $refresh_food2;
 	            } 
+
+	            // Calcul camper
+	            $_SESSION["calcul_camper"] = round(($radio->GetProd()) * $timer_camper);
+	            $final_camper = 0;
+	            if ($_SESSION["calcul_camper"] >= 1) {
+	            	$final_camper = $_SESSION["calcul_camper"];
+	            	$camper += $final_camper;
+	            	$_SESSION["refresh"]->refresh_camper = $refresh_camper2;
+	            } 
 	        	// var_dump( $bucheron->GetProd());
 	        	// var_dump( $ferme->GetProd());
 	        	// var_dump( $puit->GetProd());
@@ -97,13 +114,13 @@ class DefaultModel extends \W\Model\Model {
 	        	// var_dump( $_SESSION["calcu
 	        	// var_dump( $_SESSION["calcul_water"]);
 
-	        	echo "Vous avez gagné ".$final_wood." bois.<br>";
-	        	echo "Vous avez gagné ".$final_water." eaux.<br>";
-	        	echo "Vous avez gagné ".$final_food." nourritures.<br>";
+	        	// echo "Vous avez gagné ".$final_wood." bois.<br>";
+	        	// echo "Vous avez gagné ".$final_water." eaux.<br>";
+	        	// echo "Vous avez gagné ".$final_food." nourritures.<br>";
 	            // $wood += $final_wood;
 	            // $water += $final_water;
 	            // $food += $final_food;
-	            $UserModel->refreshRessources($wood, $water, $food, $id_user);
+	            $UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 	            // $UserModel->refreshBuildings(1,1,1,1,1,1,1,1,1,1,1);
 
 	        }
