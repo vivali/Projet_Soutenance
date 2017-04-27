@@ -14,7 +14,7 @@ class Hangar
 	private $StockageCourant;
 
 	private $RatioPrix = 2;
-	private $PrixBoisBase = 2000;
+	private $PrixBoisBase = 4000;
 	private $PrixBoisCourant;
 
 	private $RatioTemps = 1.6;
@@ -88,7 +88,7 @@ class Hangar
 
 	        $wood 	-= $this->PrixBoisCourant;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 
 		} else {
 			// Afficher message manque de ressource dans une div 
