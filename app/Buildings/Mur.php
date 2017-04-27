@@ -14,15 +14,15 @@ class Mur
 	private $DefCourant;
 
 	private $RatioPrix = 1.8;
-	private $PrixBoisBase = 800;
+	private $PrixBoisBase = 1500;
 	private $PrixBoisCourant;
-	private $PrixNourritureBase = 400;
+	private $PrixNourritureBase = 1500;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 200;
+	private $PrixEauBase = 2000;
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.4;
-	private $TempsBase = 84;
+	private $TempsBase = 197;
 	private $TempsCourant; 
 	
 	private $Niveau = 5;
@@ -35,7 +35,7 @@ class Mur
 	}
 
 	public function SetDef () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->DefCourant = round($this->DefBase * pow($this->RatioDef, ($this->Niveau - 1)) + $this->DefBase);
 		} else {
 			$this->DefCourant = $this->DefBase;
@@ -47,19 +47,19 @@ class Mur
 	}
 
 	public function SetPrix () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixBoisCourant = round($this->PrixBoisBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixBoisBase);
 		} else {
 			$this->PrixBoisCourant = $this->PrixBoisBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixNourritureCourant = round($this->PrixNourritureBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixNourritureBase);
 		} else {
 			$this->PrixNourritureCourant = $this->PrixNourritureBase;
 		}
 
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->PrixEauCourant = round($this->PrixEauBase * pow($this->RatioPrix, ($this->Niveau - 1)) + $this->PrixEauBase);
 		} else {
 			$this->PrixEauCourant = $this->PrixEauBase;
@@ -79,7 +79,7 @@ class Mur
 	}
 
 	public function SetTemps () {
-		if ($this->Niveau !== 0) {
+		if ($this->Niveau != 0) {
 			$this->TempsCourant = round($this->TempsBase * pow($this->RatioTemps, ($this->Niveau - 1)) + $this->TempsBase);
 		} else {
 			$this->TempsCourant = $this->TempsBase;
