@@ -42,18 +42,22 @@ li{
 	margin-right: 25%;
 }
 
-p{
+/*p{
 	color:greenyellow;
+}*/
+.report-preview p{
+	color: grey;
 }
-
 
 img {
 	width: 360px;
 	height: 360px;
 }
 
+
 header {
 	width: 70%;
 	display: block;
 	margin: auto;
 }
+

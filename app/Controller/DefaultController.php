@@ -8,6 +8,7 @@ use \Model\UserModel;
 use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
+use \Model\ReportsModel;
 
 class DefaultController extends Controller
 {
@@ -78,6 +79,27 @@ class DefaultController extends Controller
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		$this->show('default/building');
+	}
+
+	public function report()
+	{
+		$DefaultModel = new DefaultModel();
+		$report_manager = new ReportsModel();
+
+		$reports = $report_manager->findAllById($this->getUser()['id']);
+
+		$DefaultModel->refreshTimer();
+		$this->show('default/report',[
+			'reports' => $reports,
+		]);
+	}
+
+	public function seen($id)
+	{
+		$report_manager = new ReportsModel();
+		$_SESSION['newReport']--;
+		$report_manager->update(['seen'=>1], $id);
+
 	}
 
 	public function classement()

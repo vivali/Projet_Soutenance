@@ -187,7 +187,7 @@ class UserModel extends UsersModel
 
     function refreshTimeBDD ($nom_bdd, $nom_jointure, $valeur, $id_user){
     	$query = $this->dbh->prepare("
-    		UPDATE users u  
+    		UPDATE users u
 			SET $nom_bdd = $nom_jointure
 			WHERE u.id = :id_user
     	");
@@ -240,4 +240,54 @@ class UserModel extends UsersModel
 
 		return $sth->fetchAll();
 	}
+
+    public function getAttacked($id_user, $wallLevel = 0, $probaZombie = 40)
+    {
+        // Chance d'attaque
+        $atk = rand(0, 100);
+
+        // Attaque de zombies ?
+        if ($atk < $probaZombie){
+            $atkResult = rand(0, 100);
+
+            // 50% plus 2*le niveau du mur de ne pas subir de perte
+            // mur niveau 25 = les zombies n'ont plus d'impact
+            if ($atkResult > ( 50 + ($wallLevel * 2) )) {
+                // Récupération des ressources de l'utilisateur
+                $ressources = $this->getRtable($id_user);
+
+                // Attaque de zombie = perdre entre 5 et 10% de ressources
+                $newWater = round($ressources->water * (1 - 0.01*rand(5, 10)));
+                $newFood  = round($ressources->food  * (1 - 0.01*rand(5, 10)));
+                $newWood  = round($ressources->wood  * (1 - 0.01*rand(5, 10)));
+
+                // Rapport d'attaque
+                $report = "Vous avez subi une attaque de zombies.<br>
+                Vous avez perdu :<br>"
+                .($ressources->water - $newWater)." eau,<br>"
+                .($ressources->food - $newFood)." nourritures,<br>"
+                .($ressources->wood - $newWood)." bois.<br>";
+
+                // Update les ressources
+                $this->refreshRessources($newWood, $newWater, $newFood, $id_user);
+
+            } else {
+                // Rapport d'attaque
+                $report = "Vous avez subi une attaque de zombies.<br>
+                Votre mur vous a permis de vous defendre sans perdre de ressources.";
+            }
+
+            // Ajouter le rapport à l'utilisateur en bdd
+            $report_manager = new ReportsModel();
+            $report_manager->insert([
+                'id_user'   => $id_user,
+                'name'      => "Attaque de zombies",
+                'report'    => $report,
+            ], false);
+        } // Fin attaque de zombies
+
+        // Attaque de joueur ?
+
+    }
+
 }

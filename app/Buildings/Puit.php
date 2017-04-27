@@ -22,9 +22,9 @@ class Puit
 	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 225;
 	private $PrixBoisCourant; 
-	private $PrixNourritureBase = 75;
+	private $PrixNourritureBase = 155;
 	private $PrixNourritureCourant;
-	private $PrixEauBase = 50;
+	private $PrixEauBase = 100;
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
@@ -139,9 +139,15 @@ class Puit
             $food 	-= $this->PrixNourritureCourant;
             $nom 	= $this->nom;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user);
+
 			$date = date_create();
 			$_SESSION["construct"]->$nom = date_format($date, 'U') + $this->GetTemps();
+
+			$UserModel->refreshRessources($wood, $water, $food, $id_user, $id_user);
+		} else {
+			// Afficher message manque de ressource dans une div 
+			echo "Manque de ressource";
+
 		}
 		// 	if($UserModel->refreshRessources($wood, $water, $food, $id_user)){
 
