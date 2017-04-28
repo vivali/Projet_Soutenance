@@ -3,16 +3,21 @@
 namespace Buildings;
 
 use \Model\UserModel;
+use \Model\DefaultModel;
 
 /**
 * 
 */
 class Puit
 {
+	public $id = 4;
 	private $nom = "water_farm";
 	private $RatioProd = 1.2;
 	private $ProductionBase = 0;
 	private $ProductionCourante;
+
+	public $barre = '';
+	public $action = 1;
 
 	private $RatioPrix = 1.5;
 	private $PrixBoisBase = 225;
@@ -30,10 +35,27 @@ class Puit
 	private $Vitesse = 10;
 
 	public function __construct () {
-		$this->Niveau = $_SESSION["buildings"]->water_farm;
-		$this->SetProd();
+		$nom 	= $this->nom;
+		$this->Niveau = $_SESSION["buildings"]->$nom;
 		$this->SetPrix();
 		$this->SetTemps();
+		$id_user = $_SESSION["user"]["id"];
+		$UserModel = new UserModel();
+		$DefaultModel = new DefaultModel();
+		if (!empty($_SESSION["construct"]->$nom)){
+			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
+                $_SESSION["construct"]->$nom = null;
+                $UserModel->TimeConstruct($this->nom, ":".$this->nom, null, $id_user);
+                $this->Niveau = $this->Niveau + 1;
+                $_SESSION["buildings"]->$nom = $this->Niveau;
+                $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
+            }
+            else{
+            	$date = date_create(); 
+            	$timer = $_SESSION["construct"]->$nom; 
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id, $timer)."</div>";
+            }
+		}
 	}
 
 	public function SetProd () {
@@ -41,7 +63,7 @@ class Puit
 		if ($niveau != 0) {
 
 		$resultat = 10 * $niveau;
-		$resultat *= (1.1 + pow(($niveau / 1000), $niveau));
+		$resultat *= (1.5 + pow(($niveau / 1000), $niveau));
 		$resultat *= (1 + ($niveau / 100));
 		$resultat *= $this->Vitesse + (20 * $this->Vitesse);
 		$resultat = $resultat / 3600;
@@ -106,27 +128,29 @@ class Puit
 		if ($_SESSION["ressources"]->wood >= $this->PrixBoisCourant && $_SESSION["ressources"]->food >= $this->PrixNourritureCourant && $_SESSION["ressources"]->water >= $this->PrixEauCourant) {
 			// Requête augmentation du niveau en bdd !
 			$UserModel = new UserModel();
-			$this->Niveau = $this->Niveau + 1;
-
+			$DefaultModel = new DefaultModel();
 			$id_user = $_SESSION["user"]["id"];
-
-			$UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
-			$nom = $this->nom;
-			$_SESSION["buildings"]->$nom = $this->Niveau;
-
 			// Requête suppression des ressources en fonction du prix
 			$wood 	= &$_SESSION["ressources"]->wood;
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;
+	        $camper = &$_SESSION["ressources"]->camper;
 
 	        $wood 	-= $this->PrixBoisCourant;
             $water 	-= $this->PrixEauCourant;
             $food 	-= $this->PrixNourritureCourant;
+            $nom 	= $this->nom;
 
-			$UserModel->refreshRessources($wood, $water, $food, $id_user, $id_user);
+
+			$date = date_create();
+			$_SESSION["construct"]->$nom = date_format($date, 'U') + $this->GetTemps();
+			$UserModel->TimeConstruct($this->nom, ":".$this->nom, date_format($date, 'U') + $this->GetTemps(), $id_user);
+
+			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 		} else {
 			// Afficher message manque de ressource dans une div 
 			echo "Manque de ressource";
+
 		}
 	}
 

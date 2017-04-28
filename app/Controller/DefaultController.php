@@ -14,9 +14,11 @@ class DefaultController extends Controller
 {
 	public function camp()
 	{
+
 		if ( !($this->getUser()) ) {
 			$this->redirectToRoute('user_login');
 		}
+
 		$DefaultModel = new DefaultModel();
 		$DefaultModel->refreshTimer();
 		spl_autoload_register(function($class) {
@@ -31,6 +33,7 @@ class DefaultController extends Controller
 		$cabane = new \Buildings\Cabane();
 		$mur = new \Buildings\Mur();
 		$radio = new \Buildings\StationRadio();
+
 
 		$this->show('default/camp', [
 										"bucheron" 		=> $bucheron,
@@ -73,6 +76,16 @@ class DefaultController extends Controller
 		$_SESSION['newReport']--;
 		$report_manager->update(['seen'=>1], $id);
 
+	}
+
+	public function deleteReport($id)
+	{
+		$report_manager = new ReportsModel();
+		$report = $report_manager->find($id);
+		if ( !($report['seen']) ) {
+			$_SESSION['newReport']--;
+		}
+		$report_manager->delete($id);
 	}
 
 	public function classement()
@@ -118,7 +131,6 @@ class DefaultController extends Controller
 		if ($idBuilding == 4) {
 			$puit = new \Buildings\Puit();
 			$puit->SetNiveau();
-			var_dump($puit);
 		}
 
 		if ($idBuilding == 5) {

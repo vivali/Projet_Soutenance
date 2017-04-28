@@ -72,10 +72,20 @@ class AdminController extends Controller
 
 		if (!empty($_POST)) {
 			// Changement de la vitesse global du jeu
-			if ( isset($_POST['speed']) && $_POST['speed'] > 0 && $_POST['speed'] < 11 ) {
+			if ( isset($_POST['speed']) && $_POST['speed'] >9 && $_POST['speed'] <101 ) {
 				$param_manager->update(['speed'=>$_POST['speed']], $param[0]['id']);
-				// $param = $param_manager->findAll();
-				// var_dump($param);
+			}
+			// Changement de la proba attaque de zombie
+			if ( !empty($_POST['z_atk_proba']) && $_POST['z_atk_proba'] >= 0 && $_POST['z_atk_proba'] < (101 - $_POST['p_atk_proba']) ) {
+				$param_manager->update( [
+					'z_atk_proba'=>$_POST['z_atk_proba']
+				], $param[0]['id'] );
+			}
+			// Changement de la proba attaque de joueur
+			if ( !empty($_POST['p_atk_proba']) && $_POST['p_atk_proba'] >= 0 && $_POST['p_atk_proba'] < (101-$_POST['z_atk_proba']) ) {
+				$param_manager->update( [
+					'p_atk_proba'=>$_POST['p_atk_proba']
+				], $param[0]['id'] );
 			}
 
 		}

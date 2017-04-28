@@ -95,8 +95,6 @@ class UserModel extends UsersModel
 
     	$query = $this->dbh->prepare("
     		UPDATE ressources r
-			INNER JOIN users u
-			ON r.id_user = u.id
 			SET wood = :wood, water = :water, food = :food, camper = :camper
 			WHERE r.id_user = :id_user
     	");
@@ -108,9 +106,7 @@ class UserModel extends UsersModel
 
         $query->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
 
-        $query->execute();
-
-        return $query->rowCount() > 0 ? true : false;
+        return $query->execute();
 
     }
 
@@ -120,8 +116,6 @@ class UserModel extends UsersModel
 
     	$query = $this->dbh->prepare("
     		UPDATE buildings b
-			INNER JOIN users u
-			ON b.id_user = u.id
 			SET wood_farm = :wood_farm, water_farm = :water_farm,  food_farm = :food_farm, wood_stock = :wood_stock, water_stock = :water_stock, food_stock = :food_stock, cabanon = :cabanon, radio = :radio, wall = :wall, camp = :camp
 			WHERE b.id_user = :id_user
     	");
@@ -160,6 +154,22 @@ class UserModel extends UsersModel
         $query->execute();
 
         return $query->rowCount() > 0 ? true : false;
+
+    }
+
+    function TimeConstruct($nom_bdd, $nom_jointure, $valeur, $id_user){
+
+    	$query = $this->dbh->prepare("
+    		UPDATE construct c
+			SET $nom_bdd = $nom_jointure
+			WHERE c.id_user = :id_user
+    	");
+
+        $query->bindParam($nom_jointure, $valeur, \PDO::PARAM_INT);
+
+        $query->bindParam(":id_user", $id_user, \PDO::PARAM_INT);
+
+        return $query->execute();
 
     }
 

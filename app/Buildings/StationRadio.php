@@ -3,14 +3,19 @@
 namespace Buildings;
 
 use \Model\UserModel;
+use \Model\DefaultModel;
 /**
 * 
 */
 class StationRadio
-{	
+{
+	public $id = 9;	
 	private $nom = "radio";
 	private $ProductionBase = 10;
 	private $ProductionCourante;
+
+	public $barre = '';
+	public $action = 1;
 
 	private $RatioPrix = 2;
 	private $PrixBoisBase = 2000;
@@ -21,22 +26,41 @@ class StationRadio
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 401;
+	private $TempsBase = 0;
 	private $TempsCourant;
 
 	private $Niveau = 1;
 	private $RatioProd = 1.2;
 
 	public function __construct () {
-		$this->Niveau = $_SESSION["buildings"]->radio;
-		$this->SetProd();
+		$nom 	= $this->nom;
+		$this->Niveau = $_SESSION["buildings"]->$nom;
 		$this->SetPrix();
 		$this->SetTemps();
+		$id_user = $_SESSION["user"]["id"];
+		$UserModel = new UserModel();
+		$DefaultModel = new DefaultModel();
+		if (!empty($_SESSION["construct"]->$nom)){
+			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
+                $_SESSION["construct"]->$nom = null;
+                $UserModel->TimeConstruct($this->nom, ":".$this->nom, null, $id_user);
+                $this->Niveau = $this->Niveau + 1;
+                $_SESSION["buildings"]->$nom = $this->Niveau;
+                $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
+            }
+            else{
+            	$date = date_create(); 
+            	$timer = $_SESSION["construct"]->$nom; 
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id, $timer)."</div>";
+            }
+		}
 	}
 
 	public function SetProd () {
-		
-		$this->ProductionCourante = (($this->RatioProd + ($this->Niveau * 0.1)) * (
+		if ($this->Niveau != 0) {
+			$this->ProductionCourante = 
+			(($this->RatioProd + 
+			($this->Niveau * 0.1)) * (
 			$_SESSION['buildings']->camp + 
 			$_SESSION['buildings']->food_farm + 
 			$_SESSION['buildings']->wood_farm + 
@@ -47,8 +71,24 @@ class StationRadio
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
 			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante) / 3600;
-		}
+			$this->ProductionCourante);
+		} else {
+			$this->ProductionCourante = 
+			((($this->RatioProd * 0.1)) * (
+			$_SESSION['buildings']->camp + 
+			$_SESSION['buildings']->food_farm + 
+			$_SESSION['buildings']->wood_farm + 
+			$_SESSION['buildings']->water_farm + 
+			$_SESSION['buildings']->cabanon + 
+			$_SESSION['buildings']->food_stock + 
+			$_SESSION['buildings']->wood_stock + 
+			$_SESSION['buildings']->water_stock + 
+			$_SESSION['buildings']->wall + 
+			$_SESSION['buildings']->radio) +
+			$this->ProductionCourante);
+		};
+	}
+		
 
 	public function GetProd () {
 		return $this->ProductionCourante;
@@ -99,35 +139,33 @@ class StationRadio
 	}
 
 	public function SetNiveau () {
-		// Requête récupération ressources de l'utilisateur
 
 		if ($_SESSION["ressources"]->wood >= $this->PrixBoisCourant && $_SESSION["ressources"]->food >= $this->PrixNourritureCourant && $_SESSION["ressources"]->water >= $this->PrixEauCourant) {
-			
+			// Requête augmentation du niveau en bdd !
 			$UserModel = new UserModel();
-			$this->Niveau = $this->Niveau + 1;
-			$this->RatioProd = $this->RatioProd + 0.1;
+			$DefaultModel = new DefaultModel();
 			$id_user = $_SESSION["user"]["id"];
-
-			$UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
-			$nom = $this->nom;
-			$_SESSION["buildings"]->$nom = $this->Niveau;
-
 			// Requête suppression des ressources en fonction du prix
-			
-
 			$wood 	= &$_SESSION["ressources"]->wood;
             $water 	= &$_SESSION["ressources"]->water;
 	        $food 	= &$_SESSION["ressources"]->food;
+	        $camper = &$_SESSION["ressources"]->camper;
 
 	        $wood 	-= $this->PrixBoisCourant;
             $water 	-= $this->PrixEauCourant;
             $food 	-= $this->PrixNourritureCourant;
+            $nom 	= $this->nom;
+
+
+			$date = date_create();
+			$_SESSION["construct"]->$nom = date_format($date, 'U') + $this->GetTemps();
+			$UserModel->TimeConstruct($this->nom, ":".$this->nom, date_format($date, 'U') + $this->GetTemps(), $id_user);
 
 			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
-
 		} else {
 			// Afficher message manque de ressource dans une div 
 			echo "Manque de ressource";
+
 		}
 	}
 
