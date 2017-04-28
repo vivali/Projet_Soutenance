@@ -11,11 +11,13 @@
             </div><br>
         <?php endif; ?>
         <?php foreach ($reports as $key => $report): ?>
-            <div class="row report-preview <?=!($report['seen'])?"bg-warning":""?>">
+            <div id="report_preview_<?=$report['id']?>" class="row report-preview <?=!($report['seen'])?"bg-warning":""?>" style="margin-bottom: 20px;">
                 <p class="report-name"><?=$report['name']?></p>
                 <p class="report-date"><?=$report['report_date']?></p>
                 <button type="button" id="btn<?=$report['id']?>" class="btn btn-xs btn-default btn-report" name="button">Voir le rapport</button>
-            </div><br>
+
+                <button type="button" id="dlt<?=$report['id']?>" class="btn btn-xs btn-danger btn-delete" name="button">Supprimer le rapport</button>
+            </div>
         <?php endforeach; ?>
     </div>
 

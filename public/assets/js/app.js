@@ -1,13 +1,12 @@
 $("button.btn-report").on("click", function(){
     // id du rapport
-    id = $(this)[0].id.substr( 3);
+    id = $(this)[0].id.substr(3);
 
     // Le rapport à afficher
     reportToShow = "report_"+id;
 
     // On cache tous les rapports puis on affiche le rapport sur lequel on a cliqué
     $(".report").addClass("hide");
-
     $("#displayed-report").html( $("#"+reportToShow).html() );
 
     // On limite les requete ajax au message qui ne sont pas vu
@@ -18,6 +17,24 @@ $("button.btn-report").on("click", function(){
 
     // Marque le message comme vu sur la page
     $(this).parent().removeClass("bg-warning");
+});
+
+
+$("button.btn-delete").on("click", function(){
+    // id du rapport
+    id = $(this)[0].id.substr(3);
+
+    // On cache tous les rapports
+    $(".report").addClass("hide");
+
+    // On supprime la preview du rapport de la page
+    $(this).parent().remove();
+
+    // On affiche un message (pas de confirmation)
+    $("#displayed-report").html( "Rapport supprimé." );
+
+    // Supprime le message de la bdd
+    $.ajax({url: "/report/deleteReport/" + id,});
 });
 
 
@@ -52,4 +69,3 @@ function loadBar(){
 
     bar.animate(1.0);
 }
-
