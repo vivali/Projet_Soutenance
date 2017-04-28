@@ -75,7 +75,7 @@ class StationRadio
 			$_SESSION['buildings']->radio)) *
 			($this->RatioProd + (0.1 * $this->Niveau)
 
-		))
+		));}
 		
 
 	public function GetProd () {
