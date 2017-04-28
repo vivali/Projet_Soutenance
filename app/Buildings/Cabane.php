@@ -12,7 +12,7 @@ class Cabane
 	public $id = 8;
 	private $nom = "cabanon";
 	private $RatioStock = 4;
-	private $StockageBase = 10000;
+	private $StockageBase = 100000;
 	private $StockageCourant;
 
 	public $barre = '';
