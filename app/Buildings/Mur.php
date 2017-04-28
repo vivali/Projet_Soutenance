@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace Buildings;
 
 use \Model\UserModel;
 use \Model\DefaultModel;
 /**
-* 
+*
 */
 class Mur
 {
@@ -28,8 +28,8 @@ class Mur
 
 	private $RatioTemps = 1.4;
 	private $TempsBase = 197;
-	private $TempsCourant; 
-	
+	private $TempsCourant;
+
 	private $Niveau = 5;
 
 	public function __construct () {
@@ -112,6 +112,10 @@ class Mur
 		return $this->TempsCourant;
 	}
 
+	public function GetNiveau () {
+		return $this->Niveau;
+	}
+
 	public function SetNiveau () {
 
 		if ($_SESSION["ressources"]->wood >= $this->PrixBoisCourant && $_SESSION["ressources"]->food >= $this->PrixNourritureCourant && $_SESSION["ressources"]->water >= $this->PrixEauCourant) {
@@ -137,7 +141,7 @@ class Mur
 
 			$UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 		} else {
-			// Afficher message manque de ressource dans une div 
+			// Afficher message manque de ressource dans une div
 			echo "Manque de ressource";
 
 		}
