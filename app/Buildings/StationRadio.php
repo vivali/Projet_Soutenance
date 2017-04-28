@@ -11,7 +11,7 @@ class StationRadio
 {
 	public $id = 9;	
 	private $nom = "radio";
-	private $ProductionBase = 10;
+	private $ProductionBase = 60;
 	private $ProductionCourante;
 
 	public $barre = '';
@@ -30,7 +30,7 @@ class StationRadio
 	private $TempsCourant;
 
 	private $Niveau = 1;
-	private $RatioProd = 1.2;
+	private $RatioProd = 1.3;
 
 	public function __construct () {
 		$nom 	= $this->nom;
@@ -58,10 +58,11 @@ class StationRadio
 	}
 
 	public function SetProd () {
-		if ($this->Niveau != 0) {
-			$this->ProductionCourante = 
-			(($this->RatioProd + 
-			($this->Niveau * 0.1)) * (
+
+		$this->ProductionCourante = 
+
+			(( $this->ProductionBase + (
+
 			$_SESSION['buildings']->camp + 
 			$_SESSION['buildings']->food_farm + 
 			$_SESSION['buildings']->wood_farm + 
@@ -71,24 +72,10 @@ class StationRadio
 			$_SESSION['buildings']->wood_stock + 
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
-			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante);
-		} else {
-			$this->ProductionCourante = 
-			((($this->RatioProd * 0.1)) * (
-			$_SESSION['buildings']->camp + 
-			$_SESSION['buildings']->food_farm + 
-			$_SESSION['buildings']->wood_farm + 
-			$_SESSION['buildings']->water_farm + 
-			$_SESSION['buildings']->cabanon + 
-			$_SESSION['buildings']->food_stock + 
-			$_SESSION['buildings']->wood_stock + 
-			$_SESSION['buildings']->water_stock + 
-			$_SESSION['buildings']->wall + 
-			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante);
-		};
-	}
+			$_SESSION['buildings']->radio)) *
+			($this->RatioProd + (0.1 * $this->Niveau)
+
+		))
 		
 
 	public function GetProd () {
