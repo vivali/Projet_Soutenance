@@ -59,7 +59,7 @@ class DefaultModel extends \W\Model\Model {
 	            $refresh_camper2 = date_format($date, 'U');
 	            $timer_camper = $refresh_camper2 - $refresh_camper1;
 	            
-	            $timer_camper = 3600;
+	            // $timer_camper = 3600;
 
 	         	
 	            // echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
