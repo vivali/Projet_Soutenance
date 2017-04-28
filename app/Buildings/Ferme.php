@@ -33,6 +33,7 @@ class Ferme
 	public function __construct () {
 		$nom 	= $this->nom;
 		$this->Niveau = $_SESSION["buildings"]->$nom;
+		$this->SetProd();
 		$this->SetPrix();
 		$this->SetTemps();
 		$id_user = $_SESSION["user"]["id"];

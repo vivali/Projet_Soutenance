@@ -80,7 +80,7 @@
                         <?php endif ?>
                     <?php else:?>
                         <div><?php echo $puit->barre ?></div>
-                        <div class="compteur" id="time<?php echo $puit->id ?>"></div>
+                        <div class="compteur" id="time<?php echo $puit->id ?>">fsfqzef</div>
                     <?php endif ?>
                 </div>
             </div>
