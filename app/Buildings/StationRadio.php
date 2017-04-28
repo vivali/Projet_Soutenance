@@ -26,7 +26,7 @@ class StationRadio
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 0;
+	private $TempsBase = 401;
 	private $TempsCourant;
 
 	private $Niveau = 1;

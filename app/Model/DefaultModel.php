@@ -24,6 +24,12 @@ class DefaultModel extends \W\Model\Model {
 		if (isset($_SESSION["user"])) {
 			$date = date_create();
 	        if (isset($_SESSION["refresh"])){
+
+	        	$id_user = $_SESSION["user"]["id"];
+	            $wood = &$_SESSION["ressources"]->wood;
+	            $water = &$_SESSION["ressources"]->water;
+	            $food = &$_SESSION["ressources"]->food;
+	            $camper = &$_SESSION["ressources"]->camper;
 	        	
 				$bucheron = new \Buildings\Bucheron();
 				$ferme = new \Buildings\Ferme();
@@ -66,12 +72,6 @@ class DefaultModel extends \W\Model\Model {
 	            // echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
 	            // echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
 	            echo $timer_camper." secondes ce sont écoulé depuis le dernier refresh de camper.<br>";
-
-	            $id_user = $_SESSION["user"]["id"];
-	            $wood = &$_SESSION["ressources"]->wood;
-	            $water = &$_SESSION["ressources"]->water;
-	            $food = &$_SESSION["ressources"]->food;
-	            $camper = &$_SESSION["ressources"]->camper;
 
 	            // Calcule Wood
 	            $_SESSION["calcul_wood"] = round(($bucheron->GetProd()) * $timer_wood);
