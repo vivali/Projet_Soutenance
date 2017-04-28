@@ -159,8 +159,9 @@
                             <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>7])?>'>Construire</a>
                         <?php endif ?>
                     <?php else:?>
-                        <div><?php echo $citerne->barre ?></div>
-                        <div class="compteur" id="time<?php echo $citerne->id ?>"></div>
+                        <div class="compteurdiv"><?php echo $citerne->barre ?>
+                            <div class="compteur" id="time<?php echo $citerne->id ?>"></div>
+                        </div>
                     <?php endif ?>
                 <div ></div>
             </div>
@@ -188,7 +189,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $cabane->barre ?></div>
-                        <div class="compteur" id="time<?php echo $cabanne->id ?>"></div>
+                        <div class="compteur" id="time<?php echo $cabane->id ?>"></div>
                 <?php endif ?>
 
                 <div ></div>
