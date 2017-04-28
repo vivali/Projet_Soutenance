@@ -30,7 +30,7 @@
             }
             // Quand on reçoit un message, on l'insère dans la page
             socket.on('message', function(data) {
-                insereMessage(data.pseudo, data.message)
+                insereMessage(data.pseudo+" a envoyé :", data.message)
             })
 
             // Quand un nouveau client se connecte, on affiche l'information
@@ -43,7 +43,7 @@
             $('#formulaire_chat').submit(function () {
                 var message = $('#message').val();
                 socket.emit('message', message); // Transmet le message aux autres
-                insereMessage(pseudo+" a envoyé :", message); // Affiche le message aussi sur notre page
+                insereMessage(pseudo, message); // Affiche le message aussi sur notre page
                 $('#message').val('').focus(); // Vide la zone de Chat et remet le focus dessus
                 return false; // Permet de bloquer l'envoi "classique" du formulaire
             });
