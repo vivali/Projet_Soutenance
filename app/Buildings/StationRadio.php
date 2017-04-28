@@ -26,7 +26,7 @@ class StationRadio
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 401;
+	private $TempsBase = 0;
 	private $TempsCourant;
 
 	private $Niveau = 1;
@@ -57,8 +57,10 @@ class StationRadio
 	}
 
 	public function SetProd () {
-		
-		$this->ProductionCourante = ((($this->RatioProd * ($this->Niveau + 1)) + (($this->Niveau + 1) * 0.1)) * (
+		if ($this->Niveau != 0) {
+			$this->ProductionCourante = 
+			(($this->RatioProd + 
+			($this->Niveau * 0.1)) * (
 			$_SESSION['buildings']->camp + 
 			$_SESSION['buildings']->food_farm + 
 			$_SESSION['buildings']->wood_farm + 
@@ -70,7 +72,23 @@ class StationRadio
 			$_SESSION['buildings']->wall + 
 			$_SESSION['buildings']->radio) +
 			$this->ProductionCourante);
-		}
+		} else {
+			$this->ProductionCourante = 
+			((($this->RatioProd * 0.1)) * (
+			$_SESSION['buildings']->camp + 
+			$_SESSION['buildings']->food_farm + 
+			$_SESSION['buildings']->wood_farm + 
+			$_SESSION['buildings']->water_farm + 
+			$_SESSION['buildings']->cabanon + 
+			$_SESSION['buildings']->food_stock + 
+			$_SESSION['buildings']->wood_stock + 
+			$_SESSION['buildings']->water_stock + 
+			$_SESSION['buildings']->wall + 
+			$_SESSION['buildings']->radio) +
+			$this->ProductionCourante);
+		};
+	}
+		
 
 	public function GetProd () {
 		return $this->ProductionCourante;
