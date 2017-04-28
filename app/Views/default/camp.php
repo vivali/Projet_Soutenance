@@ -8,8 +8,8 @@
 
 <?php endif; ?>
 <div class="container" id="game-board">
-    <div class="row">
-        <!--Camp -->
+    <h1 class="text-center">Campement</h1>
+    <!--<div class="row">
         <div class="col-md-12">
             <h1 class="text-center">Campement</h1>
             <img class="d-flex img-responsive mr-3" src="" alt="Generic placeholder image" id="camp">
@@ -18,7 +18,7 @@
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>1])?>">Construire</a>
             </div>
         </div>
-    </div>
+    </div>-->
         <!--batiment 1-->
     </br>
     <div class="row">
@@ -37,6 +37,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $bucheron->barre ?></div>
+                        <div class="compteur" id="time<?php echo $bucheron->id ?>"></div>
                 <?php endif ?>
             </div>
             </div>
@@ -59,6 +60,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $ferme->barre ?></div>
+                        <div class="compteur" id="time<?php echo $ferme->id ?>"></div>
                 <?php endif ?>
 
             </div>
@@ -83,6 +85,7 @@
                         <?php endif ?>
                     <?php else:?>
                         <div><?php echo $puit->barre ?></div>
+                        <div class="compteur" id="time<?php echo $puit->id ?>"></div>
                     <?php endif ?>
                 </div>
             </div>
@@ -110,9 +113,7 @@
                 <?php else:?>
                     <div>
                         <?php echo $hangar->barre ?>
-                        <div class="timer">
-                            <?php $date = date_create(); $timer = $_SESSION["construct"]->wood_stock - date_format($date, 'U'); echo $timer; ?>
-                        </div>
+                        <div class="compteur" id="time<?php echo $hangar->id ?>"></div>
                     </div>
                 <?php endif ?>
 
@@ -138,6 +139,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $garde_manger->barre ?></div>
+                        <div class="compteur" id="time<?php echo $garde_manger->id ?>"></div>
                 <?php endif ?>
 
                 <div ></div>
@@ -162,7 +164,9 @@
                             <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>7])?>'>Construire</a>
                         <?php endif ?>
                     <?php else:?>
-                        <div><?php echo $citerne->barre ?></div>
+                        <div class="compteurdiv"><?php echo $citerne->barre ?>
+                            <div class="compteur" id="time<?php echo $citerne->id ?>"></div>
+                        </div>
                     <?php endif ?>
                 <div ></div>
             </div>
@@ -190,6 +194,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $cabane->barre ?></div>
+                        <div class="compteur" id="time<?php echo $cabane->id ?>"></div>
                 <?php endif ?>
 
                 <div ></div>
@@ -215,6 +220,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $radio->barre ?></div>
+                        <div class="compteur" id="time<?php echo $radio->id ?>"></div>
                 <?php endif ?>
 
                 <div></div>
@@ -240,6 +246,7 @@
                     <?php endif ?>
                 <?php else:?>
                     <div><?php echo $mur->barre ?></div>
+                        <div class="compteur" id="time<?php echo $mur->id ?>"></div>
                 <?php endif ?>
 
                 <div></div>

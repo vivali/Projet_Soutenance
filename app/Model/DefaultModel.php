@@ -24,6 +24,12 @@ class DefaultModel extends \W\Model\Model {
 		if (isset($_SESSION["user"])) {
 			$date = date_create();
 	        if (isset($_SESSION["refresh"])){
+
+	        	$id_user = $_SESSION["user"]["id"];
+	            $wood = &$_SESSION["ressources"]->wood;
+	            $water = &$_SESSION["ressources"]->water;
+	            $food = &$_SESSION["ressources"]->food;
+	            $camper = &$_SESSION["ressources"]->camper;
 	        	
 				$bucheron = new \Buildings\Bucheron();
 				$ferme = new \Buildings\Ferme();
@@ -65,12 +71,7 @@ class DefaultModel extends \W\Model\Model {
 	            // echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
 	            // echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
 	            // echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
-
-	            $id_user = $_SESSION["user"]["id"];
-	            $wood = &$_SESSION["ressources"]->wood;
-	            $water = &$_SESSION["ressources"]->water;
-	            $food = &$_SESSION["ressources"]->food;
-	            $camper = &$_SESSION["ressources"]->camper;
+	            echo $timer_camper." secondes ce sont écoulé depuis le dernier refresh de camper.<br>";
 
 	            // Calcule Wood
 	            $_SESSION["calcul_wood"] = round(($bucheron->GetProd()) * $timer_wood);
@@ -117,6 +118,7 @@ class DefaultModel extends \W\Model\Model {
 	        	// echo "Vous avez gagné ".$final_wood." bois.<br>";
 	        	// echo "Vous avez gagné ".$final_water." eaux.<br>";
 	        	// echo "Vous avez gagné ".$final_food." nourritures.<br>";
+	        	echo "Vous avez gagné ".$final_camper." campers.<br>";
 	            // $wood += $final_wood;
 	            // $water += $final_water;
 	            // $food += $final_food;
@@ -133,7 +135,7 @@ class DefaultModel extends \W\Model\Model {
 	    }
 	}
 
-	function buttonConstruct($duree, $fin, $id) {
+	function buttonConstruct($duree, $fin, $id, $timer) {
 		return "<style>
 		#bar".$id." {
 		margin-top: 7px; 
@@ -148,31 +150,37 @@ class DefaultModel extends \W\Model\Model {
 		var calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000);
 		var fin".$id." = ".$fin.";
 		var now".$id." = fin".$id." - calcul2".$id."; 
-		console.log(now".$id.");
+		var timer".$id." = ".$timer." - Math.round(Date.now() / 1000);
 		$(document).ready(function(){ 
 			$('#bar".$id."').css({ 
 				'width': ((now".$id." * 100) / fin".$id.") + '%' });
 			 });
+			 var date".$id." = new Date(null);
+			 result".$id." = date".$id.".setSeconds(timer".$id.");
+			 $('#time".$id."').html(result".$id.");
 		var barre".$id." = setInterval(function(){ myTimer".$id."() }, 1000);
 		function StopFunction".$id."() {
 		 	clearInterval(barre".$id.");
 		}
 
 		function myTimer".$id."() {
-			calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000); 
+			calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000);
+			timer".$id." = ".$timer." - Math.round(Date.now() / 1000); 
 			now".$id." = fin".$id." - calcul2".$id.";
 			$(document).ready(function(){ 
 				$('#bar".$id."').css({ 
 					'width': ((now".$id." * 100) / fin".$id.") + '%' });
 				 });
+				var date".$id." = new Date(null);
+				result".$id." = date".$id.".setSeconds(timer".$id.");
+				result".$id." = date".$id.".toISOString().substr(11, 8);
+				$('#time".$id."').html(result".$id.");
 			if (((now".$id." * 100) / fin".$id.") >= 100){
 				StopFunction".$id."();
 				window.location.reload();
 			}
 		}
-		
-		
-	 	 </script>";
+		</script>";
 	}
 
 	function buttonConstruct2($duree, $fin) {
