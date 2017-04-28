@@ -33,31 +33,7 @@ class DefaultController extends Controller
 		$cabane = new \Buildings\Cabane();
 		$mur = new \Buildings\Mur();
 		$radio = new \Buildings\StationRadio();
-		// $button = "";
-		// $lien = "";
 
-		// if (empty($_SESSION["construct"]->water_farm)){
-  //           $lien = 1;
-            // $_SESSION["buildings"]->water_farm = 0;
-  //       }
-  //       else{      	
-  //       	// echo  $_SESSION["construct"]->water_farm - date_format(date_create(),'U');
-
-  //           $temps = $_SESSION["construct"]->water_farm - date_format(date_create(),'U');
-            
-
-  //           if ($temps <= 0){
-  //               echo "Batiment Construit.";
-  //               $_SESSION["construct"]->water_farm = null;
-  //               $_SESSION["buildings"]->water_farm += 1;
-  //           }
-  //           else{
-  //           	$fin = $puit->GetTemps(); // 42
-  //           	$duree = $_SESSION["construct"]->water_farm; // timestamp de fin de construction now + $fin
-  //           	$button = "<div class='bar'>".$DefaultModel->buttonConstruct($duree, $fin)."</div>";
-  //               // $button = "<div>".($_SESSION["construct"]->water_farm - date_format(date_create(),'U'))."</div>";
-  //           }
-  //       }
 
 		$this->show('default/camp', [
 										"bucheron" 		=> $bucheron,
