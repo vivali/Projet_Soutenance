@@ -241,10 +241,12 @@ class UserModel extends UsersModel
 		return $sth->fetchAll();
 	}
 
-    public function getAttacked($id_user, $wallLevel = 0, $probaZombie = 40)
-    {
+    public function getAttacked($id_user, $wallLevel = 0, $probaZombie, $probaPlayer) {
         // Chance d'attaque
         $atk = rand(0, 100);
+
+        // Modif de test
+        $probaZombie = 0; $probaPlayer = 100;
 
         // Attaque de zombies ?
         if ($atk < $probaZombie){
@@ -256,10 +258,10 @@ class UserModel extends UsersModel
                 // Récupération des ressources de l'utilisateur
                 $ressources = $this->getRtable($id_user);
 
-                // Attaque de zombie = perdre entre 5 et 10% de ressources
-                $newWater = round($ressources->water * (1 - 0.01*rand(5, 10)));
-                $newFood  = round($ressources->food  * (1 - 0.01*rand(5, 10)));
-                $newWood  = round($ressources->wood  * (1 - 0.01*rand(5, 10)));
+                // Attaque de zombie = perdre entre 20 et 30% de ressources
+                $newWater = round($ressources->water * (1 - 0.01*rand(20, 30)));
+                $newFood  = round($ressources->food  * (1 - 0.01*rand(20, 30)));
+                $newWood  = round($ressources->wood  * (1 - 0.01*rand(20, 30)));
 
                 // Rapport d'attaque
                 $report = "Vous avez subi une attaque de zombies.<br>
@@ -269,24 +271,84 @@ class UserModel extends UsersModel
                 .($ressources->wood - $newWood)." bois.<br>";
 
                 // Update les ressources
-                $this->refreshRessources($newWood, $newWater, $newFood, $id_user);
+                $this->refreshRessources($newWood, $newWater, $newFood, $ressources->camper, $id_user);
+                $_SESSION['ressources']->wood = $newWood;
+                $_SESSION['ressources']->water = $newWater;
+                $_SESSION['ressources']->food = $newFood;
 
             } else {
                 // Rapport d'attaque
                 $report = "Vous avez subi une attaque de zombies.<br>
                 Votre mur vous a permis de vous defendre sans perdre de ressources.";
             }
+            $reportName = "Attaque de zombies";
 
-            // Ajouter le rapport à l'utilisateur en bdd
-            $report_manager = new ReportsModel();
-            $report_manager->insert([
-                'id_user'   => $id_user,
-                'name'      => "Attaque de zombies",
-                'report'    => $report,
-            ], false);
-        } // Fin attaque de zombies
+            // Fin attaque de zombies
+        } elseif ( $atk < ($probaZombie + $probaPlayer) ) {
+            // Attaque de joueur ?
+            /*
+            attack:
+            0: n'attaque pas
+            1: veut attaquer
 
-        // Attaque de joueur ?
+            - Trouver s'il y a des joueurs qui veulent attaquer
+            - S'il y en a, on check la proba atkPlayer + atkZombie
+            - Résultat de l'attaque :
+            . Défaite : capacité max transport = 20 * campeur de l'attaquant
+            capaMax = capacitéMax / 3
+            déf ressource loss -= 20% <  < 70%
+            gain = min(capaMax, déf ressource loss)
+            perte de campeur ? pour qui ?
+            --> ajoute les gain à l'attaquant, les retire au défenseur
+
+            . Victoire : l'attaquant perd des campeurs, le défenseur en gagne ?
+            */
+            $atkResult = rand(0, 100);
+            $users = $this->findAll();
+            foreach ($users as $key => $user) {
+                if ($user['attacking_campers']) {
+                    // Les utilisateurs attaquant
+                    $attackingUsers [] = $user;
+                }
+            }
+
+            // L'utilisateur qui attaque
+            $user = $attackingUsers[ rand(0, ( sizeof($attackingUsers)-1 )) ];
+
+            $defense = ($wallLevel * 100) - $user['attacking_campers'];
+
+            // Mur plus fort que l'attaque
+            if ($defense < 0) { // A CHANGER
+                // Perte de 70 à 90% des campers attaquant
+                $attackersLeft = round($user['attacking_campers'] * (1-0.01*rand(70,90)));
+                var_dump($user['attacking_campers']);
+                var_dump($attackersLeft);
+
+                // Calcul des pertes pour le défenseurs
+                $defendingCampers = $this->getRTable($id_user)->camper;
+                var_dump($defendingCampers);
+
+                $defendingCampersLost = $user['attacking_campers'] * (1 - 0.01*rand(1, 5));
+                var_dump($defendingCampersLost);
+                var_dump($defendingCampers);
+            }
+
+            $reportName = "Vous avez été attaqué pendant la nuit";
+            $report = "Résultat de l'attaque.";
+        } else {
+            // Aucune attaque dans la nuit
+            $reportName = "Compte rendu de la nuit";
+            $report = "La nuit a été calme.";
+        }
+
+        // Ajouter le rapport à l'utilisateur en bdd
+        $report_manager = new ReportsModel();
+        $report_manager->insert([
+            'id_user'   => $id_user,
+            'name'      => $reportName,
+            'report'    => $report,
+        ], false);
+
 
     }
 

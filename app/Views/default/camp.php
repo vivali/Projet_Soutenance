@@ -1,7 +1,12 @@
 <?php $this->layout('layout', ['title' => 'Camp']) ?>
 
 <?php $this->start('main_content') ?>
+<?php if ( !empty($alert) ): ?>
+    <script type="text/javascript">
+        alert("<?=$alert?>");
+    </script>
 
+<?php endif; ?>
 <div class="container" id="game-board">
     <h1 class="text-center">Campement</h1>
     <!--<div class="row">
@@ -71,7 +76,7 @@
 
                     <p>Prix : <?php echo $puit->GetPrixBois(); ?> bois <?php echo $puit->GetPrixNourriture(); ?> nourriture <?php echo $puit->GetPrixEau(); ?> eau</p>
 
-                    
+
                     <a class="btn btn-primary btn-block" href="<?=$this->url('default_building',['idBuilding'=>4])?>">Voir</a>
 
                     <?php if(empty($_SESSION["construct"]->water_farm)):?>
