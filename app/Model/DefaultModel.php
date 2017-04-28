@@ -65,6 +65,7 @@ class DefaultModel extends \W\Model\Model {
 	            // echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
 	            // echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
 	            // echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
+	            echo $timer_camper." secondes ce sont écoulé depuis le dernier refresh de camper.<br>";
 
 	            $id_user = $_SESSION["user"]["id"];
 	            $wood = &$_SESSION["ressources"]->wood;
@@ -117,6 +118,7 @@ class DefaultModel extends \W\Model\Model {
 	        	// echo "Vous avez gagné ".$final_wood." bois.<br>";
 	        	// echo "Vous avez gagné ".$final_water." eaux.<br>";
 	        	// echo "Vous avez gagné ".$final_food." nourritures.<br>";
+	        	echo "Vous avez gagné ".$final_camper." campers.<br>";
 	            // $wood += $final_wood;
 	            // $water += $final_water;
 	            // $food += $final_food;
