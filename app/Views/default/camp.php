@@ -103,7 +103,12 @@
                         <a class='btn btn-success btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>5])?>'>Construire</a>
                     <?php endif ?>
                 <?php else:?>
-                    <div><?php echo $hangar->barre ?></div>
+                    <div>
+                        <?php echo $hangar->barre ?>
+                        <div class="timer">
+                            <?php $date = date_create(); $timer = $_SESSION["construct"]->wood_stock - date_format($date, 'U'); echo $timer; ?>   
+                        </div>
+                    </div>
                 <?php endif ?>
 
                 <div></div>
