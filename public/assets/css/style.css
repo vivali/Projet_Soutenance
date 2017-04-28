@@ -54,7 +54,11 @@ img {
 	height: 360px;
 }
 
-
+#zone_chat{
+    width: 100%;
+    height: 380px;
+	overflow: auto;
+}
 header {
 	width: 70%;
 	display: block;

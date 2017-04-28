@@ -16,11 +16,13 @@
 
 		// Camp/buildings
 		['GET', '/camp', 						'Default#camp', 'default_camp'],
-		['GET', '/report', 						'Default#report', 'default_report'],
-		['GET', '/report/seen/[i:id]', 			'Default#seen', 'report_seen'],
 		['GET', '/view/[i:idBuilding]', 		'Default#building', 'default_building'],
 		['GET', '/upgrade/[i:idBuilding]', 		'Default#upgrade', 'default_upgrade'],
 
+		// Rapport/message
+		['GET', '/report', 						'Default#report', 'default_report'],
+		['GET', '/report/seen/[i:id]', 			'Default#seen', 'report_seen'],
+		['GET', '/report/deleteReport/[i:id]', 	'Default#deleteReport', 'report_deleteReport'],
 
 		// ---- Back office ----
 		// Users

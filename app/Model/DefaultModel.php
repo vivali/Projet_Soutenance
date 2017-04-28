@@ -133,7 +133,7 @@ class DefaultModel extends \W\Model\Model {
 	    }
 	}
 
-	function buttonConstruct($duree, $fin, $id) {
+	function buttonConstruct($duree, $fin, $id, $timer) {
 		return "<style>
 		#bar".$id." {
 		margin-top: 7px; 
@@ -148,31 +148,37 @@ class DefaultModel extends \W\Model\Model {
 		var calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000);
 		var fin".$id." = ".$fin.";
 		var now".$id." = fin".$id." - calcul2".$id."; 
-		console.log(now".$id.");
+		var timer".$id." = ".$timer." - Math.round(Date.now() / 1000);
 		$(document).ready(function(){ 
 			$('#bar".$id."').css({ 
 				'width': ((now".$id." * 100) / fin".$id.") + '%' });
 			 });
+			 var date".$id." = new Date(null);
+			 result".$id." = date".$id.".setSeconds(timer".$id.");
+			 $('#time".$id."').html(result".$id.");
 		var barre".$id." = setInterval(function(){ myTimer".$id."() }, 1000);
 		function StopFunction".$id."() {
 		 	clearInterval(barre".$id.");
 		}
 
 		function myTimer".$id."() {
-			calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000); 
+			calcul2".$id." = calcul".$id." - Math.round(Date.now() / 1000);
+			timer".$id." = ".$timer." - Math.round(Date.now() / 1000); 
 			now".$id." = fin".$id." - calcul2".$id.";
 			$(document).ready(function(){ 
 				$('#bar".$id."').css({ 
 					'width': ((now".$id." * 100) / fin".$id.") + '%' });
 				 });
+				var date".$id." = new Date(null);
+				result".$id." = date".$id.".setSeconds(timer".$id.");
+				result".$id." = date".$id.".toISOString().substr(11, 8);
+				$('#time".$id."').html(result".$id.");
 			if (((now".$id." * 100) / fin".$id.") >= 100){
 				StopFunction".$id."();
 				window.location.reload();
 			}
 		}
-		
-		
-	 	 </script>";
+		</script>";
 	}
 
 	function buttonConstruct2($duree, $fin) {

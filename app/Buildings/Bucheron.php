@@ -29,16 +29,14 @@ class Bucheron
 	private $Vitesse = 10;
 
 	public function __construct () {
-		$this->Niveau = $_SESSION["buildings"]->wood_farm;
-		$this->SetProd();
+		$nom 	= $this->nom;
+		$this->Niveau = $_SESSION["buildings"]->$nom;
 		$this->SetPrix();
 		$this->SetTemps();
-		$nom 	= $this->nom;
 		$id_user = $_SESSION["user"]["id"];
 		$UserModel = new UserModel();
 		$DefaultModel = new DefaultModel();
 		if (!empty($_SESSION["construct"]->$nom)){
-			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
                 $UserModel->TimeConstruct($this->nom, ":".$this->nom, null, $id_user);
@@ -47,7 +45,9 @@ class Bucheron
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
             }
             else{
-            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
+            	$date = date_create(); 
+            	$timer = $_SESSION["construct"]->$nom; 
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id, $timer)."</div>";
             }
 		}
 	}

@@ -78,6 +78,16 @@ class DefaultController extends Controller
 
 	}
 
+	public function deleteReport($id)
+	{
+		$report_manager = new ReportsModel();
+		$report = $report_manager->find($id);
+		if ( !($report['seen']) ) {
+			$_SESSION['newReport']--;
+		}
+		$report_manager->delete($id);
+	}
+
 	public function classement()
 	{
 		$DefaultModel = new DefaultModel();
