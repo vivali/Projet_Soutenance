@@ -40,11 +40,11 @@ class DefaultController extends Controller
   //           $lien = 1;
             // $_SESSION["buildings"]->water_farm = 0;
   //       }
-  //       else{      	
+  //       else{
   //       	// echo  $_SESSION["construct"]->water_farm - date_format(date_create(),'U');
 
   //           $temps = $_SESSION["construct"]->water_farm - date_format(date_create(),'U');
-            
+
 
   //           if ($temps <= 0){
   //               echo "Batiment Construit.";
@@ -100,6 +100,16 @@ class DefaultController extends Controller
 		$_SESSION['newReport']--;
 		$report_manager->update(['seen'=>1], $id);
 
+	}
+
+	public function deleteReport($id)
+	{
+		$report_manager = new ReportsModel();
+		$report = $report_manager->find($id);
+		if ( !($report['seen']) ) {
+			$_SESSION['newReport']--;
+		}
+		$report_manager->delete($id);
 	}
 
 	public function classement()
