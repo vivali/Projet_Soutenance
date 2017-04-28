@@ -11,7 +11,7 @@ class StationRadio
 {
 	public $id = 9;	
 	private $nom = "radio";
-	private $ProductionBase = 10;
+	private $ProductionBase = 60;
 	private $ProductionCourante;
 
 	public $barre = '';
@@ -26,23 +26,22 @@ class StationRadio
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 0;
+	private $TempsBase = 401;
 	private $TempsCourant;
 
 	private $Niveau = 1;
-	private $RatioProd = 1.2;
+	private $RatioProd = 1.3;
 
 	public function __construct () {
-		$this->Niveau = $_SESSION["buildings"]->radio;
+		$nom 	= $this->nom;
+		$this->Niveau = $_SESSION["buildings"]->$nom;
 		$this->SetProd();
 		$this->SetPrix();
 		$this->SetTemps();
-		$nom 	= $this->nom;
 		$id_user = $_SESSION["user"]["id"];
 		$UserModel = new UserModel();
 		$DefaultModel = new DefaultModel();
 		if (!empty($_SESSION["construct"]->$nom)){
-			$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
 			if (($_SESSION["construct"]->$nom - date_format(date_create(),'U')) <= 0){
                 $_SESSION["construct"]->$nom = null;
                 $UserModel->TimeConstruct($this->nom, ":".$this->nom, null, $id_user);
@@ -51,16 +50,19 @@ class StationRadio
                 $UserModel->refreshBuildings($this->nom, ":".$this->nom, $this->Niveau, $id_user);
             }
             else{
-            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id)."</div>";
+            	$date = date_create(); 
+            	$timer = $_SESSION["construct"]->$nom; 
+            	$this->barre = "<div id='bar".$this->id."'>".$DefaultModel->buttonConstruct($_SESSION["construct"]->$nom, $this->GetTemps(), $this->id, $timer)."</div>";
             }
 		}
 	}
 
 	public function SetProd () {
-		if ($this->Niveau != 0) {
-			$this->ProductionCourante = 
-			(($this->RatioProd + 
-			($this->Niveau * 0.1)) * (
+
+		$this->ProductionCourante = 
+
+			(( $this->ProductionBase + (
+
 			$_SESSION['buildings']->camp + 
 			$_SESSION['buildings']->food_farm + 
 			$_SESSION['buildings']->wood_farm + 
@@ -70,24 +72,12 @@ class StationRadio
 			$_SESSION['buildings']->wood_stock + 
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
-			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante);
-		} else {
-			$this->ProductionCourante = 
-			((($this->RatioProd * 0.1)) * (
-			$_SESSION['buildings']->camp + 
-			$_SESSION['buildings']->food_farm + 
-			$_SESSION['buildings']->wood_farm + 
-			$_SESSION['buildings']->water_farm + 
-			$_SESSION['buildings']->cabanon + 
-			$_SESSION['buildings']->food_stock + 
-			$_SESSION['buildings']->wood_stock + 
-			$_SESSION['buildings']->water_stock + 
-			$_SESSION['buildings']->wall + 
-			$_SESSION['buildings']->radio) +
-			$this->ProductionCourante);
-		};
+			$_SESSION['buildings']->radio)) *
+			($this->RatioProd + (0.1 * $this->Niveau)
+
+		)) / 3600;
 	}
+
 		
 
 	public function GetProd () {
