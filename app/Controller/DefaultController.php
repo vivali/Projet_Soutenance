@@ -37,7 +37,7 @@ class DefaultController extends Controller
 
 		$user = $this->getUser();
 		// Perdre des ressources
-		$_SESSION['user']['date_last_connexion'] = 1490370723;
+		// $_SESSION['user']['date_last_connexion'] = 1490370723;
 
 		$alert = "";
 		// Attaque si l'utilisateur ne se déconnecte pas
