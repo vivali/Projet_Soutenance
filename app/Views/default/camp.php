@@ -3,8 +3,8 @@
 <?php $this->start('main_content') ?>
 
 <div class="container" id="game-board">
-    <div class="row">
-        <!--Camp -->
+    <h1 class="text-center">Campement</h1>
+    <!--<div class="row">
         <div class="col-md-12">
             <h1 class="text-center">Campement</h1>
             <img class="d-flex img-responsive mr-3" src="" alt="Generic placeholder image" id="camp">
@@ -13,7 +13,7 @@
                 <a class="btn btn-success btn-block" href="<?=$this->url('default_upgrade',['idBuilding'=>1])?>">Construire</a>
             </div>
         </div>
-    </div>
+    </div>-->
         <!--batiment 1-->
     </br>
     <div class="row">

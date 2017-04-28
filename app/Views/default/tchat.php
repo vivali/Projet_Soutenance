@@ -16,7 +16,7 @@
             </form>
         </div>
         <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+        <script src="http://192.168.1.138:3000/socket.io/socket.io.js"></script>
         <script>
 
             // Connexion à socket.io
