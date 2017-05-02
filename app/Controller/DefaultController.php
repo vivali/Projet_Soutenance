@@ -8,6 +8,7 @@ use \Model\UserModel;
 use \Model\DefaultModel;
 use \Model\BuildingsModel;
 use \Model\RessourcesModel;
+use \Model\ParamModel;
 use \Model\ReportsModel;
 
 class DefaultController extends Controller
@@ -34,6 +35,41 @@ class DefaultController extends Controller
 		$mur = new \Buildings\Mur();
 		$radio = new \Buildings\StationRadio();
 
+		$user = $this->getUser();
+		// Perdre des ressources
+		// $_SESSION['user']['date_last_connexion'] = 1490370723;
+
+		$alert = "";
+		// Attaque si l'utilisateur ne se déconnecte pas
+		$lastLogD = date( 'd-m', ( $user["date_last_connexion"] ) ) ;
+		$today = date('d-m');
+		if ($lastLogD != $today) {
+			$lastCo=round((time()-$user["date_last_connexion"])/(24*60*60));
+
+			// Récupération des proba d'attaques
+			$param_manager = new ParamModel();
+			$param = $param_manager->findAll();
+			$user_manager = new UserModel();
+			$user_manager->getAttacked($this->getUser()['id'], $mur->GetNiveau(), $param[0]['z_atk_proba'], $param[0]['p_atk_proba']);
+
+			// Récupére les rapports
+			$report_manager = new ReportsModel();
+			$reports = $report_manager->findAllById($this->getUser()['id']);
+			$newReport = 0;
+			foreach ($reports as $report) {
+				if($report['seen'] == 0){ $newReport++; }
+			}
+			if ($_SESSION["newReport"] != $newReport) {
+				$alert = "Vous avez un nouveau rapport.";
+			}
+			$_SESSION["newReport"] = $newReport;
+
+			// Mise à jour de la date de dernière connexion
+			$user_manager->update(['date_last_connexion'=>time()], $this->getUser()['id']);
+
+			$auth_manager = new \W\Security\AuthentificationModel();
+			$auth_manager->refreshUser();
+		}
 
 		$this->show('default/camp', [
 										"bucheron" 		=> $bucheron,
@@ -44,9 +80,9 @@ class DefaultController extends Controller
 										"citerne"		=> $citerne,
 										"cabane"		=> $cabane,
 										"mur"			=> $mur,
-										"radio"			=> $radio
+										"radio"			=> $radio,
+										"alert" 		=> $alert
 									] );
-
 
 	}
 

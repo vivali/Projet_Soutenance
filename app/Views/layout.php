@@ -1,16 +1,49 @@
 <!DOCTYPE html>
-<html lang="fr">
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="fr"> <!--<![endif]-->
 <head>
-	<meta charset="UTF-8">
-	<title><?= $this->e($title) ?></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<title>Campers Vs Zombies</title>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<!-- Web Fonts -->
+	<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
+	<link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Love+Ya+Like+A+Sister" rel="stylesheet">
+
+	<!-- CSS Global Compulsory -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('plugins/bootstrap/css/bootstrap.min.css') ?>">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+	<!-- CSS Header and Footer -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/headers/header-default.css') ?>">
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/footers/footer-v1.css') ?>">
+
+	<!-- CSS Implementing Plugins -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('plugins/animate.css') ?>">
+	<link rel="stylesheet" href="<?= $this->assetUrl('plugins/line-icons/line-icons.css') ?>">
+	<link rel="stylesheet" href="<?= $this->assetUrl('plugins/font-awesome/css/font-awesome.min.cs') ?>s">
+
+	<!-- CSS Page Style -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/pages/blog_masonry_3col.css') ?>">
+
+	<!-- CSS Theme -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/theme-colors/default.css" id="style_color') ?>">
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/theme-skins/dark.css') ?>">
+
+	<!-- CSS Customization -->
+	<link rel="stylesheet" href="<?= $this->assetUrl('css/custom.css') ?>">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-	<header>
-	<!--<img src="../public/assets/img/LOGO_Campeurs_VS_Zombies.png" alt="logo" class="img-responsive" id="logo">-->
-	</header>
 	<nav class="navbar navbar-inverse">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false">
@@ -55,28 +88,36 @@
 	</nav>
 
 	<div class="container">
-		<section>
-			<?php if ($this->section('sidebar')) { ?>
-
-				<div class="row">
-					<div class="col-sm-3">
-						<?= $this->section('sidebar') ?>
-					</div>
-					<div class="col-sm-9">
-						<?= $this->section('main_content') ?>
-					</div>
-				</div>
-
-			<?php } else { ?>
-
+		
+	
 				<?= $this->section('main_content') ?>
 
-			<?php } ?>
-		</section>
 	</div>
-	<?php var_dump($_SESSION); ?>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="<?= $this->assetUrl('js/app.js'); ?>"></script>
+	<!-- <?php // var_dump($_SESSION); ?> -->
+	<!-- JS Global Compulsory -->
+	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<!-- JS Implementing Plugins -->
+	<script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+	<script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
+	<script type="text/javascript" src="assets/plugins/masonry/jquery.masonry.min.js"></script>
+	<!-- JS Customization -->
+	<script type="text/javascript" src="assets/js/custom.js"></script>
+	<!-- JS Page Level -->
+	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/pages/blog-masonry.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			App.init();
+			StyleSwitcher.initStyleSwitcher();
+		});
+	</script>
+	<!--[if lt IE 9]>
+    <script src="assets/plugins/respond.js"></script>
+    <script src="assets/plugins/html5shiv.js"></script>
+    <script src="assets/plugins/placeholder-IE-fixes.js"></script>
+  <![endif]-->
 </body>
 </html>

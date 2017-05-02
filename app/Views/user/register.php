@@ -3,7 +3,7 @@
 <?php $this->start('main_content') ?>
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-6">
+        <div class="col-md-6 col-md-offset-3">
 
             <h3 class="text-center">Inscription</h3>
             <br>

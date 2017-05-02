@@ -26,7 +26,7 @@ class StationRadio
 	private $PrixEauCourant;
 
 	private $RatioTemps = 1.5;
-	private $TempsBase = 0;
+	private $TempsBase = 401;
 	private $TempsCourant;
 
 	private $Niveau = 1;
@@ -35,6 +35,7 @@ class StationRadio
 	public function __construct () {
 		$nom 	= $this->nom;
 		$this->Niveau = $_SESSION["buildings"]->$nom;
+		$this->SetProd();
 		$this->SetPrix();
 		$this->SetTemps();
 		$id_user = $_SESSION["user"]["id"];
@@ -72,10 +73,11 @@ class StationRadio
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
 			$_SESSION['buildings']->radio)) *
-			($this->RatioProd + (0.1 * $this->Niveau)
+			($this->RatioProd + (0.3 * $this->Niveau)
 
 		)) / 3600;
 	}
+
 		
 
 	public function GetProd () {

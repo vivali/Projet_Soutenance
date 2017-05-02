@@ -1,6 +1,7 @@
 <?php $this->layout('layout', ['title' => 'Classement']) ?>
 
 <?php $this->start('main_content') ?>
+
     <h2>Classement :</h2><br>
     <table class="table">
         <thead>

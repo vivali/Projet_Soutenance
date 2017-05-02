@@ -59,7 +59,7 @@ class UserController extends Controller
 
 						// Subit une attaque éventuelle pour chaque jour de puis sa dernière co
 						for ($i=0; $i < $lastCo; $i++) {
-							$user_manager->getAttacked($user_id, $buildings->wall, $param[0]['z_atk_proba']);
+							$user_manager->getAttacked($user_id, $buildings->wall, $param[0]['z_atk_proba'], $param[0]['p_atk_proba']);
 						}
 					}
 
@@ -74,6 +74,8 @@ class UserController extends Controller
 
 					// Mise à jour de la date de dernière connexion
 					$user_manager->update(['date_last_connexion'=>time()], $user_id);
+
+					$auth_manager->refreshUser();
 
 					$this->redirectToRoute('default_camp');
 				} else {

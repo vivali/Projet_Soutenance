@@ -1,0 +1,50 @@
+/* Add here all your css styles (customizations) */
+
+body {
+	background-image: url(../img/background.jpg);
+	background-position: center;
+	background-size: 100%;
+	background-attachment: fixed;
+}
+
+h3 {
+	text-align: center;
+	color: white;
+	font-family: 'Bungee Inline', cursive;
+}
+
+.grid-boxes-caption {
+	background-color: rgba(255, 255, 255, 0.7);
+}
+
+p {
+	color: black;
+}
+
+div #bar2, div #bar3, div #bar4, div #bar5, div #bar6, div #bar7, div #bar8, div #bar9, div #bar10 {
+	background-color: #4b717b;
+}
+
+.construct {
+	background-color: #4b717b;
+	color: white;
+}
+
+.grid-boxes-in {
+	border: solid 1px red!important;
+}
+
+#topcontrol {
+	color: red;
+	background-color: #16152e;
+}
+
+#topcontrol:hover {
+	color: #16152e;
+	background-color: red;
+}
+
+.descbat {
+	color: #732626;
+	font-family: 'Love Ya Like A Sister', cursive;
+}

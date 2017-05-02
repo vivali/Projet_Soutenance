@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-6">
+        <div class="col-md-6 col-md-offset-3">
             <form action="" method="POST">
                 <div class="form-group">
                     <label>Votre pseudo ou votre email :</label>

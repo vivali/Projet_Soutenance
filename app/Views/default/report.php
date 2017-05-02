@@ -4,14 +4,14 @@
 <div class="container">
     <h2>Rapports d'attaques.</h2>
     <br>
-    <div class="col-md-3" id="reportList" style="height: 500px; overflow: overlay;">
+    <div class="col-md-4" id="reportList" style="height: 500px; overflow: overlay;">
         <?php if (empty($reports)): ?>
             <div class="row report-preview">
                 <p class="report-name">Aucun rapports</p>
             </div><br>
         <?php endif; ?>
         <?php foreach ($reports as $key => $report): ?>
-            <div id="report_preview_<?=$report['id']?>" class="row report-preview <?=!($report['seen'])?"bg-warning":""?>" style="margin-bottom: 20px;">
+            <div id="report_preview_<?=$report['id']?>" class="row report-preview <?=!($report['seen'])?"bg-warning":""?>" style="margin-right: 20px; margin-bottom: 20px;">
                 <p class="report-name"><?=$report['name']?></p>
                 <p class="report-date"><?=$report['report_date']?></p>
                 <button type="button" id="btn<?=$report['id']?>" class="btn btn-xs btn-default btn-report" name="button">Voir le rapport</button>
@@ -21,7 +21,7 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-8">
         <div id="displayed-report">
 
         </div>
