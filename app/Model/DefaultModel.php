@@ -64,8 +64,14 @@ class DefaultModel extends \W\Model\Model {
 			            $final_wood = 0;
 			            if ($_SESSION["calcul_wood"] >= 1) {
 			            	$final_wood = $_SESSION["calcul_wood"];
-			            	$wood += $final_wood;
 			            	$_SESSION["refresh"]->refresh_wood = $refresh_wood2;
+			            	if (($wood += $final_wood) > $limit_wood) {
+			            		$wood = $limit_wood;
+			            	}
+			            	else{
+			            		$wood += $final_wood;
+			            	}
+			            	
 			            }
 			            // echo $timer_wood." secondes ce sont écoulé depuis le dernier refresh de bois.<br>";
 		            	// echo "Vous avez gagné ".$final_wood." bois.<br><br>";
@@ -88,8 +94,14 @@ class DefaultModel extends \W\Model\Model {
 			            $final_water = 0;
 			            if ($_SESSION["calcul_water"] >= 1) {
 			            	$final_water = $_SESSION["calcul_water"];
-			            	$water += $final_water;
 			            	$_SESSION["refresh"]->refresh_water = $refresh_water2;
+			            	if (($water += $final_water) > $limit_water) {
+			            		$water = $limit_water;
+			            	}
+			            	else{
+			            		$water += $final_water;
+			            	}
+			            	
 			            }
 			            // echo $timer_water." secondes ce sont écoulé depuis le dernier refresh d'eaux.<br>";
 		            	// echo "Vous avez gagné ".$final_water." eaux.<br><br>";
@@ -111,8 +123,14 @@ class DefaultModel extends \W\Model\Model {
 			            $final_food = 0;
 			            if ($_SESSION["calcul_food"] >= 1) {
 			            	$final_food = $_SESSION["calcul_food"];
-			            	$food += $final_food;
 			            	$_SESSION["refresh"]->refresh_food = $refresh_food2;
+			            	if (($food += $final_food) > $limit_food) {
+			            		$food = $limit_food;
+			            	}
+			            	else{
+			            		$food += $final_food;
+			            	}
+			            	
 			            }
 			            // echo $timer_food." secondes ce sont écoulé depuis le dernier refresh de nourritures.<br>";
 		            	// echo "Vous avez gagné ".$final_food." nourritures.<br><br>";
@@ -134,8 +152,14 @@ class DefaultModel extends \W\Model\Model {
 			            $final_camper = 0;
 			            if ($_SESSION["calcul_camper"] >= 1) {
 			            	$final_camper = $_SESSION["calcul_camper"];
-			            	$camper += $final_camper;
 			            	$_SESSION["refresh"]->refresh_camper = $refresh_camper2;
+			            	if (($camper += $final_camper) > $limit_camper) {
+			            		$camper = $limit_camper;
+			            	}
+			            	else{
+			            		$camper += $final_camper;
+			            	}
+			            	
 			            }
 			            // echo $timer_camper." secondes ce sont écoulé depuis le dernier refresh de camper.<br>";
 		            	// echo "Vous avez gagné ".$final_camper." campers.<br><br>";
