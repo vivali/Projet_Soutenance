@@ -1,14 +1,11 @@
 <?php $this->layout('layout', ['title' => 'Camp']) ?>
 
 <?php $this->start('main_content') ?>
-
-		<?php if ( !empty($alert) ): ?>
-
-		    <script type="text/javascript">
-		        alert("<?=$alert?>");
-		    </script>
-
-		<?php endif; ?>
+<?php if ( !empty($alert) ): ?>
+    <script type="text/javascript">
+        alert("<?=$alert?>");
+    </script>
+<?php endif; ?>
 
         <!--=== Content Part ===-->
         <div class="blog_masonry_3col">
@@ -76,6 +73,7 @@
                     <?php endif ?>
                     </div>
                 </div>
+
 
                 <div class="grid-boxes-in">
                     <h3>Puit niveau : <?php echo $_SESSION["buildings"]->water_farm; ?></h3>  
@@ -201,8 +199,10 @@
                             <a class='btn construct btn-block' href='<?=$this->url('default_upgrade',['idBuilding'=>7])?>'>Construire</a>
                         <?php endif ?>
                     <?php else:?>
+
                         <div class="compteur" style="text-align: center;" id="time<?php echo $citerne->id ?>"></div>
                         <div><?php echo $citerne->barre ?></div>
+
                     <?php endif ?>
                     </div>
                 </div>
@@ -223,7 +223,9 @@
 
                             $heures = ( $secondes - $temp ) / 3600 ;
 
+
                             $secondes = $temp % 60 ;
+
 
                             $minutes = ( $temp - $secondes ) / 60; 
 
