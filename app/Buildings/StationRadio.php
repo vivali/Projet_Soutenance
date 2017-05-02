@@ -73,7 +73,7 @@ class StationRadio
 			$_SESSION['buildings']->water_stock + 
 			$_SESSION['buildings']->wall + 
 			$_SESSION['buildings']->radio)) *
-			($this->RatioProd + (0.1 * $this->Niveau)
+			($this->RatioProd + (0.3 * $this->Niveau)
 
 		)) / 3600;
 	}
