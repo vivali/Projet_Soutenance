@@ -138,10 +138,6 @@ class DefaultModel extends \W\Model\Model {
 						$_SESSION["refresh"]->refresh_camper = date_format($date, 'U');
 						echo "Vous ne pouvez plus recevoir d'habitants.<br>";
 					}
-		        	$wood = 1000000;
-		        	$food = 1000000;
-		        	$water = 1000000;
-		        	$camper = 1;
 		            $UserModel->refreshRessources($wood, $water, $food, $camper, $id_user);
 		            // $UserModel->refreshBuildings(1,1,1,1,1,1,1,1,1,1,1);
 				} else {
